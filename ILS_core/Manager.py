@@ -35,7 +35,6 @@ if __name__ == "__main__":
         # 知的照明システム一時停止
         elif state == 4:
             pass
-
         # SHC
         elif state == 5:
             pass
