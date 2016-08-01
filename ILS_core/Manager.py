@@ -18,10 +18,12 @@ if __name__ == "__main__":
 
         # 消灯
         if state == 0:
-            pass
+            change_to_zero(ils.lights)
+            dimming(ils.lights)
         # 点灯（fixed_pattern.csv）
         elif state == 1:
-            pass
+            change_to_fixed_pattern(ils.lights)
+            dimming(ils.lights)
         # 最小点灯
         elif state == 2:
             change_to_min(ils.lights)

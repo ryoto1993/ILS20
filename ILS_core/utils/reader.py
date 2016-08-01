@@ -34,3 +34,7 @@ def lights_config_reader(lights):
         lights.append(Light())
         lights[i].pos_x = l[0]
         lights[i].pos_y = l[1]
+
+
+def light_pattern_reader():
+    return [[int(elm) for elm in v] for v in csv.reader(open(INIT.LIGHT_PATTERN_FILE, "r"))]
