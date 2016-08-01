@@ -1,7 +1,10 @@
 # coding: utf-8
 
-from config import *
 import re
+import csv
+
+from configure.config import *
+from equipment.Light import *
 
 
 def state_reader():
@@ -16,3 +19,12 @@ def state_reader():
             r = re.compile("\d+")
             m = r.search(s)  # マッチしたらMatchObjectのインスタンスを返す
     return int(m.group(0))
+
+
+def lights_config_reader(lights):
+    u"""照明設定を読み込む"""
+    reader = [[int(elm) for elm in v] for v in csv.reader(open(INIT.LIGHT_FILE, "r"))]
+    for i, l in enumerate(reader):
+        lights.append(Light())
+        lights[i].pos_x = l[0]
+        lights[i].pos_y = l[1]

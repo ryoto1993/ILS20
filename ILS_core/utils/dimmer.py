@@ -1,6 +1,6 @@
 # coding: utf-8
 
-from config import *
+from configure.config import *
 
 
 def dimming(lights):

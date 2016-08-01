@@ -1,17 +1,16 @@
 # coding: utf-8
 
-from utils.reader import *
+from ILS import *
+from utils.manualChanger import *
 from utils.dimmer import *
-from equipment.Light import *
+
 
 if __name__ == "__main__":
+    u"""ILSの動作をコントロールするメインモジュール"""
+
     print("Intelligent Lighting System ver.20th")
 
-    lights = []
-    for i in range(12):
-        lights.append(Light())
-
-    dimming(lights)
+    ils = ILS()
 
     while True:
         # state.txtから状態を取ってくるよ
@@ -28,7 +27,8 @@ if __name__ == "__main__":
             pass
         # 最大点灯
         elif state == 3:
-            pass
+            change_to_max(ils.lights)
+            dimming(ils.lights)
         # 知的照明システム一時停止
         elif state == 4:
             pass

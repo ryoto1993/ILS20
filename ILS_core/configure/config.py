@@ -5,7 +5,8 @@ class INIT:
     #####################
     #      動作モード     #
     #####################
-    SIMULATION = True
+    SIMULATION = True      # 実機の時はFalse
+    TEMPERATURE = True    # 色温度も制御するか
 
     #####################
     #  機器情報ファイルパス #
@@ -30,10 +31,10 @@ class INIT:
     #      照明設定       #
     #####################
     # BACnet型 三菱LEDのデータ
-    LIGHT_SIGNAL_MAX = 100       # 最大点灯信号値
-    LIGHT_LUMINOSITY_MAX = 1280  # 最大点灯光度 [lx]
-    LIGHT_SIGNAL_MIN = 20        # 最小点灯信号値
-    LIGHT_LUMINOSITY_MIN = 248   # 最小点灯光度 [lx]
+    LIGHT_SIGNAL_MAX = [100, 100]            # 最大点灯信号値
+    LIGHT_LUMINOSITY_MAX = [1280.0, 1280.0]  # 最大点灯光度 [lx]
+    LIGHT_SIGNAL_MIN = [20, 20]              # 最小点灯信号値
+    LIGHT_LUMINOSITY_MIN = [248.0, 1280.0]   # 最小点灯光度 [lx]
 
     #####################
     #   配光曲線読込設定   #
