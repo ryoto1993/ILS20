@@ -8,9 +8,16 @@ from equipment.Light import *
 
 def state_reader():
     u"""ステータスファイルを読み込む"""
-    f = open(INIT.STATE_FILE, 'r', encoding='utf-8')
-    lines = f.readlines()
-    f.close()
+    while True:
+        try:
+            f = open(INIT.STATE_FILE, 'r', encoding='utf-8')
+            lines = f.readlines()
+            f.close()
+            break
+        except FileNotFoundError:
+            pass
+        except PermissionError:
+            pass
 
     for s in lines:
         pos = s.find("state")

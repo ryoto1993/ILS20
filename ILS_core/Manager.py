@@ -24,7 +24,8 @@ if __name__ == "__main__":
             pass
         # 最小点灯
         elif state == 2:
-            pass
+            change_to_min(ils.lights)
+            dimming(ils.lights)
         # 最大点灯
         elif state == 3:
             change_to_max(ils.lights)
