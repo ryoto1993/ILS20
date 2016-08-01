@@ -12,4 +12,5 @@ class Light:
         self.minLum = 0.0  # 最小点灯光度
         self.maxLum = 0.0  # 最大点灯光度
         # ステータス
-        self.isOn = True  # 照明のスイッチ
+        self.isOn = True   # 照明のスイッチ
+        self.signals = [30, 40]  # 通常，暖色と寒色の2系統
