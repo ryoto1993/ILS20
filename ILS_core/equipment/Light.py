@@ -13,3 +13,5 @@ class Light:
         self.maxLum = 0.0  # 最大点灯光度
         # ステータス
         self.isOn = True  # 照明のスイッチ
+
+        print("OK")
