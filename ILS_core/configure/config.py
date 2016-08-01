@@ -6,7 +6,7 @@ class INIT:
     #      動作モード     #
     #####################
     SIMULATION = True      # 実機の時はFalse
-    TEMPERATURE = True    # 色温度も制御するか
+    TEMPERATURE = False    # 色温度も制御するか
 
     #####################
     #  機器情報ファイルパス #

@@ -3,7 +3,6 @@
 import re
 import csv
 
-from configure.config import *
 from equipment.Light import *
 
 
