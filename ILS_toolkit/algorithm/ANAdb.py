@@ -22,12 +22,16 @@ class ANADB:
         # 照明に初期光度の信号値を設定
         change_manually(self.ils.lights, INIT.ALG_INITIAL_SIGNAL)
         # 設定した信号値で点灯
-        dimming(self.ils.lights)
+        if INIT.SIMULATION:
+            pass
+        else:
+            dimming(self.ils.lights)
         # 現在照度値を取得
         if INIT.SIMULATION:
             calc_illuminance(self.ils.lights, self.ils.sensors)
         else:
             sensor_signal_reader(self.ils.sensors)
+
 
     def next_step(self):
         self.step += 1
