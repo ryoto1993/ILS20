@@ -3,6 +3,7 @@
 from ILS import *
 from utils.manualChanger import *
 from utils.dimmer import *
+from ILS_core.ANAdb import *
 import time
 
 
@@ -43,9 +44,13 @@ if __name__ == "__main__":
         # ANA/RC
         elif state == 6:
             pass
+
         # ANA/DB
         elif state == 7:
-            pass
+            if type(ils.algorithm) != ANADB:
+                ils.algorithm = ANADB(ils)
+            else:
+                ils.algorithm.next_step()
         # ANA/RANK
         elif state == 8:
             pass
