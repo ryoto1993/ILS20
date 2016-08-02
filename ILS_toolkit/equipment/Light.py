@@ -18,6 +18,8 @@ class Light:
         # 照明属性
         self.minLum = 0.0  # 最小点灯光度
         self.maxLum = 0.0  # 最大点灯光度
+        # 照度/光度影響度（ファイルから読み込んだもの）
+        self.influence = []
         # ステータス
         self.isOn = True   # 照明のスイッチ
         self.signals = []  # 通常，暖色と寒色の2系統

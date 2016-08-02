@@ -4,7 +4,7 @@ from equipment.Light import *
 from equipment.Sensor import *
 from equipment.PowerMeter import *
 from utils.reader import *
-from ILS_core.ANAdb import *
+from algorithm.ANAdb import *
 
 
 class ILS:

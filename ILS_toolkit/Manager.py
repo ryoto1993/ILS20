@@ -3,7 +3,7 @@
 from ILS import *
 from utils.manualChanger import *
 from utils.dimmer import *
-from ILS_core.ANAdb import *
+from algorithm.ANAdb import *
 import time
 
 

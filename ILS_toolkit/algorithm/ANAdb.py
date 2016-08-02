@@ -2,6 +2,7 @@
 
 from utils.manualChanger import *
 from utils.dimmer import *
+from utils.reader import *
 from configure.config import *
 
 
@@ -11,6 +12,8 @@ class ANADB:
     def __init__(self, ils):
         self.step = 0
         self.ils = ils
+
+        influence_reader(self.ils.lights)
 
         print("Set to ANA/DB")
         ANADB.start(self)

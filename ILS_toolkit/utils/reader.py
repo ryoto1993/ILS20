@@ -38,6 +38,7 @@ def lights_config_reader(lights):
 
 
 def light_pattern_reader():
+    u"""任意の点灯パターンファイルINIT.FILE_LIGHT_PATTERNを読込"""
     while True:
         try:
             pattern = [[int(elm) for elm in v] for v in csv.reader(open(INIT.FILE_LIGHT_PATTERN, "r"))]
@@ -51,6 +52,7 @@ def light_pattern_reader():
 
 
 def sensor_reader(sensors):
+    u"""実機のセンサ情報を読込"""
     while True:
         try:
             f = open(INIT.FILE_SENSOR_INFO, "r")
@@ -65,3 +67,15 @@ def sensor_reader(sensors):
     for i, s in enumerate(sensors):
         s.illuminance = sigs[i]
         print(s.illuminance)
+
+
+def influence_reader(lights):
+    u"""照度光度影響度を読込"""
+    reader = [ v for v in csv.reader(open(INIT.FILE_INFLUENCE, "r")) if len(v) != 0]
+    reader.pop(0)
+
+    for i, l in enumerate(lights):
+        reader[i].pop(0)
+        for s in range(len(reader[i])):
+            l.influence.append(float(reader[i][s]))
+        print(l.influence)
