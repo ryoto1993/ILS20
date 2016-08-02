@@ -11,26 +11,27 @@ class INIT:
     #####################
     #  機器情報ファイルパス #
     #####################
-    # CD_INFO_FILE = "C:/Users/light/Desktop/isdl_20th/bacnet_interface/cdinfo.txt"
-    # SENSOR_INFO_FILE = "C:/Users/light/Desktop/isdl_20th/bacnet_interface/sensor.txt"
+    # FILE_CD_INFO = "C:/Users/light/Desktop/isdl_20th/bacnet_interface/cdinfo.txt"
+    # FILE_SENSOR_INFO = "C:/Users/light/Desktop/isdl_20th/bacnet_interface/sensor.txt"
 
     # for debug
-    CD_INFO_FILE = "../test_data/cdinfo.txt"
-    SENSOR_INFO_FILE = "../test_data/sensor.txt"
+    FILE_CD_INFO = "../test_data/cdinfo.txt"
+    FILE_SENSOR_INFO = "../test_data/sensor.txt"
 
     #####################
     #   ファイルパス設定   #
     #####################
-    SENSOR_FILE = "./configure/sensor.csv"
-    LIGHT_FILE = "./configure/light.csv"
-    INFLUENCE_FILE = "./configure/influence.csv"
-    STATE_FILE = "./configure/state.txt"
-    LIGHT_PATTERN_FILE = "./configure/fixedLightPattern.csv"
+    FILE_SENSOR = "./configure/sensor.csv"
+    FILE_LIGHT = "./configure/light.csv"
+    FILE_INFLUENCE = "./configure/influence.csv"
+    FILE_STATE = "./configure/state.txt"
+    FILE_LIGHT_PATTERN = "./configure/fixedLightPattern.csv"
 
     #####################
     # 最適化アルゴリズム設定 #
     #####################
-    WEIGHT = 10
+    ALG_WEIGHT = 10
+    ALG_INITIAL_SIGNAL = 20
 
     #####################
     #      照明設定       #

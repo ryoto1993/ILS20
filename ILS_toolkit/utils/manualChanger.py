@@ -30,6 +30,14 @@ def change_to_min(lights):
     time.sleep(0.1)
 
 
+def change_to_zero(lights):
+    u"""すべての照明の信号値を0に切り替えるメソッド"""
+    for l in lights:
+        for i in range(len(l.signals)):
+            l.signals[i] = 0
+    time.sleep(0.1)
+
+
 def change_to_fixed_pattern(lights):
     u"""LIGHT_PATTERN_FILEで定義した点灯パターンの信号値に切り替えるメソッド"""
     pattern = light_pattern_reader()
@@ -43,9 +51,14 @@ def change_to_fixed_pattern(lights):
     time.sleep(0.1)
 
 
-def change_to_zero(lights):
-    u"""すべての照明の信号値を0に切り替えるメソッド"""
+def change_manually(lights, sig):
+    u"""すべての照明を信号値sigに変更するメソッド"""
     for l in lights:
-        for i in range(len(l.signals)):
-            l.signals[i] = 0
-    time.sleep(0.1)
+        # 色温度制御までするとき
+        if INIT.TEMPERATURE:
+            for i in range(len(l.signals)):
+                l.signals[i] = sig
+        # 色温度制御を行わない時
+        else:
+            l.signals[0] = sig
+

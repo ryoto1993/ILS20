@@ -10,7 +10,7 @@ def state_reader():
     u"""ステータスファイルを読み込む"""
     while True:
         try:
-            f = open(INIT.STATE_FILE, 'r', encoding='utf-8')
+            f = open(INIT.FILE_STATE, 'r', encoding='utf-8')
             break
         except FileNotFoundError:
             pass
@@ -30,7 +30,7 @@ def state_reader():
 
 def lights_config_reader(lights):
     u"""照明設定を読み込む"""
-    reader = [[int(elm) for elm in v] for v in csv.reader(open(INIT.LIGHT_FILE, "r"))]
+    reader = [[int(elm) for elm in v] for v in csv.reader(open(INIT.FILE_LIGHT, "r"))]
     for i, l in enumerate(reader):
         lights.append(Light())
         lights[i].pos_x = l[0]
@@ -40,7 +40,7 @@ def lights_config_reader(lights):
 def light_pattern_reader():
     while True:
         try:
-            pattern = [[int(elm) for elm in v] for v in csv.reader(open(INIT.LIGHT_PATTERN_FILE, "r"))]
+            pattern = [[int(elm) for elm in v] for v in csv.reader(open(INIT.FILE_LIGHT_PATTERN, "r"))]
             break
         except FileNotFoundError:
             pass
@@ -48,3 +48,20 @@ def light_pattern_reader():
             pass
 
     return pattern
+
+
+def sensor_reader(sensors):
+    while True:
+        try:
+            f = open(INIT.FILE_SENSOR_INFO, "r")
+        except FileNotFoundError:
+            print("can't find \"sensor.txt\" file")
+        except PermissionError:
+            pass
+
+    line = f.readline()
+    sigs = line.split(",")
+
+    for i, s in enumerate(sensors):
+        s.illuminance = sigs[i]
+        print(s.illuminance)

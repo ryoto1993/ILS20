@@ -11,7 +11,7 @@ def dimming(lights):
 
     while True:
         try:
-            f = open(INIT.CD_INFO_FILE, "w")
+            f = open(INIT.FILE_CD_INFO, "w")
             break
         except FileNotFoundError:
             pass
@@ -19,4 +19,3 @@ def dimming(lights):
             pass
     f.write(cdinfo)
     f.close()
-    
