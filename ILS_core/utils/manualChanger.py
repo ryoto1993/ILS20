@@ -41,7 +41,7 @@ def change_to_fixed_pattern(lights):
         for j in range(len(l.signals)):
             l.signals[j] = pattern[i][j]
     time.sleep(0.1)
-+
+
 
 def change_to_zero(lights):
     u"""すべての照明の信号値を0に切り替えるメソッド"""
