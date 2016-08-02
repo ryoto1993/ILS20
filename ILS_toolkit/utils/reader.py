@@ -66,7 +66,6 @@ def influence_reader(lights):
         reader[i].pop(0)
         for s in range(len(reader[i])):
             l.influence.append(float(reader[i][s]))
-        print(l.influence)
 
 
 ##########################
@@ -100,8 +99,8 @@ def sensor_target_reader(sensors):
             pass
 
     line = f.readline()
-    sigs = line.split(",")
+    tgt = line.split(",")
 
     for i, s in enumerate(sensors):
-        s.illuminance = sigs[i]
-        print(s.illuminance)
+        s.target = tgt[i]
+        print(s.target)

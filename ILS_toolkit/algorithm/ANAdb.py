@@ -13,8 +13,6 @@ class ANADB:
         self.step = 0
         self.ils = ils
 
-        influence_reader(self.ils.lights)
-
         print("Set to ANA/DB")
         ANADB.start(self)
 
@@ -24,6 +22,7 @@ class ANADB:
         change_manually(self.ils.lights, INIT.ALG_INITIAL_SIGNAL)
         # 設定した信号値で点灯
         dimming(self.ils.lights)
+        # 現在照度値を取得
 
     def next_step(self):
         self.step += 1

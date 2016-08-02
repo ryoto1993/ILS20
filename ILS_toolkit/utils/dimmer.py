@@ -1,6 +1,7 @@
 # coding: utf-8
 
 from configure.config import *
+import time
 
 
 def dimming(lights):
@@ -19,3 +20,5 @@ def dimming(lights):
             pass
     f.write(cdinfo)
     f.close()
+
+    time.sleep(INIT.LIGHT_WAIT_SECOND)

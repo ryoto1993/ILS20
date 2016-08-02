@@ -11,3 +11,4 @@ class Sensor:
         # ステータス
         self.attend = True  # 在離席状態
         self.illuminance = 0.0
+        self.target = 0.0
