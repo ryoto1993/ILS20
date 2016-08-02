@@ -6,6 +6,9 @@ import csv
 from equipment.Light import *
 
 
+##########################
+#        Manager系        #
+##########################
 def state_reader():
     u"""ステータスファイルを読み込む"""
     while True:
@@ -51,7 +54,25 @@ def light_pattern_reader():
     return pattern
 
 
-def sensor_reader(sensors):
+##########################
+#         Light系         #
+##########################
+def influence_reader(lights):
+    u"""照度光度影響度を読込"""
+    reader = [ v for v in csv.reader(open(INIT.FILE_INFLUENCE, "r")) if len(v) != 0]
+    reader.pop(0)
+
+    for i, l in enumerate(lights):
+        reader[i].pop(0)
+        for s in range(len(reader[i])):
+            l.influence.append(float(reader[i][s]))
+        print(l.influence)
+
+
+##########################
+#        Sensor系         #
+##########################
+def sensor_signal_reader(sensors):
     u"""実機のセンサ情報を読込"""
     while True:
         try:
@@ -66,16 +87,21 @@ def sensor_reader(sensors):
 
     for i, s in enumerate(sensors):
         s.illuminance = sigs[i]
+
+
+def sensor_target_reader(sensors):
+    u"""センサの目標照度値を読込"""
+    while True:
+        try:
+            f = open(INIT.FILE_SENSOR_TARGET, "r")
+        except FileNotFoundError:
+            print("can't find \"sensor.txt\" file")
+        except PermissionError:
+            pass
+
+    line = f.readline()
+    sigs = line.split(",")
+
+    for i, s in enumerate(sensors):
+        s.illuminance = sigs[i]
         print(s.illuminance)
-
-
-def influence_reader(lights):
-    u"""照度光度影響度を読込"""
-    reader = [ v for v in csv.reader(open(INIT.FILE_INFLUENCE, "r")) if len(v) != 0]
-    reader.pop(0)
-
-    for i, l in enumerate(lights):
-        reader[i].pop(0)
-        for s in range(len(reader[i])):
-            l.influence.append(float(reader[i][s]))
-        print(l.influence)

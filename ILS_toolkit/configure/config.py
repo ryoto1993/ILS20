@@ -26,6 +26,8 @@ class INIT:
     FILE_INFLUENCE = "./configure/influence.csv"
     FILE_STATE = "./configure/state.txt"
     FILE_LIGHT_PATTERN = "./configure/fixedLightPattern.csv"
+    FILE_SENSOR_TARGET = "./configure/target.txt"
+    FILE_ATTENDANCE = "./configure/attendance.txt"
 
     #####################
     # 最適化アルゴリズム設定 #
