@@ -64,9 +64,16 @@ def change_manually(lights, sig):
         else:
             l.signals[0] = sig
 
+    convert_to_luminosity(lights)
+
 
 def convert_to_luminosity(lights):
     u"""信号値を光度値に変換する"""
+    factor = (INIT.LIGHT_LUMINOSITY_MAX - INIT.LIGHT_LUMINOSITY_MIN) / (INIT.LIGHT_SIGNAL_MAX - INIT.LIGHT_SIGNAL_MIN)
+
+    # TODO: 現在は1つめの信号値のみだが，色温度制御の時にはここを書き換える必要がある．
+    for l in lights:
+        l.luminosity = l.signals[0] * factor
 
 
 def convert_to_signal(lights):

@@ -3,6 +3,7 @@
 from utils.manualChanger import *
 from utils.dimmer import *
 from utils.reader import *
+from utils.simulation import *
 from configure.config import *
 
 
@@ -23,6 +24,10 @@ class ANADB:
         # 設定した信号値で点灯
         dimming(self.ils.lights)
         # 現在照度値を取得
+        if INIT.SIMULATION:
+            calc_illuminance(self.ils.lights, self.ils.sensors)
+        else:
+            sensor_signal_reader(self.ils.sensors)
 
     def next_step(self):
         self.step += 1
