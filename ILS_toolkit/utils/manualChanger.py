@@ -3,6 +3,8 @@
 from utils.reader import *
 import time
 
+# TODO: 信号値から消費電力を計算するやつつくれ
+
 
 def change_to_max(lights):
     u"""すべての照明の信号値をLIGHT_SIGNAL_MAXに切り替えるメソッド"""
