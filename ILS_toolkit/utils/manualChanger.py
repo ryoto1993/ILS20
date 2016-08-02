@@ -64,3 +64,15 @@ def change_manually(lights, sig):
         else:
             l.signals[0] = sig
 
+
+def convert_to_luminosity(lights):
+    u"""信号値を光度値に変換する"""
+
+
+def convert_to_signal(lights):
+    u"""光度値を信号値に変換する"""
+    factor = (INIT.LIGHT_SIGNAL_MAX - INIT.LIGHT_SIGNAL_MIN) / (INIT.LIGHT_LUMINOSITY_MAX - INIT.LIGHT_LUMINOSITY_MIN)
+
+    for l in lights:
+        for i in range(len(l.signals)):
+            l.signals[i] = l.luminosity * factor

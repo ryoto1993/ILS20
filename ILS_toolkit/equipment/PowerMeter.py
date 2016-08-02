@@ -11,4 +11,4 @@ class PowerMeter:
         power = 0
         for l in self.lights:
             power += l.luminosity
-        return power
+        return int(power)

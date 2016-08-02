@@ -42,7 +42,7 @@ class INIT:
     LIGHT_SIGNAL_MAX = [100, 100]            # 最大点灯信号値
     LIGHT_LUMINOSITY_MAX = [1280.0, 1280.0]  # 最大点灯光度 [lx]
     LIGHT_SIGNAL_MIN = [20, 20]              # 最小点灯信号値
-    LIGHT_LUMINOSITY_MIN = [248.0, 1280.0]   # 最小点灯光度 [lx]
+    LIGHT_LUMINOSITY_MIN = [248.0, 248.0]   # 最小点灯光度 [lx]
     LIGHT_WAIT_SECOND = 6.5                  # 光度を変更してからの待機時間
 
     #####################
