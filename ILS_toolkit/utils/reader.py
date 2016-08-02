@@ -115,4 +115,3 @@ def sensor_target_reader(sensors):
 
     for i, s in enumerate(sensors):
         s.target = tgt[i]
-        print(s.target)

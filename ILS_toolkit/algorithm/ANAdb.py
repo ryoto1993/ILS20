@@ -35,7 +35,9 @@ class ANADB:
             sensor_signal_reader(self.ils.sensors)
         # 目標照度を取得
         sensor_target_reader(self.ils.sensors)
-        print(self.ils.sensors[0].illuminance)
+
+        for s in self.ils.sensors:
+            print(s.illuminance)
 
     def next_step(self):
         self.step += 1
