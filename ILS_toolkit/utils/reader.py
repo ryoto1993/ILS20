@@ -4,6 +4,7 @@ import re
 import csv
 
 from equipment.Light import *
+from equipment.Sensor import *
 
 
 ##########################
@@ -38,6 +39,15 @@ def lights_config_reader(lights):
         lights.append(Light())
         lights[i].pos_x = l[0]
         lights[i].pos_y = l[1]
+
+
+def sensors_config_reader(sensors):
+    u"""センサ設定を読み込む"""
+    reader = [[int(elm) for elm in v] for v in csv.reader(open(INIT.FILE_SENSOR, "r"))]
+    for i, s in enumerate(reader):
+        sensors.append(Sensor())
+        sensors[i].pos_x = s[0]
+        sensors[i].pos_y = s[1]
 
 
 def light_pattern_reader():
@@ -76,6 +86,7 @@ def sensor_signal_reader(sensors):
     while True:
         try:
             f = open(INIT.FILE_SENSOR_INFO, "r")
+            break
         except FileNotFoundError:
             print("can't find \"sensor.txt\" file")
         except PermissionError:
@@ -93,6 +104,7 @@ def sensor_target_reader(sensors):
     while True:
         try:
             f = open(INIT.FILE_SENSOR_TARGET, "r")
+            break
         except FileNotFoundError:
             print("can't find \"sensor.txt\" file")
         except PermissionError:

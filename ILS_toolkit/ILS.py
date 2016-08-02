@@ -19,3 +19,5 @@ class ILS:
 
         # 照明の設定を読込
         lights_config_reader(self.lights)
+        # センサの設定を読込
+        sensors_config_reader(self.sensors)
