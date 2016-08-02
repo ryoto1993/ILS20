@@ -9,6 +9,14 @@ def dimming(lights):
         for sig in l.signals:
             cdinfo += str(sig) + ","
 
-    f = open(INIT.CD_INFO_FILE, "w")
+    while True:
+        try:
+            f = open(INIT.CD_INFO_FILE, "w")
+            break
+        except FileNotFoundError:
+            pass
+        except PermissionError:
+            pass
     f.write(cdinfo)
     f.close()
+    

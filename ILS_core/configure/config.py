@@ -11,8 +11,8 @@ class INIT:
     #####################
     #  機器情報ファイルパス #
     #####################
-    CD_INFO_FILE = "../test_data/cdinfo.txt"
-    SENSOR_INFO_FILE = "../test_data/sensor.txt"
+    CD_INFO_FILE = "C:/Users/light/Desktop/isdl_20th/bacnet_interface/cdinfo.txt"
+    SENSOR_INFO_FILE = "C:/Users/light/Desktop/isdl_20th/bacnet_interface/sensor.txt"
 
     #####################
     #   ファイルパス設定   #

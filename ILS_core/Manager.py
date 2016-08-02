@@ -3,6 +3,7 @@
 from ILS import *
 from utils.manualChanger import *
 from utils.dimmer import *
+import time
 
 
 if __name__ == "__main__":
@@ -34,6 +35,7 @@ if __name__ == "__main__":
             dimming(ils.lights)
         # 知的照明システム一時停止
         elif state == 4:
+            time.sleep(0.1)
             pass
         # SHC
         elif state == 5:

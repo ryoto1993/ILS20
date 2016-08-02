@@ -11,13 +11,14 @@ def state_reader():
     while True:
         try:
             f = open(INIT.STATE_FILE, 'r', encoding='utf-8')
-            lines = f.readlines()
-            f.close()
             break
         except FileNotFoundError:
             pass
         except PermissionError:
             pass
+
+    lines = f.readlines()
+    f.close()
 
     for s in lines:
         pos = s.find("state")
@@ -37,4 +38,13 @@ def lights_config_reader(lights):
 
 
 def light_pattern_reader():
-    return [[int(elm) for elm in v] for v in csv.reader(open(INIT.LIGHT_PATTERN_FILE, "r"))]
+    while True:
+        try:
+            pattern = [[int(elm) for elm in v] for v in csv.reader(open(INIT.LIGHT_PATTERN_FILE, "r"))]
+            break
+        except FileNotFoundError:
+            pass
+        except PermissionError:
+            pass
+
+    return pattern

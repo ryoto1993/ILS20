@@ -1,6 +1,7 @@
 # coding: utf-8
 
 from utils.reader import *
+import time
 
 
 def change_to_max(lights):
@@ -12,6 +13,7 @@ def change_to_max(lights):
         # 色温度制御を行わない時
         else:
             l.signals[0] = INIT.LIGHT_SIGNAL_MAX[0]
+    time.sleep(0.1)
 
 
 def change_to_min(lights):
@@ -23,6 +25,7 @@ def change_to_min(lights):
         # 色温度制御を行わない時
         else:
             l.signals[0] = INIT.LIGHT_SIGNAL_MIN[0]
+    time.sleep(0.1)
 
 
 def change_to_fixed_pattern(lights):
@@ -31,9 +34,10 @@ def change_to_fixed_pattern(lights):
     for i, l in enumerate(lights):
         for j in range(len(l.signals)):
             l.signals[j] = pattern[i][j]
-
+    time.sleep(0.1)
 
 def change_to_zero(lights):
     for l in lights:
         for i in range(len(l.signals)):
             l.signals[i] = 0
+    time.sleep(0.1)
