@@ -78,7 +78,6 @@ def influence_reader(lights):
             l.influence.append(float(reader[s][l_i]))
 
 
-
 ##########################
 #        Sensor系         #
 ##########################
@@ -115,4 +114,4 @@ def sensor_target_reader(sensors):
     tgt = line.split(",")
 
     for i, s in enumerate(sensors):
-        s.target = tgt[i]
+        s.target = float(tgt[i])

@@ -35,6 +35,9 @@ class INIT:
     ALG_WEIGHT = 10
     ALG_INITIAL_SIGNAL = 30
 
+    # ANA/RC, ANA,DBの設定
+    ALG_RC_THRESHOLD = 0.07   # 目的関数内ペナルティ項の照度/光度影響度による閾値（必ず影響度の実値を見て設定すること）
+
     #####################
     #      照明設定       #
     #####################

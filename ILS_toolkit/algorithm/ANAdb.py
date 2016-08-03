@@ -4,7 +4,7 @@ from utils.manualChanger import *
 from utils.dimmer import *
 from utils.reader import *
 from utils.simulation import *
-from configure.config import *
+from algorithm.algorithmCommon import *
 
 
 class ANADB:
@@ -36,8 +36,26 @@ class ANADB:
         # 目標照度を取得
         sensor_target_reader(self.ils.sensors)
 
-        for s in self.ils.sensors:
-            print(s.illuminance)
-
     def next_step(self):
+        u"""この部分がANA/RCのループ"""
         self.step += 1
+
+        # [1] 各照度センサと電力情報を取得
+        # 現在照度値を取得
+        if INIT.SIMULATION:
+            calc_illuminance(self.ils.lights, self.ils.sensors)
+        else:
+            sensor_signal_reader(self.ils.sensors)
+        # 電力情報を計算
+        self.ils.powermeter.calc_power()
+
+        # [2] 目的関数を計算する
+        calc_objective_function(self.ils)
+
+        for l in self.ils.lights:
+            print(l.id)
+            print(l.objective_function)
+
+        for s in self.ils.sensors:
+            print(s.id)
+            print(s.illuminance)

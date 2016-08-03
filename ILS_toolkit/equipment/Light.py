@@ -25,7 +25,8 @@ class Light:
         self.signals = []  # 通常，暖色と寒色の2系統
         for s in range(len(INIT.LIGHT_SIGNAL_MAX)):
             self.signals.append(0)
-        self.lumionosity = 0.0
+        self.lumionosity = 0.0  # 現在光度
+        self.objective_function = 0  # 目的関数
 
     def __str__(self):
         return "Light" + str(self.id)
