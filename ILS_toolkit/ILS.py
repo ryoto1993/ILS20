@@ -12,7 +12,7 @@ class ILS:
         # 照明，センサ，電力計を生成
         self.lights = []
         self.sensors = []
-        self.powermeter = PowerMeter(self.lights)
+        self.power_meter = PowerMeter(self.lights)
         self.algorithm = None
 
         # TODO:ロガーを生成，初期化
