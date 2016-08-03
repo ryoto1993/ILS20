@@ -54,9 +54,26 @@ class ANADB:
         self.ils.powermeter.calc_power()
 
         # [2] 目的関数を計算する
-        calc_objective_function(self.ils)
+        calc_objective_function_influence(self.ils, False)
 
-        print(self.step)
+        # [3] 次の光度値を決定し，点灯
+
+        # [4] 各照度センサと電力情報を取得
+        # 現在照度値を取得
+        if INIT.SIMULATION:
+            calc_illuminance(self.ils.lights, self.ils.sensors)
+        else:
+            sensor_signal_reader(self.ils.sensors)
+        # 電力情報を計算
+        self.ils.powermeter.calc_power()
+
+        # [5] 光度変化後の目的関数を計算
+        calc_objective_function_influence(self.ils, True)
+
+        # [6] 目的関数が悪化していたら光度変化をキャンセル
+        for l in self.ils.lights:
+
+
 
     def update_config(self):
         u"""

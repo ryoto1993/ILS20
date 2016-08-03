@@ -3,9 +3,10 @@
 from configure.config import *
 
 
-def calc_objective_function(ils):
+def calc_objective_function_influence(ils, next_flag):
     u"""
     全照明の目的関数を計算するメソッド
+    ANA/RC, ANA/DBなど，照度/光度影響度を使うアルゴリズムに適応
 
     ★ペナルティ項のポリシー★
     まず，照明とセンサが近接しているかを照度光度影響度で判断する．
@@ -31,4 +32,7 @@ def calc_objective_function(ils):
             # ペナルティ関数を計算
             obj += w * r * (s.illuminance - s.target)**2
 
-        l.objective_function = obj
+        if next_flag:
+            l.next_objective_function = obj
+        else:
+            l.objective_function = obj
