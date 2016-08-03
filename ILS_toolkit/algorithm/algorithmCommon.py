@@ -1,6 +1,9 @@
 # coding: utf-8
 
+from utils.manualChanger import *
 from configure.config import *
+from enum import Enum
+import random
 
 
 def calc_objective_function_influence(ils, next_flag):
@@ -17,7 +20,8 @@ def calc_objective_function_influence(ils, next_flag):
     ・現在照度が目標照度に達していない場合
     　　→ 無条件に計上
 
-    :param ils, next_flag
+    :param ILS ils: ILS を引数に渡す
+    :param boolean next_flag: 次光度の目的関数を計算するかどうか
     """
     # ペナルティ項にかかる重み
     w = INIT.ALG_WEIGHT
@@ -40,15 +44,70 @@ def calc_objective_function_influence(ils, next_flag):
             l.objective_function = obj
 
 
-def decide_next_luminosity(ils):
+def decide_next_luminosity_influence(ils):
     u"""
-    全照明の次光度を決定するメソッド
+    全照明の次光度を照度/光度影響度から決定するメソッド
 
     ★次光度決定方法のポリシー★
     各照明がINIT.ALG_DB_THRESHOLD以上のセンサの中から
     INIT.ALG_DB_CHECK_SENSOR_NUM個分のセンサの現在照度と目標照度をチェックし，
     増光・中立・減光から近傍設計を選択する．
-    優先度は，増光→減光→中立
+    優先度は，減光→増光→中立
 
-    :param ils:
+    :param ils: ILSを引数に渡す
     """
+
+    # 各照明ごとに次光度を決定
+    for l in ils.lights:
+        neighbor = NeighborType.dimming
+
+        # 在籍しているセンサに対する照度/光度影響度を降順にした時のインデックス番号
+        # influence_attendance = l.influence[:]
+        # if INIT.CHECK_ATTENDANCE:
+        #    for s_i, s in enumerate(ils.sensors):
+        #        if not s.attendance:
+        #            influence_attendance[s_i] = 0.0
+
+        # センサに対する照度/光度影響度を降順にした時のインデックス番号
+        influence_attendance = l.influence[:]
+
+        key = sorted(range(len(influence_attendance)), key=lambda k: influence_attendance[k], reverse=True)
+
+        # INIT.ALG_DB_CHECK_SENSOR_NUMの数だけ照明を抽出
+        for i in range(0, INIT.ALG_DB_CHECK_SENSOR_NUM):
+            s = ils.sensors[key[i]]
+            if not s.attendance:
+                continue
+            # 増光対象があるかチェック
+            if s.illuminance < s.target * (100.0 + INIT.ALG_DB_ALLOWANCE_LOWER) / 100.0:
+                neighbor = NeighborType.brightening
+                break
+            # 中立対象があるかチェック
+            if s.illuminance < s.target * (100.0 + INIT.ALG_DB_ALLOWANCE_UPPER) / 100.0:
+                neighbor = NeighborType.dimming
+
+        # 次光度をneighborから決定
+        change_rate = 0
+        if neighbor == NeighborType.brightening:
+            change_rate = random.randint(INIT.ALG_DB_BRIGHTENING_LOWER, INIT.ALG_DB_BRIGHTENING_UPPER)
+        elif neighbor == NeighborType.neutral:
+            change_rate = random.randint(INIT.ALG_DB_NEUTRAL_LOWER, INIT.ALG_DB_NEUTRAL_UPPER)
+        elif neighbor == NeighborType.dimming:
+            change_rate = random.randint(INIT.ALG_DB_DIMMING_LOWER, INIT.ALG_DB_DIMMING_UPPER)
+
+        print("id      : " + str(l.id))
+        print(neighbor)
+        l.previous_luminosity = l.luminosity
+        l.luminosity = l.luminosity * (100.0 + change_rate) / 100.
+        if l.luminosity > INIT.LIGHT_LUMINOSITY_MAX[0]:
+            l.luminosity = INIT.LIGHT_LUMINOSITY_MAX[0]
+        elif l.luminosity < INIT.LIGHT_LUMINOSITY_MIN[0]:
+            l.luminosity = INIT.LIGHT_LUMINOSITY_MIN[0]
+
+    convert_to_signal(ils.lights)
+
+
+class NeighborType(Enum):
+    brightening = 1
+    neutral = 2
+    dimming = 3

@@ -44,6 +44,8 @@ class ANADB:
         self.step += 1
         self.update_config()
 
+        print(self.step)
+
         # [1] 各照度センサと電力情報を取得
         # 現在照度値を取得
         if INIT.SIMULATION:
@@ -57,9 +59,13 @@ class ANADB:
         calc_objective_function_influence(self.ils, False)
 
         # [3] 次の光度値を決定し，点灯
-        # TODO: 次光度値の決定アルゴリズム実装
-
-        dimming(self.ils.lights)
+        # 次光度決定
+        decide_next_luminosity_influence(self.ils)
+        # 次光度で点灯
+        if INIT.SIMULATION:
+            pass
+        else:
+            dimming(self.ils.lights)
 
         # [4] 各照度センサと電力情報を取得
         # 現在照度値を取得
@@ -75,9 +81,17 @@ class ANADB:
 
         # [6] 目的関数が悪化していたら光度変化をキャンセル
         for l in self.ils.lights:
-            if l.next_objective_function <= l.objective_function:
+            if l.next_objective_function >= l.objective_function:
                 l.luminosity = l.previous_luminosity
-        dimming(self.ils.lights)
+        if INIT.SIMULATION:
+            pass
+        else:
+            dimming(self.ils.lights)
+
+        for s in self.ils.sensors:
+            print(s.illuminance)
+        for l in self.ils.lights:
+            print(l.signals[0])
 
     def update_config(self):
         u"""

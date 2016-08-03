@@ -15,7 +15,7 @@ def dimming(lights):
             f = open(INIT.FILE_CD_INFO, "w")
             break
         except FileNotFoundError:
-            pass
+            print("can't find \"cdinfo.txt\".")
         except PermissionError:
             pass
     f.write(cdinfo)
