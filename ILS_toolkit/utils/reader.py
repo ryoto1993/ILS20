@@ -69,13 +69,14 @@ def light_pattern_reader():
 ##########################
 def influence_reader(lights):
     u"""照度光度影響度を読込"""
-    reader = [ v for v in csv.reader(open(INIT.FILE_INFLUENCE, "r")) if len(v) != 0]
+    reader = [v for v in csv.reader(open(INIT.FILE_INFLUENCE, "r")) if len(v) != 0]
     reader.pop(0)
 
-    for i, l in enumerate(lights):
-        reader[i].pop(0)
-        for s in range(len(reader[i])):
-            l.influence.append(float(reader[i][s]))
+    for s in range(len(reader)):
+        reader[s].pop(0)
+        for l_i, l in enumerate(lights):
+            l.influence.append(float(reader[s][l_i]))
+
 
 
 ##########################
