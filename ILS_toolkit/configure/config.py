@@ -64,4 +64,4 @@ class INIT:
     ALG_DB_DIMMING_UPPER = -2.0      # 減光変動幅上限（％指定）
     ALG_DB_DIMMING_LOWER = -7.0      # 減光変動幅下限（％指定）
     ALG_DB_ALLOWANCE_UPPER = 3.0     # 目標照度収束許容範囲上限（％指定）
-    ALG_DB_ALLOWANCE_LOWER = -2.0    # 目標照度収束許容範囲下限（％指定）
+    ALG_DB_ALLOWANCE_LOWER = -1.0    # 目標照度収束許容範囲下限（％指定）

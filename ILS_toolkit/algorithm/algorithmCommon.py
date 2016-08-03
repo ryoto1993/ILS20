@@ -84,7 +84,7 @@ def decide_next_luminosity_influence(ils):
                 break
             # 中立対象があるかチェック
             if s.illuminance < s.target * (100.0 + INIT.ALG_DB_ALLOWANCE_UPPER) / 100.0:
-                neighbor = NeighborType.dimming
+                neighbor = NeighborType.neutral
 
         # 次光度をneighborから決定
         change_rate = 0
