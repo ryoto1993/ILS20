@@ -31,16 +31,6 @@ class INIT:
     FILE_ATTENDANCE = "./configure/attendance.txt"
 
     #####################
-    # 最適化アルゴリズム設定 #
-    #####################
-    ALG_WEIGHT = 30
-    ALG_INITIAL_SIGNAL = 30
-
-    # ANA/RC, ANA,DBの設定
-    ALG_DB_THRESHOLD = 0.07   # 目的関数内ペナルティ項の照度/光度影響度による閾値（必ず影響度の実値を見て設定すること）
-    ALG_DB_CK_SENSOR = 2      # 次光度の近傍選択時に各照明がチェックするセンサ数の上限
-
-    #####################
     #      照明設定       #
     #####################
     # BACnet型 三菱LEDのデータ
@@ -57,3 +47,19 @@ class INIT:
     IES_LINE_LUMEN = 2   # データ部分で光束が記載されている行
     IES_LINE_ANGLE = 14  # データ部分でアングルが記載されている行
     IES_LINE_DATA = 16   # データ部分で光度が記載されている行
+
+    #####################
+    # 最適化アルゴリズム設定 #
+    #####################
+    ALG_WEIGHT = 30
+    ALG_INITIAL_SIGNAL = 30
+
+    # ANA/RC, ANA,DBの設定
+    ALG_DB_THRESHOLD = 0.07   # 目的関数内ペナルティ項の照度/光度影響度による閾値（必ず影響度の実値を見て設定すること）
+    ALG_DB_CHECK_SENSOR_NUM = 2      # 次光度の近傍選択時に各照明がチェックするセンサ数の上限
+    ALG_DB_BRIGHTENING_UPPER = 12.0  # 増光変動幅上限（％指定）
+    ALG_DB_BRIGHTENING_LOWER = 5.0   # 増光変動幅下限（％指定）
+    ALG_DB_NEUTRAL_UPPER = 3.0       # 中立変動幅上限（％指定）
+    ALG_DB_NEUTRAL_LOWER = -3.0      # 中立変動幅下限（％指定）
+    ALG_DB_DIMMING_UPPER = -2.0      # 減光変動幅上限（％指定）
+    ALG_DB_DIMMING_LOWER = -7.0      # 減光変動幅下限（％指定）

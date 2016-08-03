@@ -46,7 +46,7 @@ def decide_next_luminosity(ils):
 
     ★次光度決定方法のポリシー★
     各照明がINIT.ALG_DB_THRESHOLD以上のセンサの中から
-    INIT.ALG_DB_CK_SENSOR個分のセンサの現在照度と目標照度をチェックし，
+    INIT.ALG_DB_CHECK_SENSOR_NUM個分のセンサの現在照度と目標照度をチェックし，
     増光・中立・減光から近傍設計を選択する．
     優先度は，増光→減光→中立
 
