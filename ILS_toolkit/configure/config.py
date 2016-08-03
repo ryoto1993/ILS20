@@ -33,7 +33,7 @@ class INIT:
     #####################
     # 最適化アルゴリズム設定 #
     #####################
-    ALG_WEIGHT = 10
+    ALG_WEIGHT = 30
     ALG_INITIAL_SIGNAL = 30
 
     # ANA/RC, ANA,DBの設定

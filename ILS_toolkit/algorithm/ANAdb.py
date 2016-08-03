@@ -37,11 +37,12 @@ class ANADB:
         sensor_target_reader(self.ils.sensors)
         # 在離席を取得
         if INIT.CHECK_ATTENDANCE:
-
+            sensor_attendance_reader(self.ils.sensors)
 
     def next_step(self):
         u"""この部分がANA/RCのループ"""
         self.step += 1
+        self.update_config()
 
         # [1] 各照度センサと電力情報を取得
         # 現在照度値を取得
@@ -55,10 +56,14 @@ class ANADB:
         # [2] 目的関数を計算する
         calc_objective_function(self.ils)
 
-        for l in self.ils.lights:
-            print(l.id)
-            print(l.objective_function)
+        print(self.step)
 
-        for s in self.ils.sensors:
-            print(s.id)
-            print(s.illuminance)
+    def update_config(self):
+        u"""
+        ステップごとに目標照度と在離席を更新
+        """
+        # 目標照度を取得
+        sensor_target_reader(self.ils.sensors)
+        # 在離席を取得
+        if INIT.CHECK_ATTENDANCE:
+            sensor_attendance_reader(self.ils.sensors)
