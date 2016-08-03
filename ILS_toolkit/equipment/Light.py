@@ -27,8 +27,8 @@ class Light:
             self.signals.append(0)
         self.lumionosity = 0.0  # 現在光度
         self.previous_luminosity = 0.0
-        self.objective_function = 0  # 目的関数
-        self.next_objective_function  # 光度変化後の目的関数
+        self.objective_function = 0.0  # 目的関数
+        self.next_objective_function = 0.0  # 光度変化後の目的関数
 
     def __str__(self):
         return "Light" + str(self.id)
