@@ -35,6 +35,9 @@ class ANADB:
             sensor_signal_reader(self.ils.sensors)
         # 目標照度を取得
         sensor_target_reader(self.ils.sensors)
+        # 在離席を取得
+        if INIT.CHECK_ATTENDANCE:
+
 
     def next_step(self):
         u"""この部分がANA/RCのループ"""

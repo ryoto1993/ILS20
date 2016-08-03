@@ -88,7 +88,7 @@ def sensor_signal_reader(sensors):
             f = open(INIT.FILE_SENSOR_INFO, "r")
             break
         except FileNotFoundError:
-            print("can't find \"sensor.txt\" file")
+            print("can't find \"sensor.txt\" file.")
         except PermissionError:
             pass
 
@@ -106,7 +106,7 @@ def sensor_target_reader(sensors):
             f = open(INIT.FILE_SENSOR_TARGET, "r")
             break
         except FileNotFoundError:
-            print("can't find \"sensor.txt\" file")
+            print("can't find \"target.txt\" file.")
         except PermissionError:
             pass
 
@@ -115,3 +115,27 @@ def sensor_target_reader(sensors):
 
     for i, s in enumerate(sensors):
         s.target = float(tgt[i])
+
+
+def sensor_attendance_reader(sensors):
+    u"""センサの在離席状態を読込"""
+    while True:
+        try:
+            f = open(INIT.FILE_ATTENDANCE, "r")
+            break
+        except FileNotFoundError:
+            print("can't find \"attendance.txt\" file.")
+        except PermissionError:
+            pass
+
+    line = f.readline()
+    tgt = line.split(",")
+
+    for i, s in enumerate(sensors):
+        if tgt[i] == "1":
+            s.attendance = True
+        elif tgt[i] == "0":
+            s.attendance = False
+        else:
+            print("Error. Please check \"attendance.txt\" format.")
+            return

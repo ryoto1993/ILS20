@@ -5,8 +5,9 @@ class INIT:
     #####################
     #      動作モード     #
     #####################
-    SIMULATION = True      # 実機の時はFalse
-    TEMPERATURE = False    # 色温度も制御するか
+    SIMULATION = True         # 実機の時はFalse
+    TEMPERATURE = False       # 色温度も制御するか
+    CHECK_ATTENDANCE = True   # 在離席管理を行うか
 
     #####################
     #  機器情報ファイルパス #
