@@ -58,6 +58,7 @@ class ANADB:
 
         # [3] 次の光度値を決定し，点灯
         # TODO: 次光度値の決定アルゴリズム実装
+
         dimming(self.ils.lights)
 
         # [4] 各照度センサと電力情報を取得
