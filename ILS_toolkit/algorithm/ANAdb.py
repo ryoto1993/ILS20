@@ -5,6 +5,7 @@ from utils.dimmer import *
 from utils.reader import *
 from utils.simulation import *
 from algorithm.algorithmCommon import *
+from utils.logger import *
 
 
 class ANADB:
@@ -16,7 +17,7 @@ class ANADB:
     """
 
     def __init__(self, ils):
-        self.step = 0
+        self.step = 1
         self.ils = ils
 
         print("Set to ANA/DB")
@@ -46,10 +47,11 @@ class ANADB:
         # 在離席を取得
         if INIT.CHECK_ATTENDANCE:
             sensor_attendance_reader(self.ils.sensors)
+        # ロガー生成
+        self.ils.logger = Logger(self.ils)
 
     def next_step(self):
         u"""この部分がANA/DBのループ"""
-        self.step += 1
         self.update_config()
 
         # [1] 各照度センサと電力情報を取得
@@ -58,9 +60,12 @@ class ANADB:
             calc_illuminance(self.ils.lights, self.ils.sensors)
         else:
             sensor_signal_reader(self.ils.sensors)
-        self.ils.logger.append_illuminance_log(self.step)
         # 電力情報を計算
         self.ils.power_meter.calc_power()
+        # ログ追記
+        self.ils.logger.append_illuminance_log(self.step)
+        self.ils.logger.append_luminosity_log(self.step)
+        self.ils.logger.append_luminosity_signal_log(self.step)
 
         # [2] 目的関数を計算する
         calc_objective_function_influence(self.ils, False)
@@ -73,6 +78,7 @@ class ANADB:
             pass
         else:
             dimming(self.ils.lights)
+        self.step += 1
 
         # [4] 各照度センサと電力情報を取得
         # 現在照度値を取得
@@ -86,6 +92,11 @@ class ANADB:
 
         # [5] 光度変化後の目的関数を計算
         calc_objective_function_influence(self.ils, True)
+
+        # ログ追記
+        self.ils.logger.append_illuminance_log(self.step)
+        self.ils.logger.append_luminosity_log(self.step)
+        self.ils.logger.append_luminosity_signal_log(self.step)
 
         # [6] 目的関数が悪化していたら光度変化をキャンセル
         for l in self.ils.lights:

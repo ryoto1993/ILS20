@@ -64,7 +64,7 @@ class INIT:
     # 最適化アルゴリズム設定 #
     #####################
     ALG_WEIGHT = 50
-    ALG_INITIAL_SIGNAL = 80
+    ALG_INITIAL_SIGNAL = 30
 
     # ANA/RC, ANA,DBの設定
     ALG_DB_THRESHOLD = 0.07   # 目的関数内ペナルティ項の照度/光度影響度による閾値（必ず影響度の実値を見て設定すること）

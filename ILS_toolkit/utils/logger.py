@@ -171,3 +171,32 @@ class Logger:
         w.writerow(row)
         f.close()
 
+    def append_luminosity_log(self, step):
+        u"""
+        光度履歴ログに書き込み
+        :return: None
+        """
+
+        file_path = self.path + "/" + self.luminosity_name
+        f = open(file_path, 'a')
+        w = csv.writer(f, lineterminator='\n')
+        row = [str(step)]
+        for l in self.ils.lights:
+            row.append(str(int(l.luminosity)))
+        w.writerow(row)
+        f.close()
+
+    def append_luminosity_signal_log(self, step):
+        u"""
+        信号値履歴ログに書き込み
+        :return: None
+        """
+
+        file_path = self.path + "/" + self.luminosity_signal_name
+        f = open(file_path, 'a')
+        w = csv.writer(f, lineterminator='\n')
+        row = [str(step)]
+        for l in self.ils.lights:
+            row.append(str(int(l.signals[0])))
+        w.writerow(row)
+        f.close()
