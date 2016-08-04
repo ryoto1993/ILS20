@@ -17,6 +17,17 @@ class INIT:
     CHECK_ATTENDANCE = True   # 在離席管理を行うか
 
     #####################
+    #      ロガー設定     #
+    #####################
+    LOGGER_ILLUMINANCE = True  # 照度履歴を出力
+    LOGGER_LUMINOSITY = True   # 光度履歴を出力
+    LOGGER_POWER = True        # 消費電力履歴を出力
+    LOGGER_OBJECTIVE_FUNCTION = True  # 目的関数を出力
+    LOGGER_NEIGHBOR = True     # 近傍選択を出力
+    LOGGER_CUSTOM = True       # カスタムログを出力
+    LOGGER_CUSTOM_FILE = "./configure/customLog.txt"  # カスタムログの設定ファイル
+
+    #####################
     #  機器情報ファイルパス #
     #####################
     # FILE_CD_INFO = "C:/Users/light/Desktop/isdl_20th/bacnet_interface/cdinfo.txt"
