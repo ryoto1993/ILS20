@@ -58,6 +58,7 @@ class ANADB:
             calc_illuminance(self.ils.lights, self.ils.sensors)
         else:
             sensor_signal_reader(self.ils.sensors)
+        self.ils.logger.append_illuminance_log(self.step)
         # 電力情報を計算
         self.ils.power_meter.calc_power()
 
@@ -79,6 +80,7 @@ class ANADB:
             calc_illuminance(self.ils.lights, self.ils.sensors)
         else:
             sensor_signal_reader(self.ils.sensors)
+        self.ils.logger.append_illuminance_log(self.step)
         # 電力情報を計算
         self.ils.power_meter.calc_power()
 

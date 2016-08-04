@@ -155,3 +155,19 @@ class Logger:
         row = ["Step", "Power"]
         w.writerow(row)
         f.close()
+
+    def append_illuminance_log(self, step):
+        u"""
+        照度履歴ログに書き込み
+        :return: None
+        """
+
+        file_path = self.path + "/" + self.illuminance_name
+        f = open(file_path, 'a')
+        w = csv.writer(f, lineterminator='\n')
+        row = [str(step)]
+        for s in self.ils.sensors:
+            row.append(str(int(s.illuminance)))
+        w.writerow(row)
+        f.close()
+
