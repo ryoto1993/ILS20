@@ -21,6 +21,7 @@ class INIT:
     #####################
     LOGGER_ILLUMINANCE = True  # 照度履歴を出力
     LOGGER_LUMINOSITY = True   # 光度履歴を出力
+    LOGGER_LUMINOSITY_SIGNAL = True   # 信号値履歴を出力
     LOGGER_POWER = True        # 消費電力履歴を出力
     LOGGER_OBJECTIVE_FUNCTION = True  # 目的関数を出力
     LOGGER_NEIGHBOR = True     # 近傍選択を出力

@@ -17,3 +17,6 @@ class Sensor:
         self.attendance = True  # 在離席状態
         self.illuminance = 0.0  # 現在照度値
         self.target = 0.0       # 目標照度値
+
+    def __str__(self):
+        return "Sensor" + str(self.id)
