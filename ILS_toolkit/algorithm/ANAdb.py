@@ -8,7 +8,12 @@ from algorithm.algorithmCommon import *
 
 
 class ANADB:
-    u"""ANA/DBのアルゴリズムの実装"""
+    u"""
+    ANA/DBのアルゴリズムの実装
+
+    ステップ数は光度値を変動させるごとに1ステップとカウントする．
+    すなわち，ANA/DBでは一回のループで2ステップになる．
+    """
 
     def __init__(self, ils):
         self.step = 0
@@ -83,6 +88,8 @@ class ANADB:
         for l in self.ils.lights:
             if l.next_objective_function >= l.objective_function:
                 l.luminosity = l.previous_luminosity
+        # 判断後の光度値で点灯
+        self.step += 1
         if INIT.SIMULATION:
             pass
         else:
