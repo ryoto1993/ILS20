@@ -3,6 +3,13 @@
 
 class INIT:
     #####################
+    # シーケンシャル名設定 #
+    #####################
+    # シーケンシャル名は，ログファイルの格納ディレクトリの名前に含まれます．
+    # 行うデモ/実験/シミュレーションの概要を簡潔に入力してください．
+    SEQUENCE_NAME = u"ログファイル生成テスト"
+
+    #####################
     #      動作モード     #
     #####################
     SIMULATION = True         # 実機の時はFalse
@@ -29,6 +36,7 @@ class INIT:
     FILE_LIGHT_PATTERN = "./configure/fixedLightPattern.csv"
     FILE_SENSOR_TARGET = "./configure/target.txt"
     FILE_ATTENDANCE = "./configure/attendance.txt"
+    DIR_LOG = "../LOG/"
 
     #####################
     #      照明設定       #

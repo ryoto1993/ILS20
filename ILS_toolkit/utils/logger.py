@@ -1,5 +1,9 @@
 # coding: utf-8
 
+import os
+from configure.config import *
+
+
 class Logger:
     u"""
     知的照明システムの動作ログを作成するクラス
@@ -13,4 +17,7 @@ class Logger:
     """
 
     def __init__(self, ils):
-        pass
+        # ログファイルのディレクトリをINIT.DIR_LOG以下に生成
+        path = INIT.DIR_LOG + "_" + INIT.SEQUENCE_NAME
+        os.mkdir(path)
+
