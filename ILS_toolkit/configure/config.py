@@ -31,12 +31,12 @@ class INIT:
     #####################
     #  機器情報ファイルパス #
     #####################
-    # FILE_CD_INFO = "C:/Users/light/Desktop/isdl_20th/bacnet_interface/cdinfo.txt"
-    # FILE_SENSOR_INFO = "C:/Users/light/Desktop/isdl_20th/bacnet_interface/sensor.txt"
+    FILE_CD_INFO = "C:/Users/light/Desktop/isdl_20th/bacnet_interface/cdinfo.txt"
+    FILE_SENSOR_INFO = "../sekonicAnalog/sensor.txt"
 
     # for debug
-    FILE_CD_INFO = "../test_data/cdinfo.txt"
-    FILE_SENSOR_INFO = "../test_data/sensor.txt"
+    # FILE_CD_INFO = "../test_data/cdinfo.txt"
+    # FILE_SENSOR_INFO = "../test_data/sensor.txt"
 
     #####################
     #   ファイルパス設定   #
@@ -70,7 +70,7 @@ class INIT:
     ALG_DB_THRESHOLD = 0.07   # 目的関数内ペナルティ項の照度/光度影響度による閾値（必ず影響度の実値を見て設定すること）
     ALG_DB_CHECK_SENSOR_NUM = 5      # 次光度の近傍選択時に各照明がチェックするセンサ数の上限
     ALG_DB_BRIGHTENING_UPPER = 12.0  # 増光変動幅上限（％指定）
-    ALG_DB_BRIGHTENING_LOWER = 5.0   # 増光変動幅下限（％指定）
+    ALG_DB_BRIGHTENING_LOWER = 6.0   # 増光変動幅下限（％指定）
     ALG_DB_NEUTRAL_UPPER = 3.0       # 中立変動幅上限（％指定）
     ALG_DB_NEUTRAL_LOWER = -3.0      # 中立変動幅下限（％指定）
     ALG_DB_DIMMING_UPPER = -2.0      # 減光変動幅上限（％指定）
