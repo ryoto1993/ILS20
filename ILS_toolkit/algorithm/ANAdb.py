@@ -49,8 +49,6 @@ class ANADB:
         self.step += 1
         self.update_config()
 
-        print(self.step)
-
         # [1] 各照度センサと電力情報を取得
         # 現在照度値を取得
         if INIT.SIMULATION:
@@ -94,11 +92,6 @@ class ANADB:
             pass
         else:
             dimming(self.ils.lights)
-
-        for s in self.ils.sensors:
-            print(s.illuminance)
-        for l in self.ils.lights:
-            print(l.signals[0])
 
     def update_config(self):
         u"""

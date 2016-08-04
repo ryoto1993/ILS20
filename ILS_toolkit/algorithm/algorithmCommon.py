@@ -74,7 +74,6 @@ def decide_next_luminosity_influence(ils):
             # 増光対象があるかチェック
             if s.illuminance < s.target * (100.0 + INIT.ALG_DB_ALLOWANCE_LOWER) / 100.0:
                 neighbor = NeighborType.brightening
-                print("sensor id:" + str(s.id) + "   illuminance:" + str(s.illuminance))
                 break
             # 中立対象があるかチェック
             if s.illuminance < s.target * (100.0 + INIT.ALG_DB_ALLOWANCE_UPPER) / 100.0:
@@ -89,8 +88,6 @@ def decide_next_luminosity_influence(ils):
         elif neighbor == NeighborType.dimming:
             change_rate = random.randint(INIT.ALG_DB_DIMMING_LOWER, INIT.ALG_DB_DIMMING_UPPER)
 
-        print("id      : " + str(l.id))
-        print(neighbor)
         l.previous_luminosity = l.luminosity
         l.luminosity = l.luminosity * (100.0 + change_rate) / 100.
         if l.luminosity > INIT.LIGHT_LUMINOSITY_MAX[0]:
