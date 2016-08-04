@@ -49,6 +49,7 @@ if __name__ == "__main__":
         elif state == 7:
             if type(ils.algorithm) != ANADB:
                 ils.algorithm = ANADB(ils)
+                ils.logger = Logger(ils)
             else:
                 ils.algorithm.next_step()
         # ANA/RANK

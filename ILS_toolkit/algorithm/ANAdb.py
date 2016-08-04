@@ -22,6 +22,9 @@ class ANADB:
         print("Set to ANA/DB")
         ANADB.start(self)
 
+    def __str__(self):
+        return u"ANA/DB"
+
     def start(self):
         u"""ANA/DBの初期化部分"""
         # 各照明に照度/光度影響度（DB）を読み込む
@@ -45,7 +48,7 @@ class ANADB:
             sensor_attendance_reader(self.ils.sensors)
 
     def next_step(self):
-        u"""この部分がANA/RCのループ"""
+        u"""この部分がANA/DBのループ"""
         self.step += 1
         self.update_config()
 
