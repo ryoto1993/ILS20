@@ -15,8 +15,6 @@ class ILS:
         self.power_meter = PowerMeter(self.lights)
         self.algorithm = None
 
-        # TODO:ロガーを生成，初期化
-
         # 照明の設定を読込
         lights_config_reader(self.lights)
         # センサの設定を読込
