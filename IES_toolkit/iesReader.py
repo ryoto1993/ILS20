@@ -5,9 +5,6 @@ import math
 
 
 class IESreader:
-
-
-
     def __init__(self):
         self.profile = ""
         self.manufac = ""

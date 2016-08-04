@@ -7,6 +7,7 @@ from utils.reader import *
 from algorithm.ANAdb import *
 from utils.logger import *
 
+
 class ILS:
     def __init__(self):
         # 照明，センサ，電力計を生成
