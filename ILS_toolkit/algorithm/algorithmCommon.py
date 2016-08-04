@@ -28,7 +28,7 @@ def calc_objective_function_influence(ils, next_flag):
 
     # 各照明ごとに目的関数を計算
     for l in ils.lights:
-        obj = ils.powermeter.power
+        obj = ils.power_meter.power
 
         for s_i, s in enumerate(ils.sensors):
             # 照度光度影響度数を取得
@@ -61,17 +61,10 @@ def decide_next_luminosity_influence(ils):
     for l in ils.lights:
         neighbor = NeighborType.dimming
 
-        # 在籍しているセンサに対する照度/光度影響度を降順にした時のインデックス番号
-        # influence_attendance = l.influence[:]
-        # if INIT.CHECK_ATTENDANCE:
-        #    for s_i, s in enumerate(ils.sensors):
-        #        if not s.attendance:
-        #            influence_attendance[s_i] = 0.0
-
         # センサに対する照度/光度影響度を降順にした時のインデックス番号
-        influence_attendance = l.influence[:]
+        influence = l.influence
 
-        key = sorted(range(len(influence_attendance)), key=lambda k: influence_attendance[k], reverse=True)
+        key = sorted(range(len(influence)), key=lambda k: influence[k], reverse=True)
 
         # INIT.ALG_DB_CHECK_SENSOR_NUMの数だけ照明を抽出
         for i in range(0, INIT.ALG_DB_CHECK_SENSOR_NUM):
@@ -81,6 +74,7 @@ def decide_next_luminosity_influence(ils):
             # 増光対象があるかチェック
             if s.illuminance < s.target * (100.0 + INIT.ALG_DB_ALLOWANCE_LOWER) / 100.0:
                 neighbor = NeighborType.brightening
+                print("sensor id:" + str(s.id) + "   illuminance:" + str(s.illuminance))
                 break
             # 中立対象があるかチェック
             if s.illuminance < s.target * (100.0 + INIT.ALG_DB_ALLOWANCE_UPPER) / 100.0:

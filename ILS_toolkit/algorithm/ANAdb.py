@@ -53,7 +53,7 @@ class ANADB:
         else:
             sensor_signal_reader(self.ils.sensors)
         # 電力情報を計算
-        self.ils.powermeter.calc_power()
+        self.ils.power_meter.calc_power()
 
         # [2] 目的関数を計算する
         calc_objective_function_influence(self.ils, False)
@@ -74,7 +74,7 @@ class ANADB:
         else:
             sensor_signal_reader(self.ils.sensors)
         # 電力情報を計算
-        self.ils.powermeter.calc_power()
+        self.ils.power_meter.calc_power()
 
         # [5] 光度変化後の目的関数を計算
         calc_objective_function_influence(self.ils, True)

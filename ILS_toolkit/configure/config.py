@@ -51,8 +51,8 @@ class INIT:
     #####################
     # 最適化アルゴリズム設定 #
     #####################
-    ALG_WEIGHT = 30
-    ALG_INITIAL_SIGNAL = 30
+    ALG_WEIGHT = 50
+    ALG_INITIAL_SIGNAL = 80
 
     # ANA/RC, ANA,DBの設定
     ALG_DB_THRESHOLD = 0.07   # 目的関数内ペナルティ項の照度/光度影響度による閾値（必ず影響度の実値を見て設定すること）
@@ -64,4 +64,4 @@ class INIT:
     ALG_DB_DIMMING_UPPER = -2.0      # 減光変動幅上限（％指定）
     ALG_DB_DIMMING_LOWER = -7.0      # 減光変動幅下限（％指定）
     ALG_DB_ALLOWANCE_UPPER = 3.0     # 目標照度収束許容範囲上限（％指定）
-    ALG_DB_ALLOWANCE_LOWER = -1.0    # 目標照度収束許容範囲下限（％指定）
+    ALG_DB_ALLOWANCE_LOWER = -3.0    # 目標照度収束許容範囲下限（％指定）
