@@ -63,9 +63,13 @@ class ANADB:
         # 電力情報を計算
         self.ils.power_meter.calc_power()
         # ログ追記
+        print(self.step)
         self.ils.logger.append_illuminance_log(self.step)
         self.ils.logger.append_luminosity_log(self.step)
         self.ils.logger.append_luminosity_signal_log(self.step)
+        self.ils.logger.append_target_illuminance_log(self.step)
+        self.ils.logger.append_attendance_log(self.step)
+        self.ils.logger.append_power_log(self.step)
 
         # [2] 目的関数を計算する
         calc_objective_function_influence(self.ils, False)
@@ -86,7 +90,6 @@ class ANADB:
             calc_illuminance(self.ils.lights, self.ils.sensors)
         else:
             sensor_signal_reader(self.ils.sensors)
-        self.ils.logger.append_illuminance_log(self.step)
         # 電力情報を計算
         self.ils.power_meter.calc_power()
 
@@ -94,9 +97,13 @@ class ANADB:
         calc_objective_function_influence(self.ils, True)
 
         # ログ追記
+        print(self.step)
         self.ils.logger.append_illuminance_log(self.step)
         self.ils.logger.append_luminosity_log(self.step)
         self.ils.logger.append_luminosity_signal_log(self.step)
+        self.ils.logger.append_target_illuminance_log(self.step)
+        self.ils.logger.append_attendance_log(self.step)
+        self.ils.logger.append_power_log(self.step)
 
         # [6] 目的関数が悪化していたら光度変化をキャンセル
         for l in self.ils.lights:

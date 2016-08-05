@@ -86,17 +86,20 @@ def sensor_signal_reader(sensors):
     while True:
         try:
             f = open(INIT.FILE_SENSOR_INFO, "r")
-            break
+            line = f.readline()
+            print(line)
+            if not line == "":
+                break
         except FileNotFoundError:
             print("can't find \"sensor.txt\" file.")
         except PermissionError:
             pass
 
-    line = f.readline()
     sigs = line.split(",")
 
+    print(sigs)
     for i, s in enumerate(sensors):
-        s.illuminance = sigs[i]
+        s.illuminance = int(sigs[i])
 
 
 def sensor_target_reader(sensors):

@@ -24,6 +24,8 @@ class Logger:
     luminosity_name = "03_luminosity.csv"
     power_name = "04_power.csv"
     luminosity_signal_name = "05_signal.csv"
+    target_illuminance_name = "06_target_illuminance.csv"
+    attendance_name = "07_annendance.csv"
 
     def __init__(self, ils):
         self.ils = ils
@@ -59,6 +61,10 @@ class Logger:
 
         # 近傍選択を作成
 
+        # 目標照度履歴を作成
+            self.make_target_illuminance_log()
+        # 在離席履歴を作成
+            self.make_attendance_log()
         # カスタムログを作成
 
     def make_information(self):
@@ -156,6 +162,36 @@ class Logger:
         w.writerow(row)
         f.close()
 
+    def make_target_illuminance_log(self):
+        u"""
+        目標照度履歴ログを作成するメソッド
+        :return: None
+        """
+
+        file_path = self.path + "/" + self.target_illuminance_name
+        f = open(file_path, 'w')
+        w = csv.writer(f, lineterminator='\n')
+        row = ["Step"]
+        for s in self.ils.sensors:
+            row.append(str(s))
+        w.writerow(row)
+        f.close()
+
+    def make_attendance_log(self):
+        u"""
+        在離席履歴ログを作成するメソッド
+        :return: None
+        """
+
+        file_path = self.path + "/" + self.attendance_name
+        f = open(file_path, 'w')
+        w = csv.writer(f, lineterminator='\n')
+        row = ["Step"]
+        for s in self.ils.sensors:
+            row.append(str(s))
+        w.writerow(row)
+        f.close()
+
     def append_illuminance_log(self, step):
         u"""
         照度履歴ログに書き込み
@@ -198,5 +234,48 @@ class Logger:
         row = [str(step)]
         for l in self.ils.lights:
             row.append(str(int(l.signals[0])))
+        w.writerow(row)
+        f.close()
+
+    def append_power_log(self, step):
+        u"""
+        消費電力ログに書き込み
+        :return: None
+        """
+
+        file_path = self.path + "/" + self.power_name
+        f = open(file_path, 'a')
+        w = csv.writer(f, lineterminator='\n')
+        row = [str(step), str(self.ils.power_meter.power)]
+        w.writerow(row)
+        f.close()
+
+    def append_target_illuminance_log(self, step):
+        u"""
+        目標照度履歴ログに書き込み
+        :return: None
+        """
+
+        file_path = self.path + "/" + self.target_illuminance_name
+        f = open(file_path, 'a')
+        w = csv.writer(f, lineterminator='\n')
+        row = [str(step)]
+        for s in self.ils.sensors:
+            row.append(str(int(s.target)))
+        w.writerow(row)
+        f.close()
+
+    def append_attendance_log(self, step):
+        u"""
+        在離席履歴ログに書き込み
+        :return: None
+        """
+
+        file_path = self.path + "/" + self.attendance_name
+        f = open(file_path, 'a')
+        w = csv.writer(f, lineterminator='\n')
+        row = [str(step)]
+        for s in self.ils.sensors:
+            row.append(str(s.attendance))
         w.writerow(row)
         f.close()

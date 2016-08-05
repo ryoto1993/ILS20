@@ -1,4 +1,4 @@
-# coding: utf-8
+﻿# coding: utf-8
 
 from configure.config import *
 
@@ -24,6 +24,8 @@ def convert_to_signal(lights):
     # 1次関数の切片
     intercept = INIT.LIGHT_SIGNAL_MAX[0] - factor * float(INIT.LIGHT_LUMINOSITY_MAX[0])
 
-    for l in lights:
-        for i in range(len(l.signals)):
-            l.signals[i] = int(l.luminosity * factor + intercept)
+    if INIT.TEMPERATURE:
+        pass
+    else:
+        for l in lights:
+            l.signals[0] = int(l.luminosity * factor + intercept)
