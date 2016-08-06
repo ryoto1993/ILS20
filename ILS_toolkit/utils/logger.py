@@ -298,7 +298,7 @@ class Logger:
         w.writerow(row)
         f.close()
 
-    def append_objective_function_log(self, step, next):
+    def append_objective_function_log(self, step, next_flag):
         u"""
         照度履歴ログに書き込み
         :return: None
@@ -309,7 +309,7 @@ class Logger:
         w = csv.writer(f, lineterminator='\n')
         row = [str(step)]
         for l in self.ils.lights:
-            if next:
+            if next_flag:
                 row.append(str(int(l.next_objective_function)))
                 row.append(str(int(self.ils.power_meter.power)))
                 row.append(str(int(l.next_objective_penalty)))
