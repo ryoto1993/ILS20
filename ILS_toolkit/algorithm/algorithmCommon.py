@@ -94,13 +94,15 @@ def decide_next_luminosity_influence(ils):
             change_rate = random.randint(INIT.ALG_DB_DIMMING_LOWER, INIT.ALG_DB_DIMMING_UPPER)
 
         l.previous_luminosity = l.luminosity
-        l.luminosity = l.luminosity * (100.0 + change_rate) / 100.
-        if l.luminosity > INIT.LIGHT_LUMINOSITY_MAX[0]:
-            l.luminosity = INIT.LIGHT_LUMINOSITY_MAX[0]
-        elif l.luminosity < INIT.LIGHT_LUMINOSITY_MIN[0]:
-            l.luminosity = INIT.LIGHT_LUMINOSITY_MIN[0]
+        l.next_luminosity = l.luminosity * (100.0 + change_rate) / 100.
+        if l.next_luminosity > INIT.LIGHT_LUMINOSITY_MAX[0]:
+            l.next_luminosity = INIT.LIGHT_LUMINOSITY_MAX[0]
+        elif l.next_luminosity < INIT.LIGHT_LUMINOSITY_MIN[0]:
+            l.next_luminosity = INIT.LIGHT_LUMINOSITY_MIN[0]
 
-    convert_to_signal(ils.lights)
+    for l in ils.lights:
+        l.luminosity = l.next_luminosity
+        convert_to_signal(ils.lights)
 
 
 class NeighborType(Enum):

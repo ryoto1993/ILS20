@@ -63,7 +63,7 @@ class INIT:
     #####################
     # 最適化アルゴリズム設定 #
     #####################
-    ALG_WEIGHT = 30
+    ALG_WEIGHT = 300
     ALG_INITIAL_SIGNAL = 30
     ALG_ALLOWANCE_UPPER = 2.5  # 目標照度収束許容範囲上限（％指定）
     ALG_ALLOWANCE_LOWER = -2.5  # 目標照度収束許容範囲下限（％指定）
