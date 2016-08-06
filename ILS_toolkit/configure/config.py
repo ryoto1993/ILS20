@@ -56,8 +56,8 @@ class INIT:
     # BACnet型 三菱LEDのデータ
     LIGHT_SIGNAL_MAX = [100, 100]            # 最大点灯信号値
     LIGHT_LUMINOSITY_MAX = [1280.0, 1280.0]  # 最大点灯光度 [lx]
-    LIGHT_SIGNAL_MIN = [20, 20]              # 最小点灯信号値
-    LIGHT_LUMINOSITY_MIN = [248.0, 248.0]   # 最小点灯光度 [lx]
+    LIGHT_SIGNAL_MIN = [0, 20]              # 最小点灯信号値
+    LIGHT_LUMINOSITY_MIN = [0.0, 248.0]   # 最小点灯光度 [lx]
     LIGHT_WAIT_SECOND = 6.5                  # 光度を変更してからの待機時間
 
     #####################
@@ -65,15 +65,15 @@ class INIT:
     #####################
     ALG_WEIGHT = 10
     ALG_INITIAL_SIGNAL = 30
-    ALG_ALLOWANCE_UPPER = 2.0  # 目標照度収束許容範囲上限（％指定）
-    ALG_ALLOWANCE_LOWER = -1.0  # 目標照度収束許容範囲下限（％指定）
+    ALG_ALLOWANCE_UPPER = 2.5  # 目標照度収束許容範囲上限（％指定）
+    ALG_ALLOWANCE_LOWER = -2.5  # 目標照度収束許容範囲下限（％指定）
 
     # ANA/RC, ANA,DBの設定
-    ALG_DB_THRESHOLD = 0.07          # 目的関数内ペナルティ項の照度/光度影響度による閾値（必ず影響度の実値を見て設定すること）
-    ALG_DB_CHECK_SENSOR_NUM = 7      # 次光度の近傍選択時に各照明がチェックするセンサ数の上限
-    ALG_DB_BRIGHTENING_UPPER = 7.0   # 増光変動幅上限（％指定）
-    ALG_DB_BRIGHTENING_LOWER = 4.0   # 増光変動幅下限（％指定）
+    ALG_DB_THRESHOLD = 0.08          # 目的関数内ペナルティ項の照度/光度影響度による閾値（必ず影響度の実値を見て設定すること）
+    ALG_DB_CHECK_SENSOR_NUM = 5      # 次光度の近傍選択時に各照明がチェックするセンサ数の上限
+    ALG_DB_BRIGHTENING_UPPER = 9.0   # 増光変動幅上限（％指定）
+    ALG_DB_BRIGHTENING_LOWER = 2.0   # 増光変動幅下限（％指定）
     ALG_DB_NEUTRAL_UPPER = 2.0       # 中立変動幅上限（％指定）
     ALG_DB_NEUTRAL_LOWER = -2.0      # 中立変動幅下限（％指定）
     ALG_DB_DIMMING_UPPER = -2.0      # 減光変動幅上限（％指定）
-    ALG_DB_DIMMING_LOWER = -7.0      # 減光変動幅下限（％指定）
+    ALG_DB_DIMMING_LOWER = -9.0      # 減光変動幅下限（％指定）
