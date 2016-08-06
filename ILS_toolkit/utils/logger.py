@@ -27,6 +27,7 @@ class Logger:
     target_illuminance_name = "06_target_illuminance.csv"
     attendance_name = "07_attendance.csv"
     objective_function_name = "08_objective_function.csv"
+    convergence_name = "09_convergence.csv"
 
     def __init__(self, ils):
         self.ils = ils
@@ -210,6 +211,31 @@ class Logger:
         w.writerow(row)
         f.close()
 
+    def make_convergence_log(self):
+        u"""
+        収束ログを作成するメソッド
+        :return: None
+        """
+
+        file_path = self.path + "/" + self.convergence_name
+        f = open(file_path, 'w')
+        w = csv.writer(f, lineterminator='\n')
+        row = ["Step"]
+        for s in self.ils.sensors:
+            row.append(str(s))
+        w.writerow(row)
+        f.close()
+
+    def append_all_log(self, step, next_flag):
+        self.append_illuminance_log(step)
+        self.append_luminosity_log(step)
+        self.append_luminosity_signal_log(step)
+        self.append_target_illuminance_log(step)
+        self.append_attendance_log(step)
+        self.append_power_log(step)
+        self.append_objective_function_log(step, next_flag)
+        self.append_convergence_log(step)
+
     def append_illuminance_log(self, step):
         u"""
         照度履歴ログに書き込み
@@ -317,5 +343,25 @@ class Logger:
                 row.append(str(int(l.objective_function)))
                 row.append(str(int(self.ils.power_meter.power)))
                 row.append(str(int(l.objective_penalty)))
+        w.writerow(row)
+        f.close()
+
+    def append_convergence_log(self, step):
+        u"""
+        照度収束ログに書き込み
+        :return: None
+        """
+
+        file_path = self.path + "/" + self.convergence_name
+        f = open(file_path, 'a')
+        w = csv.writer(f, lineterminator='\n')
+        row = [str(step)]
+        for s in self.ils.sensors:
+            if not s.attendance:
+                row.append("-")
+            elif s.target*(INIT.ALG_ALLOWANCE_LOWER+100)/100 <= s.illuminance <= s.target*(INIT.ALG_ALLOWANCE_UPPER+100)/100:
+                row.append("True")
+            else:
+                row.append("False")
         w.writerow(row)
         f.close()

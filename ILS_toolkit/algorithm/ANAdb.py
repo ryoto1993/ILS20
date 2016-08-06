@@ -67,13 +67,7 @@ class ANADB:
         calc_objective_function_influence(self.ils, False)
 
         # ログ追記
-        self.ils.logger.append_illuminance_log(self.step)
-        self.ils.logger.append_luminosity_log(self.step)
-        self.ils.logger.append_luminosity_signal_log(self.step)
-        self.ils.logger.append_target_illuminance_log(self.step)
-        self.ils.logger.append_attendance_log(self.step)
-        self.ils.logger.append_power_log(self.step)
-        self.ils.logger.append_objective_function_log(self.step, False)
+        self.ils.logger.append_all_log(self.step, False)
 
         # [3] 次の光度値を決定し，点灯
         # 次光度決定
@@ -98,13 +92,7 @@ class ANADB:
         calc_objective_function_influence(self.ils, True)
 
         # ログ追記
-        self.ils.logger.append_illuminance_log(self.step)
-        self.ils.logger.append_luminosity_log(self.step)
-        self.ils.logger.append_luminosity_signal_log(self.step)
-        self.ils.logger.append_target_illuminance_log(self.step)
-        self.ils.logger.append_attendance_log(self.step)
-        self.ils.logger.append_power_log(self.step)
-        self.ils.logger.append_objective_function_log(self.step, True)
+        self.ils.logger.append_all_log(self.step, True)
 
         # [6] 目的関数が悪化していたら光度変化をキャンセル
         for l in self.ils.lights:

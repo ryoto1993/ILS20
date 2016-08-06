@@ -77,11 +77,11 @@ def decide_next_luminosity_influence(ils):
             if not s.attendance:
                 continue
             # 増光対象があるかチェック
-            if s.illuminance < s.target * (100.0 + INIT.ALG_DB_ALLOWANCE_LOWER) / 100.0:
+            if s.illuminance < s.target * (100.0 + INIT.ALG_ALLOWANCE_LOWER) / 100.0:
                 neighbor = NeighborType.brightening
                 break
             # 中立対象があるかチェック
-            if s.illuminance < s.target * (100.0 + INIT.ALG_DB_ALLOWANCE_UPPER) / 100.0:
+            if s.illuminance < s.target * (100.0 + INIT.ALG_ALLOWANCE_UPPER) / 100.0:
                 neighbor = NeighborType.neutral
 
         # 次光度をneighborから決定
