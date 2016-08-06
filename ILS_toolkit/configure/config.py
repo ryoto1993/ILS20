@@ -7,12 +7,12 @@ class INIT:
     #####################
     # シーケンシャル名は，ログファイルの格納ディレクトリの名前に含まれます．
     # 行うデモ/実験/シミュレーションの概要を簡潔に入力してください．
-    SEQUENCE_NAME = u"ファシリティ_PatternF_割合設定しランダムに排斥"
+    SEQUENCE_NAME = u"目的関数ログテスト"
 
     #####################
     #      動作モード     #
     #####################
-    SIMULATION = False        # 実機の時はFalse
+    SIMULATION = True         # 実機の時はFalse
     TEMPERATURE = False       # 色温度も制御するか
     CHECK_ATTENDANCE = True   # 在離席管理を行うか
 
@@ -63,17 +63,17 @@ class INIT:
     #####################
     # 最適化アルゴリズム設定 #
     #####################
-    ALG_WEIGHT = 30
+    ALG_WEIGHT = 10
     ALG_INITIAL_SIGNAL = 30
 
     # ANA/RC, ANA,DBの設定
-    ALG_DB_THRESHOLD = 0.07   # 目的関数内ペナルティ項の照度/光度影響度による閾値（必ず影響度の実値を見て設定すること）
-    ALG_DB_CHECK_SENSOR_NUM = 5      # 次光度の近傍選択時に各照明がチェックするセンサ数の上限
-    ALG_DB_BRIGHTENING_UPPER = 7.0  # 増光変動幅上限（％指定）
+    ALG_DB_THRESHOLD = 0.07          # 目的関数内ペナルティ項の照度/光度影響度による閾値（必ず影響度の実値を見て設定すること）
+    ALG_DB_CHECK_SENSOR_NUM = 7      # 次光度の近傍選択時に各照明がチェックするセンサ数の上限
+    ALG_DB_BRIGHTENING_UPPER = 7.0   # 増光変動幅上限（％指定）
     ALG_DB_BRIGHTENING_LOWER = 4.0   # 増光変動幅下限（％指定）
     ALG_DB_NEUTRAL_UPPER = 2.0       # 中立変動幅上限（％指定）
     ALG_DB_NEUTRAL_LOWER = -2.0      # 中立変動幅下限（％指定）
     ALG_DB_DIMMING_UPPER = -2.0      # 減光変動幅上限（％指定）
     ALG_DB_DIMMING_LOWER = -7.0      # 減光変動幅下限（％指定）
-    ALG_DB_ALLOWANCE_UPPER = 3.0     # 目標照度収束許容範囲上限（％指定）
-    ALG_DB_ALLOWANCE_LOWER = -3.0    # 目標照度収束許容範囲下限（％指定）
+    ALG_DB_ALLOWANCE_UPPER = 2.0     # 目標照度収束許容範囲上限（％指定）
+    ALG_DB_ALLOWANCE_LOWER = -1.0    # 目標照度収束許容範囲下限（％指定）

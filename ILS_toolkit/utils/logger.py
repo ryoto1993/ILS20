@@ -25,7 +25,8 @@ class Logger:
     power_name = "04_power.csv"
     luminosity_signal_name = "05_signal.csv"
     target_illuminance_name = "06_target_illuminance.csv"
-    attendance_name = "07_annendance.csv"
+    attendance_name = "07_attendance.csv"
+    objective_function_name = "08_objective_function.csv"
 
     def __init__(self, ils):
         self.ils = ils
@@ -58,7 +59,7 @@ class Logger:
         if INIT.LOGGER_POWER:
             self.make_power_log()
         # 目的関数を作成
-
+            self.make_objective_function_log()
         # 近傍選択を作成
 
         # 目標照度履歴を作成
@@ -192,6 +193,23 @@ class Logger:
         w.writerow(row)
         f.close()
 
+    def make_objective_function_log(self):
+        u"""
+        目的関数ログを作成するメソッド
+        :return: None
+        """
+
+        file_path = self.path + "/" + self.objective_function_name
+        f = open(file_path, 'w')
+        w = csv.writer(f, lineterminator='\n')
+        row = ["Step"]
+        for l in self.ils.lights:
+            row.append(str(l) + "_Obj")
+            row.append(str(l) + "_Pow")
+            row.append(str(l) + "_Pen")
+        w.writerow(row)
+        f.close()
+
     def append_illuminance_log(self, step):
         u"""
         照度履歴ログに書き込み
@@ -277,5 +295,27 @@ class Logger:
         row = [str(step)]
         for s in self.ils.sensors:
             row.append(str(s.attendance))
+        w.writerow(row)
+        f.close()
+
+    def append_objective_function_log(self, step, next):
+        u"""
+        照度履歴ログに書き込み
+        :return: None
+        """
+
+        file_path = self.path + "/" + self.objective_function_name
+        f = open(file_path, 'a')
+        w = csv.writer(f, lineterminator='\n')
+        row = [str(step)]
+        for l in self.ils.lights:
+            if next:
+                row.append(str(int(l.next_objective_function)))
+                row.append(str(int(self.ils.power_meter.power)))
+                row.append(str(int(l.next_objective_penalty)))
+            else:
+                row.append(str(int(l.objective_function)))
+                row.append(str(int(self.ils.power_meter.power)))
+                row.append(str(int(l.objective_penalty)))
         w.writerow(row)
         f.close()

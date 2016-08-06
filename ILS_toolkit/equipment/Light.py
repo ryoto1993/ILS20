@@ -29,6 +29,8 @@ class Light:
         self.previous_luminosity = 0.0  # 前の光度
         self.objective_function = 0.0  # 目的関数
         self.next_objective_function = 0.0  # 光度変化後の目的関数
+        self.objective_penalty = 0.0  # 目的関数のペナルティ部分
+        self.next_objective_penalty = 0.0  # 光度変化後の目的関数のペナルティ部分
 
     def __str__(self):
         return "Light" + str(self.id)

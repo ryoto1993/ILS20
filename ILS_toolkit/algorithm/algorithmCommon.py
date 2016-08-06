@@ -29,6 +29,7 @@ def calc_objective_function_influence(ils, next_flag):
     # 各照明ごとに目的関数を計算
     for l in ils.lights:
         obj = ils.power_meter.power
+        penalty = 0.0
 
         for s_i, s in enumerate(ils.sensors):
             # 照度光度影響度数を取得
@@ -36,12 +37,16 @@ def calc_objective_function_influence(ils, next_flag):
             r = r if r >= INIT.ALG_DB_THRESHOLD else 0.0
             r = r if s.attendance else 0.0  # 離席してる場合はペナルティ無し
             # ペナルティ関数を計算
-            obj += w * r * (s.illuminance - s.target)**2
+            penalty += w * r * (s.illuminance - s.target)**2
+
+        obj += penalty
 
         if next_flag:
             l.next_objective_function = obj
+            l.next_objective_penalty = penalty
         else:
             l.objective_function = obj
+            l.objective_penalty = penalty
 
 
 def decide_next_luminosity_influence(ils):
