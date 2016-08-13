@@ -68,7 +68,12 @@ def decide_next_luminosity_influence(ils):
         neighbor = NeighborType.dimming
 
         # センサに対する照度/光度影響度を降順にした時のインデックス番号
-        influence = l.influence
+        influence = l.influence[:]
+
+        # 離席してるセンサの影響度は0にする
+        for s_i, s in enumerate(ils.sensors):
+            if not s.attendance:
+                influence[s_i] = 0.0
 
         key = sorted(range(len(influence)), key=lambda k: influence[k], reverse=True)
 
