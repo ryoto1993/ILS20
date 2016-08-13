@@ -70,10 +70,10 @@ class INIT:
 
     # ANA/RC, ANA,DBの設定 [三木先生お墨付き]
     ALG_DB_THRESHOLD = 0.04          # 目的関数内ペナルティ項の照度/光度影響度による閾値（必ず影響度の実値を見て設定すること）[0.08]
-    ALG_DB_CHECK_SENSOR_NUM = 5      # 次光度の近傍選択時に各照明がチェックするセンサ数の上限
-    ALG_DB_BRIGHTENING_UPPER = 8.0   # 増光変動幅上限（％指定）[10.0]
+    ALG_DB_CHECK_SENSOR_NUM = 1      # 次光度の近傍選択時に各照明がチェックするセンサ数の上限
+    ALG_DB_BRIGHTENING_UPPER = 10.0   # 増光変動幅上限（％指定）[10.0]
     ALG_DB_BRIGHTENING_LOWER = -3.0   # 増光変動幅下限（％指定）[-3.0]
     ALG_DB_NEUTRAL_UPPER = 5.0       # 中立変動幅上限（％指定）[5.0]
     ALG_DB_NEUTRAL_LOWER = -5.0      # 中立変動幅下限（％指定）[5.0]
     ALG_DB_DIMMING_UPPER = 3.0      # 減光変動幅上限（％指定）
-    ALG_DB_DIMMING_LOWER = -8.0      # 減光変動幅下限（％指定）[-10.0]
+    ALG_DB_DIMMING_LOWER = -10.0      # 減光変動幅下限（％指定）[-10.0]

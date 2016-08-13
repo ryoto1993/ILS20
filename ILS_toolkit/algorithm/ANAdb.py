@@ -39,7 +39,7 @@ class ANADB:
             dimming(self.ils.lights)
         # 現在照度値を取得
         if INIT.SIMULATION:
-            calc_illuminance(self.ils.lights, self.ils.sensors)
+            calc_illuminance(self.ils)
         else:
             sensor_signal_reader(self.ils.sensors)
         # 目標照度を取得
