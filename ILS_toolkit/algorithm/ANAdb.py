@@ -57,7 +57,7 @@ class ANADB:
         # [1] 各照度センサと電力情報を取得
         # 現在照度値を取得
         if INIT.SIMULATION:
-            calc_illuminance(self.ils.lights, self.ils.sensors)
+            calc_illuminance(self.ils)
         else:
             sensor_signal_reader(self.ils.sensors)
         # 電力情報を計算
@@ -82,7 +82,7 @@ class ANADB:
         # [4] 各照度センサと電力情報を取得
         # 現在照度値を取得
         if INIT.SIMULATION:
-            calc_illuminance(self.ils.lights, self.ils.sensors)
+            calc_illuminance(self.ils)
         else:
             sensor_signal_reader(self.ils.sensors)
         # 電力情報を計算
