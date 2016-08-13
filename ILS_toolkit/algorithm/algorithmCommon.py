@@ -36,6 +36,7 @@ def calc_objective_function_influence(ils, next_flag):
             r = l.influence[s_i]
             r = r if r >= INIT.ALG_DB_THRESHOLD else 0.0
             r = r if s.attendance else 0.0  # 離席してる場合はペナルティ無し
+            r = r if not s.target*(1+INIT.ALG_ALLOWANCE_LOWER/100) <= s.illuminance <= s.target*(1+INIT.ALG_ALLOWANCE_UPPER/100) else 0.0
             # ペナルティ関数を計算
             penalty += w * r * (s.illuminance - s.target)**2
 
@@ -71,7 +72,7 @@ def decide_next_luminosity_influence(ils):
 
         key = sorted(range(len(influence)), key=lambda k: influence[k], reverse=True)
 
-        # INIT.ALG_DB_CHECK_SENSOR_NUMの数だけ照明を抽出
+        # INIT.ALG_DB_CHECK_SENSOR_NUMの数だけ近くのセンサを抽出
         for i in range(0, INIT.ALG_DB_CHECK_SENSOR_NUM):
             s = ils.sensors[key[i]]
             if not s.attendance:
