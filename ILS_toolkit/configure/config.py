@@ -7,7 +7,7 @@ class INIT:
     #####################
     # シーケンシャル名は，ログファイルの格納ディレクトリの名前に含まれます．
     # 行うデモ/実験/シミュレーションの概要を簡潔に入力してください．
-    SEQUENCE_NAME = u"電気学会PatternA_実機_近傍最適化したやつ"
+    SEQUENCE_NAME = u"電気学会PatternC_実機_近傍最適化したやつ_最小10%"
 
     #####################
     #      動作モード     #
@@ -56,9 +56,9 @@ class INIT:
     # BACnet型 三菱LEDのデータ
     LIGHT_SIGNAL_MAX = [100, 100]            # 最大点灯信号値
     LIGHT_LUMINOSITY_MAX = [1280.0, 1280.0]  # 最大点灯光度 [lx]
-    LIGHT_SIGNAL_MIN = [20, 20]              # 最小点灯信号値
-    LIGHT_LUMINOSITY_MIN = [248.0, 248.0]   # 最小点灯光度 [lx]
-    LIGHT_WAIT_SECOND = 6.5                  # 光度を変更してからの待機時間
+    LIGHT_SIGNAL_MIN = [10, 10]              # 最小点灯信号値[20]
+    LIGHT_LUMINOSITY_MIN = [100.0, 100.0]   # 最小点灯光度 [lx][248.0]
+    LIGHT_WAIT_SECOND = 5.5                  # 光度を変更してからの待機時間
 
     #####################
     # 最適化アルゴリズム設定 #

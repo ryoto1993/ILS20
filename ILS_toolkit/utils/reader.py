@@ -100,7 +100,7 @@ def sensor_signal_reader(sensors):
         s.illuminance = int(sigs[i])
 
         # 収束しているか否か
-        if s.target * (1+INIT.ALG_ALLOWANCE_LOWER)/100 <= s.illuminance <= s.target * (1+INIT.ALG_ALLOWANCE_UPPER)/100:
+        if s.target*(1+INIT.ALG_ALLOWANCE_LOWER/100) <= s.illuminance <= s.target*(1+INIT.ALG_ALLOWANCE_UPPER/100):
             s.convergence = True
         else:
             s.convergence = False

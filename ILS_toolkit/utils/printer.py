@@ -22,7 +22,7 @@ class Printer:
                       + '{0:9.0f}'.format(l.objective_function) + " │ "
                       + '{0:9.0f}'.format(l.objective_penalty) + " │ ")
             else:
-                print("│" + '{0:2d}'.format(l.id) + " │ " + '{0:4.0f}'.format(l.luminosity) + " │ "
+                print("│ " + '{0:2d}'.format(l.id) + " │ " + '{0:4.0f}'.format(l.luminosity) + " │ "
                       + '{0:3d}'.format(l.signals[0]) + " │ " + '{:<10}'.format(l.neighbor) + " │ "
                       + '{0:9.0f}'.format(l.next_objective_function) + " │ "
                       + '{0:9.0f}'.format(l.next_objective_penalty) + " │ ")
