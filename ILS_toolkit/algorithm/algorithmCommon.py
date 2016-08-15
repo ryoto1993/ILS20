@@ -116,3 +116,11 @@ class NeighborType(Enum):
     brightening = 1
     neutral = 2
     dimming = 3
+
+    def __str__(self):
+        if self == NeighborType.brightening:
+            return "BRIGHTING"
+        elif self == NeighborType.neutral:
+            return "NEUTRAL"
+        elif self == NeighborType.dimming:
+            return "DIMMING"

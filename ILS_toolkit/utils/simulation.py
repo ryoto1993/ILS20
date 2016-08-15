@@ -12,3 +12,10 @@ def calc_illuminance(ils):
         s.illuminance = 0.0
         for l in ils.lights:
             s.illuminance += l.luminosity * l.influence[s_i]
+
+        # 収束しているか否か
+        if s.target * (1 + INIT.ALG_ALLOWANCE_LOWER) / 100 <= s.illuminance <= s.target * (
+            1 + INIT.ALG_ALLOWANCE_UPPER) / 100:
+            s.convergence = True
+        else:
+            s.convergence = False

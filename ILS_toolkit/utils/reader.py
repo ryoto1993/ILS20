@@ -99,6 +99,12 @@ def sensor_signal_reader(sensors):
     for i, s in enumerate(sensors):
         s.illuminance = int(sigs[i])
 
+        # 収束しているか否か
+        if s.target * (1+INIT.ALG_ALLOWANCE_LOWER)/100 <= s.illuminance <= s.target * (1+INIT.ALG_ALLOWANCE_UPPER)/100:
+            s.convergence = True
+        else:
+            s.convergence = False
+
 
 def sensor_target_reader(sensors):
     u"""センサの目標照度値を読込"""
