@@ -89,6 +89,7 @@ def decide_next_luminosity_influence(ils):
             # 中立対象があるかチェック
             if s.illuminance < s.target * (100.0 + INIT.ALG_ALLOWANCE_UPPER) / 100.0:
                 neighbor = NeighborType.neutral
+        l.neighbor = neighbor
 
         # 次光度をneighborから決定
         change_rate = 0

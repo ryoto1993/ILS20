@@ -87,7 +87,6 @@ def sensor_signal_reader(sensors):
         try:
             f = open(INIT.FILE_SENSOR_INFO, "r")
             line = f.readline()
-            print(line)
             if not line == "":
                 break
         except FileNotFoundError:
@@ -97,7 +96,6 @@ def sensor_signal_reader(sensors):
 
     sigs = line.split(",")
 
-    print(sigs)
     for i, s in enumerate(sensors):
         s.illuminance = int(sigs[i])
 

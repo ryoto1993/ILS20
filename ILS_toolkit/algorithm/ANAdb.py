@@ -6,6 +6,7 @@ from utils.reader import *
 from utils.simulation import *
 from algorithm.algorithmCommon import *
 from utils.logger import *
+from utils.printer import *
 
 
 class ANADB:
@@ -49,6 +50,9 @@ class ANADB:
             sensor_attendance_reader(self.ils.sensors)
         # ロガー生成
         self.ils.logger = Logger(self.ils)
+        # プリンター生成（実環境時のみ）
+        if not INIT.SIMULATION:
+            self.ils.printer = Printer(self.ils)
 
     def next_step(self):
         u"""この部分がANA/DBのループ"""
@@ -68,6 +72,8 @@ class ANADB:
 
         # ログ追記
         self.ils.logger.append_all_log(self.step, False)
+        if not INIT.SIMULATION:
+            self.ils.printer.info()
 
         # [3] 次の光度値を決定し，点灯
         # 次光度決定
@@ -93,6 +99,8 @@ class ANADB:
 
         # ログ追記
         self.ils.logger.append_all_log(self.step, True)
+        if not INIT.SIMULATION:
+            self.ils.printer.info()
 
         # [6] 目的関数が悪化していたら光度変化をキャンセル
         for l in self.ils.lights:

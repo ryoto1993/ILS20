@@ -32,6 +32,8 @@ class Light:
         self.next_objective_function = 0.0  # 光度変化後の目的関数
         self.objective_penalty = 0.0  # 目的関数のペナルティ部分
         self.next_objective_penalty = 0.0  # 光度変化後の目的関数のペナルティ部分
+        # プリンターとログ用
+        self.neighbor = None
 
     def __str__(self):
         return "Light" + str(self.id)

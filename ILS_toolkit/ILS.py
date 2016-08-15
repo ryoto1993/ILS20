@@ -16,6 +16,7 @@ class ILS:
         self.power_meter = PowerMeter(self.lights)
         self.algorithm = None
         self.logger = None
+        self.printer = None
 
         # 照明の設定を読込
         lights_config_reader(self.lights)
