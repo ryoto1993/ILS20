@@ -53,6 +53,10 @@ class ANADB:
         # プリンター生成（実環境時のみ）
         if not INIT.SIMULATION:
             self.ils.printer = Printer(self.ils)
+        # ログ追記
+        self.ils.logger.append_all_log(0, False)
+        if not INIT.SIMULATION:
+            self.ils.printer.info()
 
     def next_step(self):
         u"""この部分がANA/DBのループ"""

@@ -7,12 +7,12 @@ class INIT:
     #####################
     # シーケンシャル名は，ログファイルの格納ディレクトリの名前に含まれます．
     # 行うデモ/実験/シミュレーションの概要を簡潔に入力してください．
-    SEQUENCE_NAME = u"電気学会PatternC_実機_近傍最適化したやつ_最小10%"
+    SEQUENCE_NAME = u"電気学会PatternA_シミュ_近傍最適化したやつ_最小10%"
 
     #####################
     #      動作モード     #
     #####################
-    SIMULATION = False         # 実機の時はFalse
+    SIMULATION = True         # 実機の時はFalse
     TEMPERATURE = False       # 色温度も制御するか
     CHECK_ATTENDANCE = True   # 在離席管理を行うか
 
