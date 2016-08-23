@@ -2,6 +2,7 @@
 
 import csv
 import math
+from IES_toolkit.config import *
 
 
 class IESreader:
@@ -26,7 +27,7 @@ class IESreader:
         # ヘッダ以降のデータが始まる行
         start_line = 0
 
-        f = open(IESreader.iesFile, 'r')
+        f = open(INIT.IES_FILE, 'r')
         lines = f.readlines()
 
         self.profile = lines[0][6:]
@@ -59,9 +60,9 @@ class IESreader:
             i += 1
 
         # ヘッダ以降のデータを読み込む
-        self.angles = lines[start_line + IESreader.iesAngleLine][:-1].split(' ')
-        self.data = lines[start_line + IESreader.iesDataLine][:-1].split(' ')
-        self.flux = float(lines[start_line + IESreader.iesLumen])
+        self.angles = lines[start_line + INIT.IES_LINE_LUMEN][:-1].split(' ')
+        self.data = lines[start_line + INIT.IES_LINE_DATA][:-1].split(' ')
+        self.flux = float(lines[start_line + INIT.IES_LINE_LUMEN])
 
         f.close()
 
@@ -71,23 +72,24 @@ class IESreader:
         luminance = float(self.data[0]) * self.flux / 1000
 
         # 測光点の水平面照度を計算
-        rdegree = math.atan(float(dist) / float(IESreader.height))
+        rdegree = math.atan(float(dist) / float(INIT.IES_HEIGHT))
         degree = math.degrees(rdegree)
         degree_index = int(degree / 5)
         floor = (degree_index + 1) * 5
         sub = float(degree - floor)
         raw = float(self.data[degree_index]) + float(sub / 5.0) * (float(self.data[degree_index + 1]) - float(self.data[degree_index]))
-        illuminance = raw * self.flux / 1000 / ((dist/1000)**2 + (IESreader.height/1000)**2) * math.cos(rdegree)
+        illuminance = raw * self.flux / 1000 / ((dist/1000)**2 + (INIT.IES_HEIGHT/1000)**2) * math.cos(rdegree)
 
         # 照度/光度影響度を計算
-        return illuminance/luminance
+        inf = illuminance/luminance
+        return inf if inf > 0.001 else 0.0
 
     def make_coefficient(self):
-        f = open(IESreader.coefficientFile, 'w')
+        f = open(INIT.IES_INFLUENCE_FILE, 'w')
         writer = csv.writer(f, lineterminator='\n')
 
-        lights = [[int(elm) for elm in v] for v in csv.reader(open(IESreader.lightFile, "r"))]
-        sensors = [[int(elm) for elm in v] for v in csv.reader(open(IESreader.sensorFile, "r"))]
+        lights = [[int(elm) for elm in v] for v in csv.reader(open(INIT.IES_LIGHT_FILE, "r"))]
+        sensors = [[int(elm) for elm in v] for v in csv.reader(open(INIT.IES_SENSOR_FILE, "r"))]
 
         # ライト読み込みとヘッダ記述
         tmp = [""]
@@ -114,3 +116,7 @@ class IESreader:
         dist = math.sqrt(d)
 
         return dist
+
+
+if __name__ == "__main__":
+    IESreader()

@@ -111,11 +111,11 @@ class ANADB:
             if l.next_objective_function >= l.objective_function:
                 l.luminosity = l.previous_luminosity
         # 判断後の光度値で点灯
-        self.step += 1
         if INIT.SIMULATION:
             pass
         else:
             dimming(self.ils.lights)
+        self.step += 1
 
     def update_config(self):
         u"""

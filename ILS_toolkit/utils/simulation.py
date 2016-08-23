@@ -4,6 +4,8 @@ from equipment.Light import *
 from equipment.Sensor import *
 from equipment.PowerMeter import *
 from configure.config import *
+import random
+import math
 
 
 def calc_illuminance(ils):
@@ -12,6 +14,10 @@ def calc_illuminance(ils):
         s.illuminance = 0.0
         for l in ils.lights:
             s.illuminance += l.luminosity * l.influence[s_i]
+
+        # セコニック製照度センサの誤差外乱模擬
+        if INIT.SIMULATE_VOLTAGE_DISPLACEMENT:
+            s.illuminance = s.illuminance + random.normalvariate(0, math.sqrt(5))
 
         # 収束しているかチェック
         if s.target*(1+INIT.ALG_ALLOWANCE_LOWER/100) <= s.illuminance <= s.target*(1+INIT.ALG_ALLOWANCE_UPPER/100):

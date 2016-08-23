@@ -7,7 +7,7 @@ class INIT:
     #####################
     # シーケンシャル名は，ログファイルの格納ディレクトリの名前に含まれます．
     # 行うデモ/実験/シミュレーションの概要を簡潔に入力してください．
-    SEQUENCE_NAME = u"電気学会PatternE_シミュ_近傍最適化したやつ_最小10%"
+    SEQUENCE_NAME = u"電気学会PtnC_シミュ_補正なしバージョン"
 
     #####################
     #      動作モード     #
@@ -15,6 +15,7 @@ class INIT:
     SIMULATION = True         # 実機の時はFalse
     TEMPERATURE = False       # 色温度も制御するか
     CHECK_ATTENDANCE = True   # 在離席管理を行うか
+    SIMULATE_VOLTAGE_DISPLACEMENT = True    # Sekonicアナログ照度センサの電圧変位誤差をシミュレート
 
     #####################
     #      ロガー設定     #
@@ -43,7 +44,7 @@ class INIT:
     #####################
     FILE_SENSOR = "./configure/sensor.csv"
     FILE_LIGHT = "./configure/light.csv"
-    FILE_INFLUENCE = u"./configure/完璧な電気照度光度影響度.csv"
+    FILE_INFLUENCE = u"./configure/完璧な電気照度光度影響度_mirror.csv"
     FILE_STATE = "./configure/state.txt"
     FILE_LIGHT_PATTERN = "./configure/fixedLightPattern.csv"
     FILE_SENSOR_TARGET = "./configure/target.txt"
@@ -55,7 +56,7 @@ class INIT:
     #####################
     # BACnet型 三菱LEDのデータ
     LIGHT_SIGNAL_MAX = [100, 100]            # 最大点灯信号値
-    LIGHT_LUMINOSITY_MAX = [1280.0, 1280.0]  # 最大点灯光度 [lx]
+    LIGHT_LUMINOSITY_MAX = [1280.0, 1280.0]  # 最大点灯光度 [lx] [1280]
     LIGHT_SIGNAL_MIN = [10, 10]              # 最小点灯信号値[20]
     LIGHT_LUMINOSITY_MIN = [100.0, 100.0]   # 最小点灯光度 [lx][248.0]
     LIGHT_WAIT_SECOND = 5.5                  # 光度を変更してからの待機時間
@@ -64,7 +65,7 @@ class INIT:
     # 最適化アルゴリズム設定 #
     #####################
     ALG_WEIGHT = 30
-    ALG_INITIAL_SIGNAL = 30
+    ALG_INITIAL_SIGNAL = 30     # [30]
     ALG_ALLOWANCE_UPPER = 8.0  # 目標照度収束許容範囲上限（％指定）[8.0 or 50lx]
     ALG_ALLOWANCE_LOWER = -0.0  # 目標照度収束許容範囲下限（％指定）[0.0]
 
