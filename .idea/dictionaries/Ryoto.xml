@@ -2,8 +2,12 @@
   <dictionary name="Ryoto">
     <words>
       <w>anadb</w>
+      <w>bacnet</w>
+      <w>cdinfo</w>
       <w>illuminance</w>
+      <w>isdl</w>
       <w>lumionosity</w>
+      <w>sekonic</w>
     </words>
   </dictionary>
 </component>

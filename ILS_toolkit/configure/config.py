@@ -7,15 +7,16 @@ class INIT:
     #####################
     # シーケンシャル名は，ログファイルの格納ディレクトリの名前に含まれます．
     # 行うデモ/実験/シミュレーションの概要を簡潔に入力してください．
-    SEQUENCE_NAME = u"電気学会PtnC_シミュ_補正なしバージョン"
+    SEQUENCE_NAME = u"TEST_電気学会PtnA_実機_補正あり"
 
     #####################
     #      動作モード     #
     #####################
-    SIMULATION = True         # 実機の時はFalse
+    SIMULATION = False         # 実機の時はFalse
     TEMPERATURE = False       # 色温度も制御するか
     CHECK_ATTENDANCE = True   # 在離席管理を行うか
     SIMULATE_VOLTAGE_DISPLACEMENT = True    # Sekonicアナログ照度センサの電圧変位誤差をシミュレート
+    CORRECT_SENSOR_DISPLACEMENT = True      # Sekonicアナログ照度センサの誤差を補正
 
     #####################
     #      ロガー設定     #
@@ -48,6 +49,7 @@ class INIT:
     FILE_STATE = "./configure/state.txt"
     FILE_LIGHT_PATTERN = "./configure/fixedLightPattern.csv"
     FILE_SENSOR_TARGET = "./configure/target.txt"
+    FILE_SENSOR_CORRECTION = "../sekonicAnalog/correction_factor.txt"
     FILE_ATTENDANCE = "./configure/attendance.txt"
     DIR_LOG = "../LOG/"
 

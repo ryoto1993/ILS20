@@ -58,6 +58,9 @@ class ANADB:
         if not INIT.SIMULATION:
             self.ils.printer.info()
 
+        for s in self.ils.sensors:
+            print(s.correction_factor)
+
     def next_step(self):
         u"""この部分がANA/DBのループ"""
         self.update_config()
