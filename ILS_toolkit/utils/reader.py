@@ -45,12 +45,12 @@ def sensors_config_reader(sensors):
     u"""センサ設定を読み込む"""
     reader = [[int(elm) for elm in v] for v in csv.reader(open(INIT.FILE_SENSOR, "r"))]
     if INIT.CORRECT_SENSOR_DISPLACEMENT:
-        correction = [[int(elm) for elm in v] for v in csv.reader(open(INIT.FILE_SENSOR_CORRECTION, "r"))]
+        correction = [[float(elm) for elm in v] for v in csv.reader(open(INIT.FILE_SENSOR_CORRECTION, "r"))]
     for i, s in enumerate(reader):
         sensors.append(Sensor())
         sensors[i].pos_x = s[0]
         sensors[i].pos_y = s[1]
-        if INIT.CORRECT_SENSOR_DISPLACEMENT:
+        if not INIT.SIMULATION and INIT.CORRECT_SENSOR_DISPLACEMENT:
             sensors[i].correction_factor = correction[i][0]
 
 
