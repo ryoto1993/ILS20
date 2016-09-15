@@ -58,9 +58,6 @@ class ANADB:
         if not INIT.SIMULATION:
             self.ils.printer.info()
 
-        for s in self.ils.sensors:
-            print(s.correction_factor)
-
     def next_step(self):
         u"""この部分がANA/DBのループ"""
         self.update_config()
@@ -84,7 +81,7 @@ class ANADB:
 
         # [3] 次の光度値を決定し，点灯
         # 次光度決定
-        decide_next_luminosity_influence(self.ils)
+        decide_next_luminosity(self.ils)
         # 次光度で点灯
         if INIT.SIMULATION:
             pass

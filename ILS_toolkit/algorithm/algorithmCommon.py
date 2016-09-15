@@ -36,7 +36,7 @@ def calc_objective_function_influence(ils, next_flag):
             r = l.influence[s_i]
             # r = r if r >= INIT.ALG_DB_THRESHOLD else 0.0
             r = r if s.attendance else 0.0  # 離席してる場合はペナルティ無し
-            r = r if not (s.target*(1+INIT.ALG_ALLOWANCE_LOWER/100) <= s.illuminance <= s.target*(1+INIT.ALG_ALLOWANCE_UPPER/100)) else 0.0
+            r = r if not (s.target*(1+INIT.ALG_ALLOWANCE_LOWER/100) <= s.illuminance <= s.target+INIT.ALG_ALLOWANCE_UPPER) else 0.0
             # ペナルティ関数を計算
             penalty += w * r * (s.illuminance - s.target)**2
 
@@ -87,7 +87,7 @@ def decide_next_luminosity_influence(ils):
                 neighbor = NeighborType.brightening
                 break
             # 中立対象があるかチェック
-            if s.illuminance < s.target * (100.0 + INIT.ALG_ALLOWANCE_UPPER) / 100.0:
+            if s.illuminance < s.target + INIT.ALG_ALLOWANCE_UPPER:
                 neighbor = NeighborType.neutral
         l.neighbor = neighbor
 
@@ -112,15 +112,140 @@ def decide_next_luminosity_influence(ils):
         convert_to_signal(ils.lights)
 
 
+def decide_next_luminosity(ils):
+    # 各照明ごとに次光度を決定
+    for l in ils.lights:
+        neighbor = NeighborType.default
+
+        # センサに対する照度/光度影響度を降順にした時のインデックス番号
+        influence = l.influence[:]
+
+        # 離席してるセンサの影響度は0にする
+        for s_i, s in enumerate(ils.sensors):
+            if not s.attendance:
+                influence[s_i] = 0.0
+
+        # センサの距離をチェックする
+        for s_i, s in enumerate(ils.sensors):
+            distance = Distance
+            comparing = Comparing
+
+            if influence[s_i] > 0.17:
+                distance = Distance.near
+            elif influence[s_i] > 0.07:
+                distance = Distance.middle
+            else:
+                distance = Distance.distant
+
+            # チェックしたセンサが目標照度実現してるかチェック
+            if s.illuminance < s.target * (100.0 + INIT.ALG_ALLOWANCE_LOWER) / 100.0:
+                comparing = Comparing.dimmer
+            elif s.illuminance < s.target + INIT.ALG_ALLOWANCE_UPPER:
+                comparing = Comparing.converged
+            else:
+                comparing = Comparing.brighter
+
+            tmpNeighbor = NeighborType
+            # neighborを決定
+            if distance == Distance.near:
+                if comparing == Comparing.brighter:
+                    tmpNeighbor = NeighborType.neutral
+                elif comparing == Comparing.converged:
+                    tmpNeighbor = NeighborType.neutral
+                elif comparing == Comparing.dimmer:
+                    tmpNeighbor = NeighborType.brightening
+            elif distance == Distance.middle:
+                if comparing == Comparing.brighter:
+                    tmpNeighbor = NeighborType.neutral
+                elif comparing == Comparing.converged:
+                    tmpNeighbor = NeighborType.neutral
+                elif comparing == Comparing.dimmer:
+                    tmpNeighbor = NeighborType.neutral
+            elif distance == Distance.distant:
+                if comparing == Comparing.brighter:
+                    tmpNeighbor = NeighborType.dimming
+                elif comparing == Comparing.converged:
+                    tmpNeighbor = NeighborType.dimming
+                elif comparing == Comparing.dimmer:
+                    tmpNeighbor = NeighborType.dimming
+
+            if neighbor == NeighborType.default:
+                neighbor = tmpNeighbor
+            elif neighbor == NeighborType.brightening:
+                pass
+            elif neighbor == NeighborType.neutral:
+                if tmpNeighbor == NeighborType.dimming:
+                    pass
+                else:
+                    neighbor = tmpNeighbor
+            else:
+                neighbor = tmpNeighbor
+
+        # 次光度をneighborから決定
+        change_rate = 0
+        if neighbor == NeighborType.brightening:
+            change_rate = random.randint(INIT.ALG_DB_BRIGHTENING_LOWER, INIT.ALG_DB_BRIGHTENING_UPPER)
+        elif neighbor == NeighborType.neutral:
+            change_rate = random.randint(INIT.ALG_DB_NEUTRAL_LOWER, INIT.ALG_DB_NEUTRAL_UPPER)
+        elif neighbor == NeighborType.dimming:
+            change_rate = random.randint(INIT.ALG_DB_DIMMING_LOWER, INIT.ALG_DB_DIMMING_UPPER)
+
+        l.previous_luminosity = l.luminosity
+        l.next_luminosity = l.luminosity * (100.0 + change_rate) / 100.
+        if l.next_luminosity > INIT.LIGHT_LUMINOSITY_MAX[0]:
+            l.next_luminosity = INIT.LIGHT_LUMINOSITY_MAX[0]
+        elif l.next_luminosity < INIT.LIGHT_LUMINOSITY_MIN[0]:
+            l.next_luminosity = INIT.LIGHT_LUMINOSITY_MIN[0]
+
+    for l in ils.lights:
+        l.luminosity = l.next_luminosity
+        convert_to_signal(ils.lights)
+
+
 class NeighborType(Enum):
+    default = 0
     brightening = 1
     neutral = 2
     dimming = 3
 
     def __str__(self):
         if self == NeighborType.brightening:
-            return "BRIGHTING"
+            return "BRIGHTENING"
         elif self == NeighborType.neutral:
             return "NEUTRAL"
         elif self == NeighborType.dimming:
             return "DIMMING"
+
+
+class Distance(Enum):
+    default = 0
+    near = 1
+    middle = 2
+    distant = 3
+
+    def __str__(self):
+        if self == Distance.default:
+            return "!default"
+        elif self == Distance.near:
+            return "NEAR"
+        elif self == Distance.middle:
+            return "MIDDLE"
+        elif self == Distance.distant:
+            return "DISTANT"
+
+
+class Comparing(Enum):
+    default = 0
+    brighter = 1
+    converged = 2
+    dimmer = 3
+
+    def __str__(self):
+        if self == Comparing.default:
+            return "!default"
+        elif self == Comparing.brighter:
+            return "BRIGHTER"
+        elif self == Comparing.converged:
+            return "CONVERGED"
+        elif self == Comparing.dimmer:
+            return "DIMMER"

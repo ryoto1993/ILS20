@@ -87,6 +87,7 @@ class Logger:
         line = u"センサ台数　　： " + str(len(self.ils.sensors)) + "\r\n"
         f.write(line)
         line = u"アルゴリズム　： " + str(self.ils.algorithm) + "\r\n"
+        # ToDo: なおしなさい．
         f.write(line)
         line = u"ペナルティ重み： " + str(INIT.ALG_WEIGHT) + "\r\n"
         f.write(line)
