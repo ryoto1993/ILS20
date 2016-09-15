@@ -7,7 +7,7 @@ class INIT:
     #####################
     # シーケンシャル名は，ログファイルの格納ディレクトリの名前に含まれます．
     # 行うデモ/実験/シミュレーションの概要を簡潔に入力してください．
-    SEQUENCE_NAME = u"8月月例_Random_DOWN_14beam"
+    SEQUENCE_NAME = u"8月月例_denkoダウンライト_狭角"
 
     #####################
     #      動作モード     #
@@ -43,9 +43,10 @@ class INIT:
     #####################
     #   ファイルパス設定   #
     #####################
-    FILE_SENSOR = "./configure/dataset/downlight/sensor.csv"
-    FILE_LIGHT = "./configure/dataset/downlight/light.csv"
-    FILE_INFLUENCE = u"./configure/dataset/downlight/downlight_influence_14.csv"
+    FILE_SENSOR = "./configure/sensor.csv"
+    FILE_LIGHT = "./configure/downlight.csv"
+    FILE_INFLUENCE = u"./configure/downlight_influence.csv"
+    FILE_INFLUENCE2 = u"./configure/完璧な電気照度光度影響度_mirror.csv"
     FILE_STATE = "./configure/state.txt"
     FILE_LIGHT_PATTERN = "./configure/fixedLightPattern.csv"
     FILE_SENSOR_TARGET = "./configure/target.txt"
@@ -58,16 +59,16 @@ class INIT:
     #####################
     # BACnet型 三菱LEDのデータ
     LIGHT_SIGNAL_MAX = [100, 100]            # 最大点灯信号値
-    LIGHT_LUMINOSITY_MAX = [3417.0, 1280.0]  # 最大点灯光度 [cd] [1280]
-    LIGHT_SIGNAL_MIN = [0, 10]              # 最小点灯信号値[20]
-    LIGHT_LUMINOSITY_MIN = [0.0, 100.0]   # 最小点灯光度 [cd][248.0]
+    LIGHT_LUMINOSITY_MAX = [1000.0, 1280.0]  # 最大点灯光度 [cd] [1280]
+    LIGHT_SIGNAL_MIN = [5, 10]              # 最小点灯信号値[20]
+    LIGHT_LUMINOSITY_MIN = [50.0, 100.0]   # 最小点灯光度 [cd][248.0]
     LIGHT_WAIT_SECOND = 5.5                  # 光度を変更してからの待機時間
 
     #####################
     # 最適化アルゴリズム設定 #
     #####################
     ALG_WEIGHT = 30
-    ALG_INITIAL_SIGNAL = 30     # [30]
+    ALG_INITIAL_SIGNAL = 15     # [30]
     ALG_ALLOWANCE_UPPER = 8.0  # 目標照度収束許容範囲上限（％指定）[8.0 or 50lx]
     ALG_ALLOWANCE_LOWER = -0.0  # 目標照度収束許容範囲下限（％指定）[0.0]
 
