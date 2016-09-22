@@ -83,41 +83,41 @@ def decide_next_luminosity(ils):
             else:
                 comparing = Comparing.brighter
 
-            tmpNeighbor = NeighborType
+            tmp_neighbor = NeighborType
             # neighborを決定
             if distance == Distance.near:
                 if comparing == Comparing.brighter:
-                    tmpNeighbor = NeighborType.neutral
+                    tmp_neighbor = NeighborType.neutral
                 elif comparing == Comparing.converged:
-                    tmpNeighbor = NeighborType.neutral
+                    tmp_neighbor = NeighborType.neutral
                 elif comparing == Comparing.dimmer:
-                    tmpNeighbor = NeighborType.brightening
+                    tmp_neighbor = NeighborType.brightening
             elif distance == Distance.middle:
                 if comparing == Comparing.brighter:
-                    tmpNeighbor = NeighborType.neutral
+                    tmp_neighbor = NeighborType.neutral
                 elif comparing == Comparing.converged:
-                    tmpNeighbor = NeighborType.neutral
+                    tmp_neighbor = NeighborType.neutral
                 elif comparing == Comparing.dimmer:
-                    tmpNeighbor = NeighborType.neutral
+                    tmp_neighbor = NeighborType.neutral
             elif distance == Distance.distant:
                 if comparing == Comparing.brighter:
-                    tmpNeighbor = NeighborType.dimming
+                    tmp_neighbor = NeighborType.dimming
                 elif comparing == Comparing.converged:
-                    tmpNeighbor = NeighborType.dimming
+                    tmp_neighbor = NeighborType.dimming
                 elif comparing == Comparing.dimmer:
-                    tmpNeighbor = NeighborType.dimming
+                    tmp_neighbor = NeighborType.dimming
 
             if neighbor == NeighborType.default:
-                neighbor = tmpNeighbor
+                neighbor = tmp_neighbor
             elif neighbor == NeighborType.brightening:
                 pass
             elif neighbor == NeighborType.neutral:
-                if tmpNeighbor == NeighborType.dimming:
+                if tmp_neighbor == NeighborType.dimming:
                     pass
                 else:
-                    neighbor = tmpNeighbor
+                    neighbor = tmp_neighbor
             else:
-                neighbor = tmpNeighbor
+                neighbor = tmp_neighbor
 
         # 次光度をneighborから決定
         change_rate = 0
