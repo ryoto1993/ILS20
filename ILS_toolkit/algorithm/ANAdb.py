@@ -89,6 +89,9 @@ class ANADB:
             dimming(self.ils.lights)
         self.step += 1
 
+        if self.step%100 == 0:
+            print("Step " + str(self.step))
+
         # [4] 各照度センサと電力情報を取得
         # 現在照度値を取得
         if INIT.SIMULATION:
@@ -116,6 +119,10 @@ class ANADB:
         else:
             dimming(self.ils.lights)
         self.step += 1
+
+        if self.step%100 == 0:
+            print("Step " + str(self.step))
+
 
     def update_config(self):
         u"""

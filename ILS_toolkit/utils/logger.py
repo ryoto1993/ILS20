@@ -161,7 +161,7 @@ class Logger:
         file_path = self.path + "/" + self.power_name
         f = open(file_path, 'w')
         w = csv.writer(f, lineterminator='\n')
-        row = ["Step", "Power"]
+        row = ["Step", "Power[cd]", "Power[W]"]
         w.writerow(row)
         f.close()
 
@@ -291,7 +291,7 @@ class Logger:
         file_path = self.path + "/" + self.power_name
         f = open(file_path, 'a')
         w = csv.writer(f, lineterminator='\n')
-        row = [str(step), str(self.ils.power_meter.power)]
+        row = [str(step), str(self.ils.power_meter.power), str(self.ils.power_meter.actual_power)]
         w.writerow(row)
         f.close()
 
