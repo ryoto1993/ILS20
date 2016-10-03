@@ -360,7 +360,7 @@ class Logger:
         for s in self.ils.sensors:
             if not s.attendance:
                 row.append("-")
-            elif s.target*(INIT.ALG_ALLOWANCE_LOWER+100)/100 <= s.illuminance <= s.target*(INIT.ALG_ALLOWANCE_UPPER+100)/100:
+            elif s.target*(INIT.ALG_ALLOWANCE_LOWER+100)/100 <= s.illuminance <= s.target+INIT.ALG_ALLOWANCE_UPPER:
                 row.append("True")
             else:
                 row.append("False")

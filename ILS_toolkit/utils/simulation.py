@@ -20,7 +20,7 @@ def calc_illuminance(ils):
             s.illuminance = s.illuminance + random.normalvariate(0, math.sqrt(5))
 
         # 収束しているかチェック
-        if s.target*(1+INIT.ALG_ALLOWANCE_LOWER/100) <= s.illuminance <= s.target+INIT.ALG_ALLOWANCE_UPPER:
+        if s.target*(100+INIT.ALG_ALLOWANCE_LOWER)/100 <= s.illuminance <= s.target+INIT.ALG_ALLOWANCE_UPPER:
             s.convergence = True
         else:
             s.convergence = False
