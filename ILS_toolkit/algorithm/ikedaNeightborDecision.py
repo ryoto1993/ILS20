@@ -3,6 +3,7 @@
 
 from utils.manualChanger import *
 from configure.config import *
+from utils.signalConverter import *
 from enum import Enum
 import random
 
@@ -214,6 +215,8 @@ def decide_next_luminosity_ikeda7(ils):
             rnd_dn = -1.0
         else:
             print("おそろしい事が起きました")
+
+        l.neighbor = str(neighbor_type)
 
         change_rate = random.randint(rnd_dn, rnd_up)
 

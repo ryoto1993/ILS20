@@ -1,7 +1,6 @@
 # coding: utf-8
 
 from equipment.PowerMeter import *
-from utils.reader import *
 from algorithm.ANAdb import *
 from utils.logger import *
 
