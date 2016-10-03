@@ -14,8 +14,35 @@ def decide_next_luminosity_ikeda7(ils):
     :return: None
     """
 
+    # 各照明ごとに次光度を決定する手順を実行
+    for l in ils.lights:
+        neighbor_design = NeighborDesign.default
+        neighbor_type = NeighborType7.default
 
-class NeighborType(Enum):
+        # 各センサに対する照度光度影響度を取得
+        influence = l.influence[:]
+
+        # 離席してるセンサの影響度は0にする
+        for s_i, s in enumerate(ils.sensors):
+            if not s.attendance:
+                influence[s_i] = 0.0
+
+        # センサの距離でランク付けする
+        for s_i, s in enumerate(ils.sensors):
+            distance_rank = DistanceRank7
+            comparing = Comparing
+
+            if influence[s_i] > 0.21:
+                distance = DistanceRank7.rank1
+            elif influence[s_i] > 0.11:
+                distance = DistanceRank7.rank2
+            elif influence[s_i] > 0.05:
+                distance = DistanceRank7.rank3
+            else:
+                distance = DistanceRank7.noRank
+
+
+class NeighborType7(Enum):
     default = 0
     typeA = 1
     typeB = 2
@@ -26,19 +53,19 @@ class NeighborType(Enum):
     typeG = 7
 
     def __str__(self):
-        if self == NeighborType.typeA:
+        if self == NeighborType7.typeA:
             return "TYPE A"
-        elif self == NeighborType.typeB:
+        elif self == NeighborType7.typeB:
             return "TYPE B"
-        elif self == NeighborType.typeC:
+        elif self == NeighborType7.typeC:
             return "TYPE C"
-        elif self == NeighborType.typeD:
+        elif self == NeighborType7.typeD:
             return "TYPE D"
-        elif self == NeighborType.typeE:
+        elif self == NeighborType7.typeE:
             return "TYPE E"
-        elif self == NeighborType.typeF:
+        elif self == NeighborType7.typeF:
             return "TYPE F"
-        elif self == NeighborType.typeG:
+        elif self == NeighborType7.typeG:
             return "TYPE G"
 
 
@@ -64,3 +91,23 @@ class NeighborDesign(Enum):
             return "DESIGN 5"
         elif self == NeighborDesign.design6:
             return "DESIGN 6"
+
+
+class DistanceRank7(Enum):
+    default = 0
+    rank1 = 1
+    rank2 = 2
+    rank3 = 3
+    noRank = 10
+
+    def __str__(self):
+        if self == DistanceRank7:
+            return "!default"
+        elif self == DistanceRank7.rank1:
+            return "RANK 1st"
+        elif self == DistanceRank7.rank2:
+            return "RANK 2nd"
+        elif self == DistanceRank7.rank3:
+            return "RANK 3rd"
+        elif self == DistanceRank7.noRank:
+            return "NO RANK"
