@@ -12,7 +12,10 @@ class Printer:
 
     def info(self):
         print("========================================================================")
-        print("Step : " + str(self.ils.algorithm.step) + "  (ALG Step : " + str(self.ils.algorithm.step / 2) + ")")
+        if not self.ils.algorithm:
+            print("Step : " + "INIT" + "  (ALG Step : " + "INIT" + ")")
+        else:
+            print("Step : " + str(self.ils.algorithm.step) + "  (ALG Step : " + str(self.ils.algorithm.step / 2) + ")")
         print("----- Light ------------------------------------------------------------")
         print("│ ID │ Lum. │ Sig │ Neighbor   │ Objective │ Penalty   │ ")
         for l in self.ils.lights:
