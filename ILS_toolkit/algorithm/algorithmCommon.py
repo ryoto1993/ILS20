@@ -119,6 +119,8 @@ def decide_next_luminosity(ils):
             else:
                 neighbor = tmp_neighbor
 
+        l.neighbor = str(neighbor)
+
         # 次光度をneighborから決定
         change_rate = 0
         if neighbor == NeighborType.brightening:
