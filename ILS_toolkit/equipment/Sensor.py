@@ -1,5 +1,7 @@
 # coding: utf-8
 
+from algorithm.ikedaNeightborDecision import DistanceRank7
+
 
 class Sensor:
     u"""照度センサのオブジェクト"""
@@ -20,6 +22,8 @@ class Sensor:
         self.convergence = False
         # Sekonic補正率
         self.correction_factor = 0.0
+        # ランクぎめの一時変数
+        self.tmp_rank = DistanceRank7.default
 
     def __str__(self):
         return "Sensor" + str(self.id)

@@ -19,6 +19,7 @@ def decide_next_luminosity_ikeda7(ils):
         neighbor_design = NeighborDesign.default
         neighbor_type = NeighborType7.default
         distance_rank = []
+        use_rank = DistanceRank7.default   # ランクテーブルを参照する際に用いるランク
         for i in range(len(ils.sensors)):
             distance_rank.append(DistanceRank7.default)
 
@@ -32,24 +33,25 @@ def decide_next_luminosity_ikeda7(ils):
 
             # センサの距離でランク付けする
             if influence[s_i] > 0.21:
-                distance_rank[s_i] = DistanceRank7.rank1
+                ils.sensors[s_i].tmp_rank = DistanceRank7.rank1
             elif influence[s_i] > 0.11:
-                distance_rank[s_i] = DistanceRank7.rank2
+                ils.sensors[s_i].tmp_rank = DistanceRank7.rank2
             elif influence[s_i] > 0.05:
-                distance_rank[s_i] = DistanceRank7.rank3
+                ils.sensors[s_i].tmp_rank = DistanceRank7.rank3
             else:
-                distance_rank[s_i] = DistanceRank7.noRank
+                ils.sensors[s_i].tmp_rank = DistanceRank7.noRank
 
         # 影響するセンサの数（NoRankじゃないもの）を数える
         influential_sensors = []
         unsatisfied_sensors = []
         for s_i, s in enumerate(ils.sensors):
-            if distance_rank[s_i] != DistanceRank7.noRank:
+            if s.tmp_rank != DistanceRank7.noRank:
                 influential_sensors.append(ils.sensors[s_i])
 
         if len(influential_sensors) == 0:
             # 影響するセンサが存在しない場合
             neighbor_design = NeighborDesign.design1
+            use_rank = DistanceRank7.noRank
         elif len(influential_sensors) == 1:
             uns_sss = unsatisfied_sensors[0]
             # 影響するセンサが1つしかない場合
@@ -57,17 +59,22 @@ def decide_next_luminosity_ikeda7(ils):
                 # 目標照度を上回っていない場合
                 if 0.98 * uns_sss.target <= uns_sss.illuminance < uns_sss.target:
                     neighbor_design = NeighborDesign.design6
+                    use_rank = uns_sss.tmp_rank
                 else:
                     if 0.92 * uns_sss.target < uns_sss.illuminance < uns_sss.target * 0.98:
                         neighbor_design = NeighborDesign.design5
+                        use_rank = uns_sss.tmp_rank
                     else:
                         neighbor_design = NeighborDesign.design4
+                        use_rank = uns_sss.tmp_rank
             else:
                 # 目標照度を上回っている場合
                 if uns_sss.illuminance > 1.06 * uns_sss.target:
                     neighbor_design = NeighborDesign.design3
+                    use_rank = uns_sss.tmp_rank
                 else:
                     neighbor_design = NeighborDesign.design2
+                    use_rank = uns_sss.tmp_rank
         else:
             # 影響するセンサが複数個ある場合
             for inf_s in influential_sensors:
@@ -84,9 +91,17 @@ def decide_next_luminosity_ikeda7(ils):
                 if flag_up_ok:
                     # 最小可視変動比以内にある場合
                     neighbor_design = NeighborDesign.design2
+                    use_rank = influential_sensors[0].tmp_rank
+                    for inf_sss in influential_sensors:
+                        if inf_sss.tmp_rank < use_rank:
+                            use_rank = inf_sss.tmp_rank
                 else:
                     # 最小可視変動比以内にないすなわち大きく目標照度を上回っている場合
                     neighbor_design = NeighborDesign.design3
+                    use_rank = influential_sensors[0].tmp_rank
+                    for inf_sss in influential_sensors:
+                        if inf_sss.tmp_rank < use_rank:
+                            use_rank = inf_sss.tmp_rank
             else:
                 # 影響するセンサの中に目標照度を満たしていないものがある場合
                 # 目標照度を満たしていないすべてのセンサがほぼ目標照度付近にあるかチェック
@@ -97,6 +112,10 @@ def decide_next_luminosity_ikeda7(ils):
                 if flag_near:
                     # ほぼ目標照度付近にある場合
                     neighbor_design = NeighborDesign.design6
+                    use_rank = influential_sensors[0].tmp_rank
+                    for uns_ssss in influential_sensors:
+                        if uns_ssss.tmp_rank < use_rank:
+                            use_rank = uns_ssss.tmp_rank
                 else:
                     # 最小可視変動比内にとどまっているかどうかをチェック
                     flag_under_ok = True
@@ -106,8 +125,67 @@ def decide_next_luminosity_ikeda7(ils):
                     # 目標照度を満たしていないすべてのセンサが最小可視変動比内にある場合
                     if flag_under_ok:
                         neighbor_design = NeighborDesign.design5
+                        use_rank = influential_sensors[0].tmp_rank
+                        for uns_ssss in influential_sensors:
+                            if uns_ssss.tmp_rank < use_rank:
+                                use_rank = uns_ssss.tmp_rank
                     else:
                         neighbor_design = NeighborDesign.design4
+                        use_rank = influential_sensors[0].tmp_rank
+                        for uns_ssss in influential_sensors:
+                            if uns_ssss.tmp_rank < use_rank:
+                                use_rank = uns_ssss.tmp_rank
+
+        # NeighborDesignとuse_rankからNeighborType7を決定する
+        if neighbor_design == NeighborDesign.design1:
+            neighbor_type = NeighborType7.typeA
+        elif neighbor_design == NeighborDesign.design2:
+            if use_rank == DistanceRank7.rank1:
+                neighbor_type = NeighborType7.typeD
+            elif use_rank == DistanceRank7.rank2:
+                neighbor_type = NeighborType7.typeC
+            elif use_rank == DistanceRank7.rank3:
+                neighbor_type = NeighborType7.typeB
+            else:
+                print("おかしい．")
+        elif neighbor_design == NeighborDesign.design3:
+            if use_rank == DistanceRank7.rank1:
+                neighbor_type = NeighborType7.typeC
+            elif use_rank == DistanceRank7.rank2:
+                neighbor_type = NeighborType7.typeB
+            elif use_rank == DistanceRank7.rank3:
+                neighbor_type = NeighborType7.typeA
+            else:
+                print("おかしい")
+        elif neighbor_design == NeighborDesign.design4:
+            if use_rank == DistanceRank7.rank1:
+                neighbor_type = NeighborType7.typeG
+            elif use_rank == DistanceRank7.rank2:
+                neighbor_type = NeighborType7.typeF
+            elif use_rank == DistanceRank7.rank3:
+                neighbor_type = NeighborType7.typeE
+            else:
+                print("おかしい")
+        elif neighbor_design == NeighborDesign.design5:
+            if use_rank == DistanceRank7.rank1:
+                neighbor_type = NeighborType7.typeF
+            elif use_rank == DistanceRank7.rank2:
+                neighbor_type = NeighborType7.typeE
+            elif use_rank == DistanceRank7.rank3:
+                neighbor_type = NeighborType7.typeD
+            else:
+                print("おかしい")
+        elif neighbor_design == NeighborDesign.design6:
+            if use_rank == DistanceRank7.rank1:
+                neighbor_type = NeighborType7.typeE
+            elif use_rank == DistanceRank7.rank2:
+                neighbor_type = NeighborType7.typeD
+            elif use_rank == DistanceRank7.rank3:
+                neighbor_type = NeighborType7.typeC
+            else:
+                print("おかしい")
+        else:
+            print("くそおかしい")
 
 
 class NeighborType7(Enum):
