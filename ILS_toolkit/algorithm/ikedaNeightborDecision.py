@@ -18,28 +18,84 @@ def decide_next_luminosity_ikeda7(ils):
     for l in ils.lights:
         neighbor_design = NeighborDesign.default
         neighbor_type = NeighborType7.default
+        distance_rank = []
+        for i in range(len(ils.sensors)):
+            distance_rank.append(DistanceRank7.default)
 
         # 各センサに対する照度光度影響度を取得
         influence = l.influence[:]
 
-        # 離席してるセンサの影響度は0にする
         for s_i, s in enumerate(ils.sensors):
+            # 離席してるセンサの影響度は0にする
             if not s.attendance:
                 influence[s_i] = 0.0
 
-        # センサの距離でランク付けする
-        for s_i, s in enumerate(ils.sensors):
-            distance_rank = DistanceRank7
-            comparing = Comparing
-
+            # センサの距離でランク付けする
             if influence[s_i] > 0.21:
-                distance = DistanceRank7.rank1
+                distance_rank[s_i] = DistanceRank7.rank1
             elif influence[s_i] > 0.11:
-                distance = DistanceRank7.rank2
+                distance_rank[s_i] = DistanceRank7.rank2
             elif influence[s_i] > 0.05:
-                distance = DistanceRank7.rank3
+                distance_rank[s_i] = DistanceRank7.rank3
             else:
-                distance = DistanceRank7.noRank
+                distance_rank[s_i] = DistanceRank7.noRank
+
+        # 影響するセンサの数（NoRankじゃないもの）を数える
+        influential_sensors = []
+        unsatisfied_sensors = []
+        for s_i, s in enumerate(ils.sensors):
+            if distance_rank[s_i] != DistanceRank7.noRank:
+                influential_sensors.append(ils.sensors[s_i])
+
+        if len(influential_sensors) == 0:
+            # 影響するセンサが存在しない場合
+            neighbor_design = NeighborDesign.design1
+        elif len(influential_sensors) == 1:
+            # 影響するセンサが1つしかない場合
+            if unsatisfied_sensors[0].illuminance < unsatisfied_sensors[0].target:
+                pass
+            else:
+                pass
+        else:
+            # 影響するセンサが複数個ある場合
+            for inf_s in influential_sensors:
+                # 目標照度を達成していないセンサをリストアップ
+                if not inf_s.illuminance < inf_s.target:
+                    unsatisfied_sensors.append(inf_s)
+            if len(unsatisfied_sensors) == 0:
+                # 影響するすべてのセンサが目標照度を上回っている場合
+                # 影響するすべてのセンサが最小可視変動比以内かチェック
+                flag_up_ok = True
+                for inf_ss in influential_sensors:
+                    if inf_ss.illuminance > 1.06 * inf_ss.target:
+                        flag_up_ok = False
+                if flag_up_ok:
+                    # 最小可視変動比以内にある場合
+                    neighbor_design = NeighborDesign.design2
+                else:
+                    # 最小可視変動比以内にないすなわち大きく目標照度を上回っている場合
+                    neighbor_design = NeighborDesign.design3
+            else:
+                # 影響するセンサの中に目標照度を満たしていないものがある場合
+                # 目標照度を満たしていないすべてのセンサがほぼ目標照度付近にあるかチェック
+                flag_near = True
+                for uns_s in unsatisfied_sensors:
+                    if not 0.98 * uns_s.target <= uns_s.illuminance < uns_s.target:
+                        flag_near = False
+                if flag_near:
+                    # ほぼ目標照度付近にある場合
+                    neighbor_design = NeighborDesign.design6
+                else:
+                    # 最小可視変動比内にとどまっているかどうかをチェック
+                    flag_under_ok = True
+                    for uns_ss in unsatisfied_sensors:
+                        if not 0.92 * uns_ss.target < uns_ss.illuminance < 0.98 * uns_ss.target:
+                            flag_under_ok = False
+                    # 目標照度を満たしていないすべてのセンサが最小可視変動比内にある場合
+                    if flag_under_ok:
+                        neighbor_design = NeighborDesign.design5
+                    else:
+                        neighbor_design = NeighborDesign.design4
 
 
 class NeighborType7(Enum):
