@@ -187,6 +187,48 @@ def decide_next_luminosity_ikeda7(ils):
         else:
             print("くそおかしい")
 
+        # neighbor_typeから次光度決定乱数の上限と下限を設定する
+        rnd_up = 0.0
+        rnd_dn = 0.0
+
+        if neighbor_type == NeighborType7.typeA:
+            rnd_up = 1.0
+            rnd_dn = -10.0
+        elif neighbor_type == NeighborType7.typeB:
+            rnd_up = 3.0
+            rnd_dn = -7.0
+        elif neighbor_type == NeighborType7.typeC:
+            rnd_up = 3.0
+            rnd_dn = -5.0
+        elif neighbor_type == NeighborType7.typeD:
+            rnd_up = 2.0
+            rnd_dn = -2.0
+        elif neighbor_type == NeighborType7.typeE:
+            rnd_up = 5.0
+            rnd_dn = -3.0
+        elif neighbor_type == NeighborType7.typeF:
+            rnd_up = 7.0
+            rnd_dn = -2.0
+        elif neighbor_type == NeighborType7.typeG:
+            rnd_up = 12.0
+            rnd_dn = -1.0
+        else:
+            print("おそろしい事が起きました")
+
+        change_rate = random.randint(rnd_dn, rnd_up)
+
+        # 次光度を決定
+        l.previous_luminosity = l.luminosity
+        l.next_luminosity = l.luminosity * (100.0 + change_rate) / 100.0
+        if l.next_luminosity > INIT.LIGHT_LUMINOSITY_MAX[0]:
+            l.next_luminosity = INIT.LIGHT_LUMINOSITY_MAX[0]
+        elif l.next_luminosity < INIT.LIGHT_LUMINOSITY_MIN[0]:
+            l.next_luminosity = INIT.LIGHT_LUMINOSITY_MIN[0]
+
+        for l in ils.lights:
+            l.luminosity = l.next_luminosity
+            convert_to_signal(ils.lights)
+
 
 class NeighborType7(Enum):
     default = 0
