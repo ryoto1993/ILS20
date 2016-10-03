@@ -51,11 +51,23 @@ def decide_next_luminosity_ikeda7(ils):
             # 影響するセンサが存在しない場合
             neighbor_design = NeighborDesign.design1
         elif len(influential_sensors) == 1:
+            uns_sss = unsatisfied_sensors[0]
             # 影響するセンサが1つしかない場合
-            if unsatisfied_sensors[0].illuminance < unsatisfied_sensors[0].target:
-                pass
+            if uns_sss.illuminance < uns_sss.target:
+                # 目標照度を上回っていない場合
+                if 0.98 * uns_sss.target <= uns_sss.illuminance < uns_sss.target:
+                    neighbor_design = NeighborDesign.design6
+                else:
+                    if 0.92 * uns_sss.target < uns_sss.illuminance < uns_sss.target * 0.98:
+                        neighbor_design = NeighborDesign.design5
+                    else:
+                        neighbor_design = NeighborDesign.design4
             else:
-                pass
+                # 目標照度を上回っている場合
+                if uns_sss.illuminance > 1.06 * uns_sss.target:
+                    neighbor_design = NeighborDesign.design3
+                else:
+                    neighbor_design = NeighborDesign.design2
         else:
             # 影響するセンサが複数個ある場合
             for inf_s in influential_sensors:
