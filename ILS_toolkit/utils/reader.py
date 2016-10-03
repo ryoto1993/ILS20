@@ -4,7 +4,7 @@ import re
 import csv
 
 from equipment.Light import *
-from equipment.Sensor import *
+from equipment.Sensor import Sensor
 
 
 ##########################

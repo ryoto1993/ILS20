@@ -1,7 +1,5 @@
 # coding: utf-8
 
-from equipment.Light import *
-from equipment.Sensor import *
 from equipment.PowerMeter import *
 from utils.reader import *
 from algorithm.ANAdb import *

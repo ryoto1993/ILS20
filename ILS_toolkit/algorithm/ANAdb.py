@@ -5,6 +5,7 @@ from utils.dimmer import *
 from utils.reader import *
 from utils.simulation import *
 from algorithm.algorithmCommon import *
+from algorithm.ikedaNeightborDecision import *
 from utils.logger import *
 from utils.printer import *
 
@@ -81,7 +82,8 @@ class ANADB:
 
         # [3] 次の光度値を決定し，点灯
         # 次光度決定
-        decide_next_luminosity(self.ils)
+        # decide_next_luminosity(self.ils)
+        decide_next_luminosity_ikeda7(self.ils)
         # 次光度で点灯
         if INIT.SIMULATION:
             pass

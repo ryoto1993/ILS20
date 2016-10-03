@@ -1,9 +1,9 @@
 # coding: utf-8
 
+
 from utils.manualChanger import *
 from configure.config import *
 from enum import Enum
-from algorithm.algorithmCommon import *
 import random
 
 
@@ -79,7 +79,7 @@ def decide_next_luminosity_ikeda7(ils):
             # 影響するセンサが複数個ある場合
             for inf_s in influential_sensors:
                 # 目標照度を達成していないセンサをリストアップ
-                if not inf_s.illuminance < inf_s.target:
+                if inf_s.illuminance < inf_s.target:
                     unsatisfied_sensors.append(inf_s)
             if len(unsatisfied_sensors) == 0:
                 # 影響するすべてのセンサが目標照度を上回っている場合
@@ -93,14 +93,14 @@ def decide_next_luminosity_ikeda7(ils):
                     neighbor_design = NeighborDesign.design2
                     use_rank = influential_sensors[0].tmp_rank
                     for inf_sss in influential_sensors:
-                        if inf_sss.tmp_rank < use_rank:
+                        if inf_sss.tmp_rank.value < use_rank.value:
                             use_rank = inf_sss.tmp_rank
                 else:
                     # 最小可視変動比以内にないすなわち大きく目標照度を上回っている場合
                     neighbor_design = NeighborDesign.design3
                     use_rank = influential_sensors[0].tmp_rank
                     for inf_sss in influential_sensors:
-                        if inf_sss.tmp_rank < use_rank:
+                        if inf_sss.tmp_rank.value < use_rank.value:
                             use_rank = inf_sss.tmp_rank
             else:
                 # 影響するセンサの中に目標照度を満たしていないものがある場合
@@ -114,7 +114,7 @@ def decide_next_luminosity_ikeda7(ils):
                     neighbor_design = NeighborDesign.design6
                     use_rank = influential_sensors[0].tmp_rank
                     for uns_ssss in influential_sensors:
-                        if uns_ssss.tmp_rank < use_rank:
+                        if uns_ssss.tmp_rank.value < use_rank.value:
                             use_rank = uns_ssss.tmp_rank
                 else:
                     # 最小可視変動比内にとどまっているかどうかをチェック
@@ -127,13 +127,13 @@ def decide_next_luminosity_ikeda7(ils):
                         neighbor_design = NeighborDesign.design5
                         use_rank = influential_sensors[0].tmp_rank
                         for uns_ssss in influential_sensors:
-                            if uns_ssss.tmp_rank < use_rank:
+                            if uns_ssss.tmp_rank.value < use_rank.value:
                                 use_rank = uns_ssss.tmp_rank
                     else:
                         neighbor_design = NeighborDesign.design4
                         use_rank = influential_sensors[0].tmp_rank
                         for uns_ssss in influential_sensors:
-                            if uns_ssss.tmp_rank < use_rank:
+                            if uns_ssss.tmp_rank.value < use_rank.value:
                                 use_rank = uns_ssss.tmp_rank
 
         # NeighborDesignとuse_rankからNeighborType7を決定する
@@ -225,9 +225,9 @@ def decide_next_luminosity_ikeda7(ils):
         elif l.next_luminosity < INIT.LIGHT_LUMINOSITY_MIN[0]:
             l.next_luminosity = INIT.LIGHT_LUMINOSITY_MIN[0]
 
-        for l in ils.lights:
-            l.luminosity = l.next_luminosity
-            convert_to_signal(ils.lights)
+    for l in ils.lights:
+        l.luminosity = l.next_luminosity
+        convert_to_signal(ils.lights)
 
 
 class NeighborType7(Enum):
