@@ -108,7 +108,7 @@ def sensor_signal_reader(sensors):
             print("補正後:" + str(s.illuminance))
 
         # 収束しているか否か
-        if s.target*(1+INIT.ALG_ALLOWANCE_LOWER/100) <= s.illuminance <= s.target*(1+INIT.ALG_ALLOWANCE_UPPER/100):
+        if s.target*(1+INIT.ALG_ALLOWANCE_LOWER/100) <= s.illuminance <= s.target + INIT.ALG_ALLOWANCE_UPPER:
             s.convergence = True
         else:
             s.convergence = False
