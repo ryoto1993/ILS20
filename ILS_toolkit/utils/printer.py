@@ -22,16 +22,16 @@ class Printer:
         else:
             print("Step : " + str(step) + "  (ALG Step : " + str(step / 2) + ")")
         print("----- Light ------------------------------------------------------------")
-        print("│ ID │ Lum. │ Sig │ Neighbor    │ Objective │ Penalty   │ ")
+        print("│ ID │ Lum. │ Sig │ Neighbor │ Objective │ Penalty   │ ")
         for l in self.ils.lights:
             if step % 2 != 0:
                 print("│ " + '{0:2d}'.format(l.id) + " │ " + '{0:4.0f}'.format(l.luminosity) + " │ "
-                      + '{0:3d}'.format(l.signals[0]) + " │ " + '{:<11}'.format(l.neighbor) + " │ "
+                      + '{0:3d}'.format(l.signals[0]) + " │ " + '{:<8}'.format(l.neighbor) + " │ "
                       + '{0:9.0f}'.format(l.objective_function) + " │ "
                       + '{0:9.0f}'.format(l.objective_penalty) + " │ ")
             else:
                 print("│ " + '{0:2d}'.format(l.id) + " │ " + '{0:4.0f}'.format(l.luminosity) + " │ "
-                      + '{0:3d}'.format(l.signals[0]) + " │ " + '{:<11}'.format(l.neighbor) + " │ "
+                      + '{0:3d}'.format(l.signals[0]) + " │ " + '{:<8}'.format(l.neighbor) + " │ "
                       + '{0:9.0f}'.format(l.next_objective_function) + " │ "
                       + '{0:9.0f}'.format(l.next_objective_penalty) + " │ ")
 
