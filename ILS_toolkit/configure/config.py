@@ -7,12 +7,12 @@ class INIT:
     #####################
     # シーケンシャル名は，ログファイルの格納ディレクトリの名前に含まれます．
     # 行うデモ/実験/シミュレーションの概要を簡潔に入力してください．
-    SEQUENCE_NAME = u"IEEJスマートファシリティ_8-J_01_sim"
+    SEQUENCE_NAME = u"IEEJスマートファシリティ_8-J_07_sim"
 
     #####################
     #      動作モード     #
     #####################
-    SIMULATION = True         # 実機の時はFalse
+    SIMULATION = False         # 実機の時はFalse
     TEMPERATURE = False       # 色温度も制御するか
     CHECK_ATTENDANCE = True   # 在離席管理を行うか
     SIMULATE_VOLTAGE_DISPLACEMENT = True    # Sekonicアナログ照度センサの電圧変位誤差をシミュレート
@@ -33,12 +33,12 @@ class INIT:
     #####################
     #  機器情報ファイルパス #
     #####################
-    FILE_CD_INFO = "C:/Users/light/Desktop/isdl_20th/bacnet_interface/cdinfo.txt"
-    FILE_SENSOR_INFO = "../sekonicAnalog/sensor.txt"
+    # FILE_CD_INFO = "C:/Users/light/Desktop/isdl_20th/bacnet_interface/cdinfo.txt"
+    # FILE_SENSOR_INFO = "../sekonicAnalog/sensor.txt"
 
     # for debug
-    # FILE_CD_INFO = "../test_data/cdinfo.txt"
-    # FILE_SENSOR_INFO = "../test_data/sensor.txt"
+    FILE_CD_INFO = "../test_data/cdinfo.txt"
+    FILE_SENSOR_INFO = "../test_data/sensor.txt"
 
     #####################
     #   ファイルパス設定   #
@@ -61,7 +61,7 @@ class INIT:
     LIGHT_LUMINOSITY_MAX = [1280.0, 1280.0]  # 最大点灯光度 [cd] [1280]
     LIGHT_SIGNAL_MIN = [10, 10]              # 最小点灯信号値[20]
     LIGHT_LUMINOSITY_MIN = [128.0, 128.0]   # 最小点灯光度 [cd][248.0]
-    LIGHT_WAIT_SECOND = 5.5                  # 光度を変更してからの待機時間
+    LIGHT_WAIT_SECOND = 1.0                  # 光度を変更してからの待機時間
 
     #####################
     # 最適化アルゴリズム設定 #
