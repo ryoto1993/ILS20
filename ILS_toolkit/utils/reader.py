@@ -156,5 +156,27 @@ def sensor_attendance_reader(sensors):
             return
 
 
-def sensor_attendance_auto_setting_reader(sensors):
+def sensor_attendance_auto_setting(ils):
     u"""センサの在離席を自動設定するメソッド"""
+    data_steps = []
+    data_sensor = []
+    data_att = []
+
+    csv_reader = csv.reader(open(INIT.FILE_AUTO_ATTENDANCE, "r"), delimiter=",", quotechar='"')
+    for row in csv_reader:
+        print(row)
+        data_steps.append(row[0])
+        data_sensor.append(row[1])
+        data_att.append(row[2])
+
+    indexes = [i for i, stp in enumerate(data_steps) if stp == ils.algorithm.step]
+
+    att_csv_reader = csv_reader(open(INIT.FILE_ATTENDANCE, "r"), delimiter=",", quotechar='"')
+    data = att_csv_reader[0]
+
+    for i in indexes:
+        data[data_sensor[i]] = 1 if data_att[i] else 0
+
+    with open(INIT.FILE_ATTENDANCE, 'w') as f:
+        writer = csv.writer(f, lineterminator='\n')
+        writer.writerow(data)
