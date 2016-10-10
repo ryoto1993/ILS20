@@ -139,7 +139,7 @@ def sensor_attendance_reader(sensors):
             f = open(INIT.FILE_ATTENDANCE, "r")
             break
         except FileNotFoundError:
-            print("can't find \"attendance.txt\" file.")
+            print("can't find \"attendance.csv\" file.")
         except PermissionError:
             pass
 
@@ -152,7 +152,7 @@ def sensor_attendance_reader(sensors):
         elif tgt[i] == "0":
             s.attendance = False
         else:
-            print("Error. Please check \"attendance.txt\" format.")
+            print("Error. Please check \"attendance.csv\" format.")
             return
 
 
@@ -161,22 +161,25 @@ def sensor_attendance_auto_setting(ils):
     data_steps = []
     data_sensor = []
     data_att = []
+    indexes = []
 
     csv_reader = csv.reader(open(INIT.FILE_AUTO_ATTENDANCE, "r"), delimiter=",", quotechar='"')
     for row in csv_reader:
-        print(row)
         data_steps.append(row[0])
         data_sensor.append(row[1])
         data_att.append(row[2])
+    for i, stp in enumerate(data_steps):
+        if stp == str(ils.algorithm.step):
+            indexes.append(i)
 
-    indexes = [i for i, stp in enumerate(data_steps) if stp == ils.algorithm.step]
-
-    att_csv_reader = csv_reader(open(INIT.FILE_ATTENDANCE, "r"), delimiter=",", quotechar='"')
-    data = att_csv_reader[0]
+    att_csv_reader = csv.reader(open(INIT.FILE_ATTENDANCE, "r"), delimiter=",", quotechar='"')
+    data = []
+    for row in att_csv_reader:
+        data = row
 
     for i in indexes:
-        data[data_sensor[i]] = 1 if data_att[i] else 0
+        data[int(data_sensor[i])] = 1 if data_att[i] else 0
 
     with open(INIT.FILE_ATTENDANCE, 'w') as f:
-        writer = csv.writer(f, lineterminator='\n')
+        writer = csv.writer(f, lineterminator='')
         writer.writerow(data)

@@ -51,7 +51,7 @@ class INIT:
     FILE_LIGHT_PATTERN = "./configure/fixedLightPattern.csv"
     FILE_SENSOR_TARGET = "./configure/target.txt"
     FILE_SENSOR_CORRECTION = "../sekonicAnalog/correction_factor.txt"
-    FILE_ATTENDANCE = "./configure/attendance.txt"
+    FILE_ATTENDANCE = "./configure/attendance.csv"
     FILE_AUTO_ATTENDANCE = "./configure/auto_attendance.csv"
     DIR_LOG = "../LOG/"
 
