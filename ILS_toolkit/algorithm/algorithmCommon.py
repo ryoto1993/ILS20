@@ -189,3 +189,17 @@ class Comparing(Enum):
             return "CONVERGED"
         elif self == Comparing.dimmer:
             return "DIMMER"
+
+
+def update_config(ils):
+    u"""
+    ステップごとに目標照度と在離席を更新
+    """
+    # 目標照度を取得
+    sensor_target_reader(ils.sensors)
+    # 在離席を自動設定
+    if INIT.AUTO_ATTENDANCE_SETTING:
+        pass
+    # 在離席を取得
+    if INIT.CHECK_ATTENDANCE:
+        sensor_attendance_reader(ils.sensors)

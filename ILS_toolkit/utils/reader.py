@@ -154,3 +154,7 @@ def sensor_attendance_reader(sensors):
         else:
             print("Error. Please check \"attendance.txt\" format.")
             return
+
+
+def sensor_attendance_auto_setting_reader(sensors):
+    u"""センサの在離席を自動設定するメソッド"""

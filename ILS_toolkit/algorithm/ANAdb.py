@@ -61,7 +61,7 @@ class ANADB:
 
     def next_step(self):
         u"""この部分がANA/DBのループ"""
-        self.update_config()
+        update_config(self.ils)
 
         # [1] 各照度センサと電力情報を取得
         # 現在照度値を取得
@@ -124,14 +124,3 @@ class ANADB:
 
         if self.step%100 == 0:
             print("Step " + str(self.step))
-
-
-    def update_config(self):
-        u"""
-        ステップごとに目標照度と在離席を更新
-        """
-        # 目標照度を取得
-        sensor_target_reader(self.ils.sensors)
-        # 在離席を取得
-        if INIT.CHECK_ATTENDANCE:
-            sensor_attendance_reader(self.ils.sensors)

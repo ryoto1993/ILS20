@@ -52,6 +52,7 @@ class INIT:
     FILE_SENSOR_TARGET = "./configure/target.txt"
     FILE_SENSOR_CORRECTION = "../sekonicAnalog/correction_factor.txt"
     FILE_ATTENDANCE = "./configure/attendance.txt"
+    FILE_AUTO_ATTENDANCE = "./configure/auto_attendance.csv"
     DIR_LOG = "../LOG/"
 
     #####################
