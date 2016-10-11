@@ -7,7 +7,7 @@ class INIT:
     #####################
     # シーケンシャル名は，ログファイルの格納ディレクトリの名前に含まれます．
     # 行うデモ/実験/シミュレーションの概要を簡潔に入力してください．
-    SEQUENCE_NAME = u"IEEJスマートファシリティ_8-J_全員在席_外光加算テスト"
+    SEQUENCE_NAME = u"IEEJスマートファシリティ_8-J_全員在席_外乱なし"
 
     #####################
     #      動作モード     #
@@ -16,9 +16,9 @@ class INIT:
     TEMPERATURE = False       # 色温度も制御するか
     CHECK_ATTENDANCE = True   # 在離席管理を行うか
     AUTO_ATTENDANCE_SETTING = False      # 在離席の自動設定を行うか
-    SIMULATE_VOLTAGE_DISPLACEMENT = True    # Sekonicアナログ照度センサの電圧変位誤差をシミュレート
+    SIMULATE_VOLTAGE_DISPLACEMENT = False    # Sekonicアナログ照度センサの電圧変位誤差をシミュレート
     CORRECT_SENSOR_DISPLACEMENT = True      # Sekonicアナログ照度センサの誤差を補正
-    ADD_OUTSIDE_LIGHT = True   # 外光データを加算するか
+    ADD_OUTSIDE_LIGHT = False   # 外光データを加算するか
 
     #####################
     #      ロガー設定     #

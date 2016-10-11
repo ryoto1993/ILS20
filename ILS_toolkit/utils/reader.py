@@ -102,9 +102,9 @@ def sensor_signal_reader(sensors):
 
     for i, s in enumerate(sensors):
         s.illuminance = int(sigs[i])
-        # if INIT.CORRECT_SENSOR_DISPLACEMENT:
+        if INIT.CORRECT_SENSOR_DISPLACEMENT:
         #    print("補正前:" + str(s.illuminance))
-        #    s.illuminance = s.illuminance / s.correction_factor
+            s.illuminance = s.illuminance / s.correction_factor
         #    print("補正後:" + str(s.illuminance))
 
         # 収束しているか否か
