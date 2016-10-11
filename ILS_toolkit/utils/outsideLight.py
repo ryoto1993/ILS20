@@ -13,7 +13,3 @@ def read_outside_light_data():
     for row in c:
         OutsideLight.data.append(row)
     file.close()
-
-    print("OK")
-
-    print(OutsideLight.data)
