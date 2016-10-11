@@ -178,7 +178,7 @@ def sensor_attendance_auto_setting(ils):
         data = row
 
     for i in indexes:
-        data[int(data_sensor[i])] = 1 if data_att[i] else 0
+        data[int(data_sensor[i])-1] = 1 if data_att[i] == "1" else 0
 
     with open(INIT.FILE_ATTENDANCE, 'w') as f:
         writer = csv.writer(f, lineterminator='')
