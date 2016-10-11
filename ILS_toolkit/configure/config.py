@@ -7,7 +7,7 @@ class INIT:
     #####################
     # シーケンシャル名は，ログファイルの格納ディレクトリの名前に含まれます．
     # 行うデモ/実験/シミュレーションの概要を簡潔に入力してください．
-    SEQUENCE_NAME = u"IEEJスマートファシリティ_8-J_全員在席_実機0001"
+    SEQUENCE_NAME = u"IEEJスマートファシリティ_8-J_全員在席_外光加算テスト"
 
     #####################
     #      動作モード     #
@@ -18,6 +18,7 @@ class INIT:
     AUTO_ATTENDANCE_SETTING = False      # 在離席の自動設定を行うか
     SIMULATE_VOLTAGE_DISPLACEMENT = True    # Sekonicアナログ照度センサの電圧変位誤差をシミュレート
     CORRECT_SENSOR_DISPLACEMENT = True      # Sekonicアナログ照度センサの誤差を補正
+    ADD_OUTSIDE_LIGHT = False   # 外光データを加算するか
 
     #####################
     #      ロガー設定     #
@@ -53,7 +54,7 @@ class INIT:
     FILE_SENSOR_CORRECTION = "../sekonicAnalog/correction_factor.txt"
     FILE_ATTENDANCE = "./configure/attendance.csv"
     FILE_AUTO_ATTENDANCE = "./configure/auto_attendance.csv"
-    FILE_OUTSIDE_LIGHT = "./configure/"
+    FILE_OUTSIDE_LIGHT = "./configure/dataSet/OutsideLight/03_外光データ_Oct.10, 1019-1740_晴時々曇.csv"
     DIR_LOG = "../LOG/"
 
     #####################
@@ -64,7 +65,7 @@ class INIT:
     LIGHT_LUMINOSITY_MAX = [1280.0, 1280.0]  # 最大点灯光度 [cd] [1280]
     LIGHT_SIGNAL_MIN = [10, 10]              # 最小点灯信号値[20]
     LIGHT_LUMINOSITY_MIN = [128.0, 128.0]   # 最小点灯光度 [cd][248.0]
-    LIGHT_WAIT_SECOND = 1.0                  # 光度を変更してからの待機時間
+    LIGHT_WAIT_SECOND = 5.0                  # 光度を変更してからの待機時間
 
     #####################
     # 最適化アルゴリズム設定 #
@@ -81,3 +82,9 @@ class INIT:
     ALG_DB_NEUTRAL_LOWER = -5.0      # 中立変動幅下限（％指定）[5.0]
     ALG_DB_DIMMING_UPPER = 3.0      # 減光変動幅上限（％指定）
     ALG_DB_DIMMING_LOWER = -10.0      # 減光変動幅下限（％指定）[-10.0]
+
+    #####################
+    #    外光加算設定     #
+    #####################
+    EXT_STEP_SECOND = 4.5       # 外光加算を行う際の1ステップの実時間秒数
+    EXT_START_LINE = 0          # 外光加算を何行目から読むかの設定

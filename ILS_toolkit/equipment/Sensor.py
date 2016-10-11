@@ -1,6 +1,9 @@
 # coding: utf-8
 
 from algorithm.ikedaNeightborDecision import DistanceRank7
+from configure.config import *
+from utils.simulation import *
+from utils.reader import *
 
 
 class Sensor:
@@ -27,3 +30,10 @@ class Sensor:
 
     def __str__(self):
         return "Sensor" + str(self.id)
+
+
+def update_sensors(ils):
+    if INIT.SIMULATION:
+        calc_illuminance(ils)
+    else:
+        sensor_signal_reader(ils.sensors)

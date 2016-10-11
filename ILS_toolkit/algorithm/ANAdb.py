@@ -8,6 +8,7 @@ from algorithm.algorithmCommon import *
 from algorithm.ikedaNeightborDecision import *
 from utils.logger import *
 from utils.printer import *
+from equipment.Sensor import *
 
 
 class ANADB:
@@ -40,10 +41,7 @@ class ANADB:
         else:
             dimming(self.ils.lights)
         # 現在照度値を取得
-        if INIT.SIMULATION:
-            calc_illuminance(self.ils)
-        else:
-            sensor_signal_reader(self.ils.sensors)
+        update_sensors(self.ils)
         # 目標照度を取得
         sensor_target_reader(self.ils.sensors)
         # 在離席を取得
@@ -65,10 +63,7 @@ class ANADB:
 
         # [1] 各照度センサと電力情報を取得
         # 現在照度値を取得
-        if INIT.SIMULATION:
-            calc_illuminance(self.ils)
-        else:
-            sensor_signal_reader(self.ils.sensors)
+        update_sensors(self.ils)
         # 電力情報を計算
         self.ils.power_meter.calc_power()
 
@@ -91,15 +86,12 @@ class ANADB:
             dimming(self.ils.lights)
         self.step += 1
 
-        if self.step%100 == 0:
+        if self.step % 100 == 0:
             print("Step " + str(self.step))
 
         # [4] 各照度センサと電力情報を取得
         # 現在照度値を取得
-        if INIT.SIMULATION:
-            calc_illuminance(self.ils)
-        else:
-            sensor_signal_reader(self.ils.sensors)
+        update_sensors(self.ils)
         # 電力情報を計算
         self.ils.power_meter.calc_power()
 
