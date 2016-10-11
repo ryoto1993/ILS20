@@ -4,6 +4,7 @@ from algorithm.ikedaNeightborDecision import DistanceRank7
 from configure.config import *
 from utils.simulation import *
 from utils.reader import *
+from utils.outsideLight import *
 
 
 class Sensor:
@@ -33,7 +34,14 @@ class Sensor:
 
 
 def update_sensors(ils):
+    # センサの照度情報を取得
     if INIT.SIMULATION:
         calc_illuminance(ils)
     else:
         sensor_signal_reader(ils.sensors)
+
+    # 外光データの外光照度を加算
+    if INIT.ADD_OUTSIDE_LIGHT and ils.algorithm:
+        data_line = int(1+INIT.EXT_START_LINE + ils.algorithm.step * INIT.EXT_STEP_SECOND)
+        for s in ils.sensors:
+            s.illuminance += int(OutsideLight.data[data_line][s.id])

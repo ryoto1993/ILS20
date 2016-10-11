@@ -9,6 +9,7 @@ from algorithm.ikedaNeightborDecision import *
 from utils.logger import *
 from utils.printer import *
 from equipment.Sensor import *
+from utils.outsideLight import *
 
 
 class ANADB:
@@ -56,6 +57,9 @@ class ANADB:
         self.ils.logger.append_all_log(0, False)
         if not INIT.SIMULATION:
             self.ils.printer.info()
+        # 外光データ取得
+        if INIT.ADD_OUTSIDE_LIGHT:
+            read_outside_light_data()
 
     def next_step(self):
         u"""この部分がANA/DBのループ"""

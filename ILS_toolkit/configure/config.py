@@ -12,13 +12,13 @@ class INIT:
     #####################
     #      動作モード     #
     #####################
-    SIMULATION = False         # 実機の時はFalse
+    SIMULATION = True         # 実機の時はFalse
     TEMPERATURE = False       # 色温度も制御するか
     CHECK_ATTENDANCE = True   # 在離席管理を行うか
     AUTO_ATTENDANCE_SETTING = False      # 在離席の自動設定を行うか
     SIMULATE_VOLTAGE_DISPLACEMENT = True    # Sekonicアナログ照度センサの電圧変位誤差をシミュレート
     CORRECT_SENSOR_DISPLACEMENT = True      # Sekonicアナログ照度センサの誤差を補正
-    ADD_OUTSIDE_LIGHT = False   # 外光データを加算するか
+    ADD_OUTSIDE_LIGHT = True   # 外光データを加算するか
 
     #####################
     #      ロガー設定     #
@@ -63,15 +63,15 @@ class INIT:
     # BACnet型 三菱LEDのデータ
     LIGHT_SIGNAL_MAX = [100, 100]            # 最大点灯信号値
     LIGHT_LUMINOSITY_MAX = [1280.0, 1280.0]  # 最大点灯光度 [cd] [1280]
-    LIGHT_SIGNAL_MIN = [10, 10]              # 最小点灯信号値[20]
-    LIGHT_LUMINOSITY_MIN = [128.0, 128.0]   # 最小点灯光度 [cd][248.0]
+    LIGHT_SIGNAL_MIN = [0, 10]              # 最小点灯信号値[20]
+    LIGHT_LUMINOSITY_MIN = [0.0, 128.0]   # 最小点灯光度 [cd][248.0]
     LIGHT_WAIT_SECOND = 5.0                  # 光度を変更してからの待機時間
 
     #####################
     # 最適化アルゴリズム設定 #
     #####################
     ALG_WEIGHT = 30
-    ALG_INITIAL_SIGNAL = 20     # 初期信号値
+    ALG_INITIAL_SIGNAL = 0     # 初期信号値 [20]
     ALG_ALLOWANCE_UPPER = 50  # 目標照度収束許容範囲上限（lx指定）[50lx]
     ALG_ALLOWANCE_LOWER = -0.0  # 目標照度収束許容範囲下限（％指定）[0.0]
 
