@@ -63,15 +63,15 @@ class INIT:
     # BACnet型 三菱LEDのデータ
     LIGHT_SIGNAL_MAX = [100, 100]            # 最大点灯信号値
     LIGHT_LUMINOSITY_MAX = [1280.0, 1280.0]  # 最大点灯光度 [cd] [1280]
-    LIGHT_SIGNAL_MIN = [0, 10]              # 最小点灯信号値[20]
-    LIGHT_LUMINOSITY_MIN = [0.0, 128.0]   # 最小点灯光度 [cd][248.0]
+    LIGHT_SIGNAL_MIN = [10, 10]              # 最小点灯信号値[20]
+    LIGHT_LUMINOSITY_MIN = [128.0, 128.0]   # 最小点灯光度 [cd][248.0]
     LIGHT_WAIT_SECOND = 5.0                  # 光度を変更してからの待機時間
 
     #####################
     # 最適化アルゴリズム設定 #
     #####################
     ALG_WEIGHT = 30
-    ALG_INITIAL_SIGNAL = 0     # 初期信号値 [20]
+    ALG_INITIAL_SIGNAL = 20     # 初期信号値 [20]
     ALG_ALLOWANCE_UPPER = 50  # 目標照度収束許容範囲上限（lx指定）[50lx]
     ALG_ALLOWANCE_LOWER = -0.0  # 目標照度収束許容範囲下限（％指定）[0.0]
 
