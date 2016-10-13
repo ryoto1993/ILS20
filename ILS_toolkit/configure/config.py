@@ -7,7 +7,7 @@ class INIT:
     #####################
     # シーケンシャル名は，ログファイルの格納ディレクトリの名前に含まれます．
     # 行うデモ/実験/シミュレーションの概要を簡潔に入力してください．
-    SEQUENCE_NAME = u"IEEJスマートファシリティ_8-J_全員在席_外光無_外乱なし_シミュレーション0005"
+    SEQUENCE_NAME = u"IEEJスマートファシリティ_8-J_DEBUG"
 
     #####################
     #      動作モード     #
@@ -55,6 +55,7 @@ class INIT:
     FILE_ATTENDANCE = "./configure/attendance.csv"
     FILE_AUTO_ATTENDANCE = "./configure/auto_attendance.csv"
     FILE_OUTSIDE_LIGHT = "./configure/dataSet/OutsideLight/03_外光データ_Oct.10, 1019-1740_晴時々曇.csv"
+    FILE_RANK = "./configure/dataset/Rank/island12_rank.csv"
     DIR_LOG = "../LOG/"
 
     #####################
@@ -70,7 +71,7 @@ class INIT:
     #####################
     # 最適化アルゴリズム設定 #
     #####################
-    ALG_WEIGHT = 30
+    ALG_WEIGHT = 300
     ALG_INITIAL_SIGNAL = 20     # 初期信号値 [20]
     ALG_ALLOWANCE_UPPER = 50  # 目標照度収束許容範囲上限（lx指定）[50lx]
     ALG_ALLOWANCE_LOWER = -0.0  # 目標照度収束許容範囲下限（％指定）[0.0]

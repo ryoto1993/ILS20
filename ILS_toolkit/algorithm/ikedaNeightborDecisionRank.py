@@ -8,7 +8,53 @@ from enum import Enum
 import random
 
 
-def decide_next_luminosity_ikeda7(ils):
+def calc_objective_function_rank(ils, next_flag):
+    u"""
+    全照明の目的関数を計算するメソッド
+    ANA/RC, ANA/DBなど，照度/光度影響度を使うアルゴリズムに適応
+
+    ★ペナルティ項のポリシー★
+    まず，照明とセンサが近接しているかを照度光度影響度で判断する．
+    閾値はINIT.ALG_RC_THRESHOLDで設定可能．
+    近接している場合…
+    ・現在照度が目標照度を上回っている場合
+    　　→ 目標照度の6%（最小知覚変動比）以上の場合に計上
+    ・現在照度が目標照度に達していない場合
+    　　→ 無条件に計上
+
+    :param ILS ils: ILS を引数に渡す
+    :param boolean next_flag: 次光度の目的関数を計算するかどうか
+    """
+    # ペナルティ項にかかる重み
+    w = INIT.ALG_WEIGHT
+
+    # 各照明ごとに目的関数を計算
+    for l_i, l in enumerate(ils.lights):
+        obj = ils.power_meter.power
+        penalty = 0.0
+
+        for s_i, s in enumerate(ils.sensors):
+            # ランクを取得
+            if s.rank[l_i] == "":
+                r = 0
+            else:
+                r = int(s.rank[l_i])
+            r = r if not (s.target*(1+INIT.ALG_ALLOWANCE_LOWER/100) <= s.illuminance <= s.target+INIT.ALG_ALLOWANCE_UPPER) else 0.0
+            r = r if s.attendance else 0.0  # 離席してる場合はペナルティ無し
+            # ペナルティ関数を計算
+            penalty += w * r * (s.illuminance - s.target)**2
+
+        obj += penalty
+
+        if next_flag:
+            l.next_objective_function = obj
+            l.next_objective_penalty = penalty
+        else:
+            l.objective_function = obj
+            l.objective_penalty = penalty
+
+
+def decide_next_luminosity_ikeda7_rank(ils):
     """
     池田さんの修論で使われている7近傍の方式です
     :param ils: 知的照明システムのオブジェクト
@@ -16,7 +62,7 @@ def decide_next_luminosity_ikeda7(ils):
     """
 
     # 各照明ごとに次光度を決定する手順を実行
-    for l in ils.lights:
+    for l_i, l in enumerate(ils.lights):
         neighbor_design = NeighborDesign.default
         neighbor_type = NeighborType7.default
         distance_rank = []
@@ -24,20 +70,17 @@ def decide_next_luminosity_ikeda7(ils):
         for i in range(len(ils.sensors)):
             distance_rank.append(DistanceRank7.default)
 
-        # 各センサに対する照度光度影響度を取得
-        influence = l.influence[:]
-
         for s_i, s in enumerate(ils.sensors):
             # 離席してるセンサの影響度は0にする
-            if not s.attendance:
-                influence[s_i] = 0.0
-
+            # todo: 離席同化する
             # センサの距離でランク付けする
-            if influence[s_i] > 0.21:
+            if not s.attendance:
+                ils.sensors[s_i].tmp_rank = DistanceRank7.noRank
+            elif s.rank[l_i] == "1":
                 ils.sensors[s_i].tmp_rank = DistanceRank7.rank1
-            elif influence[s_i] > 0.11:
+            elif s.rank[l_i] == "2":
                 ils.sensors[s_i].tmp_rank = DistanceRank7.rank2
-            elif influence[s_i] > 0.05:
+            elif s.rank[l_i] == "3":
                 ils.sensors[s_i].tmp_rank = DistanceRank7.rank3
             else:
                 ils.sensors[s_i].tmp_rank = DistanceRank7.noRank

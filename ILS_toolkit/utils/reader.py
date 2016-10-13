@@ -183,3 +183,13 @@ def sensor_attendance_auto_setting(ils):
     with open(INIT.FILE_ATTENDANCE, 'w') as f:
         writer = csv.writer(f, lineterminator='')
         writer.writerow(data)
+
+
+def sensor_rank_reader(ils):
+    u"""RANK法においてセンサのランク設定を読み込む"""
+    reader = csv.reader(open(INIT.FILE_RANK, "r"), delimiter=",", quotechar='"')
+    next(reader)
+
+    for i, row in enumerate(reader):
+        for l in range(len(ils.lights)):
+            ils.sensors[i].rank.append(row[l+1])

@@ -4,6 +4,7 @@ from ILS import *
 from utils.manualChanger import *
 from utils.dimmer import *
 from algorithm.ANAdb import *
+from algorithm.ANArank import *
 import time
 
 
@@ -53,7 +54,10 @@ if __name__ == "__main__":
                 ils.algorithm.next_step()
         # ANA/RANK
         elif state == 8:
-            pass
+            if type(ils.algorithm) != ANARANK:
+                ils.algorithm = ANARANK(ils)
+            else:
+                ils.algorithm.next_step()
         # matrix探索
         elif state == 9:
             pass
