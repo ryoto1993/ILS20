@@ -231,7 +231,6 @@ def decide_next_luminosity_ikeda7(ils):
     for l in ils.lights:
         l.luminosity = l.next_luminosity
         convert_to_signal(ils.lights)
-        convert_to_luminosity(ils.lights)   # 仮追記
 
 
 class NeighborType7(Enum):

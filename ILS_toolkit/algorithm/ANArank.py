@@ -5,11 +5,9 @@ from utils.dimmer import *
 from utils.reader import *
 from utils.simulation import *
 from algorithm.algorithmCommon import *
+from algorithm.ikedaNeightborDecisionRank import *
 from utils.logger import *
 from utils.printer import *
-from equipment.Sensor import *
-from utils.outsideLight import *
-from algorithm.ikedaNeightborDecisionRank import *
 
 
 class ANARANK:
@@ -32,6 +30,8 @@ class ANARANK:
 
     def start(self):
         u"""ANA/DBの初期化部分"""
+        # ランクを読み込む
+        sensor_rank_reader(self.ils)
         # 各照明に照度/光度影響度（DB）を読み込む
         influence_reader(self.ils.lights)
         # 照明に初期光度の信号値を設定
@@ -42,7 +42,10 @@ class ANARANK:
         else:
             dimming(self.ils.lights)
         # 現在照度値を取得
-        update_sensors(self.ils)
+        if INIT.SIMULATION:
+            calc_illuminance(self.ils)
+        else:
+            sensor_signal_reader(self.ils.sensors)
         # 目標照度を取得
         sensor_target_reader(self.ils.sensors)
         # 在離席を取得
@@ -57,11 +60,6 @@ class ANARANK:
         self.ils.logger.append_all_log(0, False)
         if not INIT.SIMULATION:
             self.ils.printer.info()
-        # 外光データ取得
-        if INIT.ADD_OUTSIDE_LIGHT:
-            read_outside_light_data()
-        # ランク取得
-        sensor_rank_reader(self.ils)
 
     def next_step(self):
         u"""この部分がANA/DBのループ"""
@@ -69,7 +67,10 @@ class ANARANK:
 
         # [1] 各照度センサと電力情報を取得
         # 現在照度値を取得
-        update_sensors(self.ils)
+        if INIT.SIMULATION:
+            calc_illuminance(self.ils)
+        else:
+            sensor_signal_reader(self.ils.sensors)
         # 電力情報を計算
         self.ils.power_meter.calc_power()
 
@@ -84,6 +85,7 @@ class ANARANK:
         # [3] 次の光度値を決定し，点灯
         # 次光度決定
         # decide_next_luminosity(self.ils)
+        # decide_next_luminosity_ikeda7(self.ils)
         decide_next_luminosity_ikeda7_rank(self.ils)
         # 次光度で点灯
         if INIT.SIMULATION:
@@ -92,12 +94,15 @@ class ANARANK:
             dimming(self.ils.lights)
         self.step += 1
 
-        if self.step % 100 == 0:
+        if self.step%100 == 0:
             print("Step " + str(self.step))
 
         # [4] 各照度センサと電力情報を取得
         # 現在照度値を取得
-        update_sensors(self.ils)
+        if INIT.SIMULATION:
+            calc_illuminance(self.ils)
+        else:
+            sensor_signal_reader(self.ils.sensors)
         # 電力情報を計算
         self.ils.power_meter.calc_power()
 

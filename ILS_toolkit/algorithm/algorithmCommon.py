@@ -64,6 +64,36 @@ def calc_objective_function_influence(ils, next_flag):
             l.objective_penalty = penalty
 
 
+def calc_objective_function_rank(ils, next_flag):
+    # ペナルティ項にかかる重み
+    w = INIT.ALG_WEIGHT
+
+    # 各照明ごとに目的関数を計算
+    for l_i, l in enumerate(ils.lights):
+        obj = ils.power_meter.power
+        penalty = 0.0
+
+        for s_i, s in enumerate(ils.sensors):
+            # ランクを取得
+            if s.rank[l_i] == "":
+                r = 0
+            else:
+                r = float(s.rank[l_i])
+            r = r if s.attendance else 0.0  # 離席してる場合はペナルティ無し
+            r = r if not (s.target*(1+INIT.ALG_ALLOWANCE_LOWER/100) <= s.illuminance <= s.target+INIT.ALG_ALLOWANCE_UPPER) else 0.0
+            # ペナルティ関数を計算
+            penalty += w * r * (s.illuminance - s.target)**2
+
+        obj += penalty
+
+        if next_flag:
+            l.next_objective_function = obj
+            l.next_objective_penalty = penalty
+        else:
+            l.objective_function = obj
+            l.objective_penalty = penalty
+
+
 def decide_next_luminosity(ils):
     # 各照明ごとに次光度を決定
     for l in ils.lights:
