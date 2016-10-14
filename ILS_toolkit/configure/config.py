@@ -12,7 +12,7 @@ class INIT:
     #####################
     #      動作モード     #
     #####################
-    SIMULATION = True         # 実機の時はFalse
+    SIMULATION = False         # 実機の時はFalse
     TEMPERATURE = False       # 色温度も制御するか
     CHECK_ATTENDANCE = True   # 在離席管理を行うか
     AUTO_ATTENDANCE_SETTING = False      # 在離席の自動設定を行うか
@@ -34,12 +34,12 @@ class INIT:
     #####################
     #  機器情報ファイルパス #
     #####################
-    FILE_CD_INFO = "C:/Users/light/Desktop/isdl_20th/bacnet_interface/cdinfo.txt"
-    FILE_SENSOR_INFO = "../sekonicAnalog/sensor.txt"
+    # FILE_CD_INFO = "C:/Users/light/Desktop/isdl_20th/bacnet_interface/cdinfo.txt"
+    # FILE_SENSOR_INFO = "../sekonicAnalog/sensor.txt"
 
     # for debug
-    # FILE_CD_INFO = "../test_data/cdinfo.txt"
-    # FILE_SENSOR_INFO = "../test_data/sensor.txt"
+    FILE_CD_INFO = "../test_data/cdinfo.txt"
+    FILE_SENSOR_INFO = "../test_data/sensor.txt"
 
     #####################
     #   ファイルパス設定   #

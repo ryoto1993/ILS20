@@ -67,10 +67,7 @@ class ANARANK:
 
         # [1] 各照度センサと電力情報を取得
         # 現在照度値を取得
-        if INIT.SIMULATION:
-            calc_illuminance(self.ils)
-        else:
-            sensor_signal_reader(self.ils.sensors)
+        update_sensors(self.ils)
         # 電力情報を計算
         self.ils.power_meter.calc_power()
 
@@ -99,10 +96,7 @@ class ANARANK:
 
         # [4] 各照度センサと電力情報を取得
         # 現在照度値を取得
-        if INIT.SIMULATION:
-            calc_illuminance(self.ils)
-        else:
-            sensor_signal_reader(self.ils.sensors)
+        update_sensors(self.ils)
         # 電力情報を計算
         self.ils.power_meter.calc_power()
 
