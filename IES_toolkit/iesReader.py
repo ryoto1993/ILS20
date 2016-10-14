@@ -2,7 +2,7 @@
 
 import csv
 import math
-from IES_toolkit.config import *
+from IES_toolkit.ies_config import *
 
 
 class IESreader:

@@ -58,6 +58,9 @@ class ANADB:
         self.ils.logger.append_all_log(0, False)
         if not INIT.SIMULATION:
             self.ils.printer.info()
+        # 外光取得
+        if INIT.ADD_OUTSIDE_LIGHT:
+            read_outside_light_data()
 
     def next_step(self):
         u"""この部分がANA/DBのループ"""
@@ -65,10 +68,7 @@ class ANADB:
 
         # [1] 各照度センサと電力情報を取得
         # 現在照度値を取得
-        if INIT.SIMULATION:
-            calc_illuminance(self.ils)
-        else:
-            sensor_signal_reader(self.ils.sensors)
+        update_sensors(self.ils)
         # 電力情報を計算
         self.ils.power_meter.calc_power()
 
@@ -96,10 +96,7 @@ class ANADB:
 
         # [4] 各照度センサと電力情報を取得
         # 現在照度値を取得
-        if INIT.SIMULATION:
-            calc_illuminance(self.ils)
-        else:
-            sensor_signal_reader(self.ils.sensors)
+        update_sensors(self.ils)
         # 電力情報を計算
         self.ils.power_meter.calc_power()
 
