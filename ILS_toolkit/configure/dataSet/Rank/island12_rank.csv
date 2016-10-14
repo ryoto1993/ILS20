@@ -1,0 +1,13 @@
+,Light1,Light2,Light3,Light4,Light5,Light6,Light7,Light8,Light9,Light10,Light11,Light12
+Sensor1,1,2,,2,3,,,,,,,
+Sensor2,2,1,3,,2,,,,,,,
+Sensor3,,2,1,,3,2,,,,,,
+Sensor4,2,3,,1,2,,3,,,,,
+Sensor5,,2,,2,1,3,,3,,,,
+Sensor6,,3,2,,2,1,,,3,,,
+Sensor7,,,,3,,,1,2,,2,3,
+Sensor8,,,,,3,,2,1,3,,2,
+Sensor9,,,,,,3,,2,1,,3,2
+Sensor10,,,,,,,2,3,,1,2,
+Sensor11,,,,,,,,2,,2,1,3
+Sensor12,,,,,,,,3,2,,2,1

@@ -24,6 +24,8 @@ class Sensor:
         self.correction_factor = 0.0
         # ランクぎめの一時変数
         self.tmp_rank = DistanceRank7.default
+        # ランク法のランク
+        self.rank = []
 
     def __str__(self):
         return "Sensor" + str(self.id)
