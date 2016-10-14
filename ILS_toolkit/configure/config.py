@@ -53,7 +53,7 @@ class INIT:
     FILE_SENSOR_CORRECTION = "../sekonicAnalog/correction_factor.txt"
     FILE_ATTENDANCE = "./configure/attendance.csv"
     FILE_AUTO_ATTENDANCE = "./configure/auto_attendance.csv"
-    FILE_OUTSIDE_LIGHT = "./configure/"
+    FILE_OUTSIDE_LIGHT = "./configure/dataSet/OutsideLight/03_外光データ_Oct.10, 1019-1740_晴時々曇.csv"
     FILE_RANK = "./configure/dataSet/Rank/island12_rank.csv"
     DIR_LOG = "../LOG/"
 
