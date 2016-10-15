@@ -29,6 +29,8 @@ class INIT:
     LOGGER_POWER = True        # 消費電力履歴を出力
     LOGGER_OBJECTIVE_FUNCTION = True  # 目的関数を出力
     LOGGER_NEIGHBOR = True     # 近傍選択を出力
+    LOGGER_TARGET = True
+    LOGGER_ATTENDANCE = True
     LOGGER_CUSTOM = True       # カスタムログを出力
     LOGGER_CUSTOM_FILE = "./configure/customLog.txt"  # カスタムログの設定ファイル
 

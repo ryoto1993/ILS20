@@ -2,12 +2,11 @@ import time
 import csv
 from ILS import *
 from utils.reader import *
+from equipment.Sensor import *
 
 if __name__ == "__main__":
     # ILS作成
     ils = ILS()
-    print(len(ils.sensors))
-    print(len(ils.lights))
     influence_reader(ils.lights)
 
     # reader

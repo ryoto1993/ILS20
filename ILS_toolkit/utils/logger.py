@@ -60,12 +60,16 @@ class Logger:
         if INIT.LOGGER_POWER:
             self.make_power_log()
         # 目的関数を作成
+        if INIT.LOGGER_OBJECTIVE_FUNCTION:
             self.make_objective_function_log()
         # 近傍選択を作成
-
+        if INIT.LOGGER_NEIGHBOR:
+            pass
         # 目標照度履歴を作成
+        if INIT.LOGGER_TARGET:
             self.make_target_illuminance_log()
         # 在離席履歴を作成
+        if INIT.LOGGER_ATTENDANCE:
             self.make_attendance_log()
         # カスタムログを作成
 
