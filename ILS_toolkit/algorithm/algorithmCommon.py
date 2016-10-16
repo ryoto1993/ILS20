@@ -1,7 +1,8 @@
 # coding: utf-8
 
-from utils.manualChanger import *
-from configure.config import *
+from configure.config import INIT
+from utils import signalConverter
+
 from enum import Enum
 import random
 
@@ -95,9 +96,6 @@ def decide_next_luminosity_3type(ils):
 
         # センサの距離をチェックする
         for s_i, s in enumerate(ils.sensors):
-            distance = Distance
-            comparing = Comparing
-
             if influence[s_i] > 0.17:
                 distance = Distance.near
             elif influence[s_i] > 0.07:
@@ -169,7 +167,7 @@ def decide_next_luminosity_3type(ils):
 
     for l in ils.lights:
         l.luminosity = l.next_luminosity
-        convert_to_signal(ils.lights)
+        signalConverter.convert_to_signal(ils.lights)
 
 
 class NeighborType(Enum):
