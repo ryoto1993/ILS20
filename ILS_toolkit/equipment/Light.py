@@ -1,6 +1,6 @@
 # coding:utf-8
 
-from configure.config import *
+from configure.config import INIT
 
 
 class Light:
