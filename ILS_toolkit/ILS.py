@@ -1,8 +1,7 @@
 # coding: utf-8
 
-from equipment.PowerMeter import *
-from algorithm.ANAdb import *
-from utils.logger import *
+from equipment import PowerMeter
+from utils.reader import lights_config_reader, sensors_config_reader
 
 
 class ILS:

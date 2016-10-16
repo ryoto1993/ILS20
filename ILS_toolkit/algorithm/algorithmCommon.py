@@ -6,20 +6,6 @@ from enum import Enum
 import random
 
 
-def update_config(ils):
-    u"""
-    ステップごとに目標照度と在離席を更新
-    """
-    # 目標照度を取得
-    sensor_target_reader(ils.sensors)
-    # 在離席を自動設定
-    if INIT.AUTO_ATTENDANCE_SETTING:
-        sensor_attendance_auto_setting(ils)
-    # 在離席を取得
-    if INIT.CHECK_ATTENDANCE:
-        sensor_attendance_reader(ils.sensors)
-
-
 def calc_objective_function_influence(ils, next_flag):
     u"""
     全照明の目的関数を計算するメソッド
@@ -94,7 +80,7 @@ def calc_objective_function_rank(ils, next_flag):
             l.objective_penalty = penalty
 
 
-def decide_next_luminosity(ils):
+def decide_next_luminosity_3type(ils):
     # 各照明ごとに次光度を決定
     for l in ils.lights:
         neighbor = NeighborType.default

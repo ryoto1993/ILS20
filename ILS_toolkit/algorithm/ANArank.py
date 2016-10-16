@@ -1,13 +1,12 @@
 # coding: utf-8
 
-from utils.manualChanger import *
-from utils.dimmer import *
-from utils.reader import *
-from utils.simulation import *
-from algorithm.algorithmCommon import *
-from algorithm.ikedaNeightborDecisionRank import *
-from utils.logger import *
-from utils.printer import *
+from configure.config import INIT
+from utils import reader, manualChanger, dimmer, simulation
+from utils.logger import Logger
+from utils.printer import Printer
+from equipment.Sensor import update_sensors
+from algorithm.algorithmCommon import calc_objective_function_rank
+from algorithm.ikedaNeightborDecisionRank import decide_next_luminosity_ikeda7_rank
 
 
 class ANARANK:
@@ -31,26 +30,26 @@ class ANARANK:
     def start(self):
         u"""ANA/DBの初期化部分"""
         # ランクを読み込む
-        sensor_rank_reader(self.ils)
+        reader.sensor_rank_reader(self.ils)
         # 各照明に照度/光度影響度（DB）を読み込む
-        influence_reader(self.ils.lights)
+        reader.influence_reader(self.ils.lights)
         # 照明に初期光度の信号値を設定
-        change_manually(self.ils.lights, INIT.ALG_INITIAL_SIGNAL)
+        manualChanger.change_manually(self.ils.lights, INIT.ALG_INITIAL_SIGNAL)
         # 設定した信号値で点灯
         if INIT.SIMULATION:
             pass
         else:
-            dimming(self.ils.lights)
+            dimmer.dimming(self.ils.lights)
         # 現在照度値を取得
         if INIT.SIMULATION:
-            calc_illuminance(self.ils)
+            simulation.calc_illuminance(self.ils)
         else:
-            sensor_signal_reader(self.ils.sensors)
+            reader.sensor_signal_reader(self.ils.sensors)
         # 目標照度を取得
-        sensor_target_reader(self.ils.sensors)
+        reader.sensor_target_reader(self.ils.sensors)
         # 在離席を取得
         if INIT.CHECK_ATTENDANCE:
-            sensor_attendance_reader(self.ils.sensors)
+            reader.sensor_attendance_reader(self.ils.sensors)
         # ロガー生成
         self.ils.logger = Logger(self.ils)
         # プリンター生成（実環境時のみ）
@@ -62,11 +61,11 @@ class ANARANK:
             self.ils.printer.info()
         # 外光取得
         if INIT.ADD_OUTSIDE_LIGHT:
-            read_outside_light_data()
+            reader.read_outside_light_data()
 
     def next_step(self):
         u"""この部分がANA/DBのループ"""
-        update_config(self.ils)
+        reader.update_config(self.ils)
 
         # [1] 各照度センサと電力情報を取得
         # 現在照度値を取得
@@ -91,7 +90,7 @@ class ANARANK:
         if INIT.SIMULATION:
             pass
         else:
-            dimming(self.ils.lights)
+            dimmer.dimming(self.ils.lights)
         self.step += 1
 
         if self.step%100 == 0:
@@ -119,7 +118,7 @@ class ANARANK:
         if INIT.SIMULATION:
             pass
         else:
-            dimming(self.ils.lights)
+            dimmer.dimming(self.ils.lights)
         self.step += 1
 
         if self.step%100 == 0:
