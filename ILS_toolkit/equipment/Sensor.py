@@ -3,7 +3,7 @@
 from configure.config import INIT
 from utils import reader, simulation
 from algorithm.ikedaNeightborDecision import DistanceRank7
-from equipment import OutsideLight
+from equipment.OutsideLight import OutsideLight
 
 
 class Sensor:

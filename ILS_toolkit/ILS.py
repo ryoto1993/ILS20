@@ -1,6 +1,6 @@
 # coding: utf-8
 
-from equipment import PowerMeter
+from equipment.PowerMeter import PowerMeter
 from utils.reader import lights_config_reader, sensors_config_reader
 
 
