@@ -1,10 +1,9 @@
 # coding: utf-8
 
-from utils.reader import *
-from utils.signalConverter import *
 import time
 
-# TODO: 信号値から消費電力を計算するやつつくれ
+from configure.config import INIT
+from utils import reader, signalConverter
 
 
 def change_to_max(lights):
@@ -43,7 +42,7 @@ def change_to_zero(lights):
 
 def change_to_fixed_pattern(lights):
     u"""LIGHT_PATTERN_FILEで定義した点灯パターンの信号値に切り替えるメソッド"""
-    pattern = light_pattern_reader()
+    pattern = reader.light_pattern_reader()
 
     if not len(pattern[0]) == len(lights[0].signals):
         print("Error, pattern config file isn't match to number of light signals.")
@@ -65,4 +64,4 @@ def change_manually(lights, sig):
         else:
             l.signals[0] = sig
 
-    convert_to_luminosity(lights)
+    signalConverter.convert_to_luminosity(lights)
