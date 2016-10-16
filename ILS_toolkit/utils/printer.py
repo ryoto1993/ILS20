@@ -1,8 +1,5 @@
 # coding: utf-8
 
-from ILS import *
-from algorithm.algorithmCommon import *
-
 
 class Printer:
     def __init__(self, ils):
@@ -11,7 +8,6 @@ class Printer:
         print("Printer created.")
 
     def info(self):
-        step = 0
         if not self.ils.algorithm:
             step = 0
         else:
