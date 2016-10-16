@@ -1,6 +1,7 @@
 # coding: utf-8
 
 import csv
+import os
 
 from configure.config import INIT
 from ILS import ILS
@@ -27,8 +28,10 @@ def simulate():
     for d in range(1, days+1):
         # 1日の処理を記述
         data_path = path + "/ptn (" + str(d) + ").csv"
-
         print("------ Day " + str(d) + " ---------------------")
+
+        # 1日のサマリーを作成
+        make_summary(ils, d)
 
         # 在離席パターン読み込み
         reader = csv.reader(open(data_path, "r"), delimiter=",", quotechar='"')
@@ -57,11 +60,11 @@ def simulate():
             for l in range(loop):
                 ils.algorithm.next_step()
             # 最終状態の電力情報とセンサ情報をアップデート
-            # 現在照度値を取得
-            update_sensors(self.ils)
-            # 電力情報を計算
-            self.ils.power_meter.calc_power()
+            update_sensors(ils)  # 現在照度値を取得
+            calc_power()         # 電力情報を計算
 
+            # サマリーに追記
+            append_summary(ils, d, h)
     exit(0)
 
 
@@ -80,4 +83,87 @@ def force_config():
     INIT.CHECK_ATTENDANCE = False  # <- このプログラム内で切り替えるためOFFに！
     INIT.AUTO_ATTENDANCE_SETTING = False
     INIT.SIMULATE_VOLTAGE_DISPLACEMENT = False
-    INIT.DIR_LOG = "./experiments/1日シミュレータのLOG/"
+    INIT.DIR_LOG = "./experiments/1日シミュレータ/LOG/"
+
+
+def make_summary(ils, d):
+    summary_path = "./experiments/1日シミュレータ/SUMMARY/day" + str(d) + "/"
+    os.mkdir(summary_path)
+
+    ill_f = open(summary_path + "01_illuminance.csv", 'w')
+    lum_f = open(summary_path + "02_luminosity.csv", 'w')
+    pow_f = open(summary_path + "03_power.csv", 'w')
+    sig_f = open(summary_path + "04_signal.csv", 'w')
+    cnv_f = open(summary_path + "05_convergence.csv", 'w')
+
+    ill_w = csv.writer(ill_f, lineterminator='\n')
+    lum_w = csv.writer(lum_f, lineterminator='\n')
+    pow_w = csv.writer(pow_f, lineterminator='\n')
+    sig_w = csv.writer(sig_f, lineterminator='\n')
+    cnv_w = csv.writer(cnv_f, lineterminator='\n')
+
+    row = ["Hour"]
+    for s in ils.sensors:
+        row.append(str(s))
+    ill_w.writerow(row)
+    row = ["Hour"]
+    for l in ils.lights:
+        row.append(str(l))
+    lum_w.writerow(row)
+    row = ["Hour", "lum_sum[cd]", "Power[w]"]
+    pow_w.writerow(row)
+    row = ["Hour"]
+    for l in ils.lights:
+        row.append(str(l))
+    sig_w.writerow(row)
+    row = ["Hour"]
+    for s in ils.sensors:
+        row.append(str(s))
+    cnv_w.writerow(row)
+
+    ill_f.close()
+    lum_f.close()
+    pow_f.close()
+    sig_f.close()
+    cnv_f.close()
+
+
+def append_summary(ils, d, h):
+    summary_path = "./experiments/1日シミュレータ/SUMMARY/day" + str(d) + "/"
+
+    ill_f = open(summary_path + "01_illuminance.csv", 'a')
+    lum_f = open(summary_path + "02_luminosity.csv", 'a')
+    pow_f = open(summary_path + "03_power.csv", 'a')
+    sig_f = open(summary_path + "04_signal.csv", 'a')
+    cnv_f = open(summary_path + "05_convergence.csv", 'a')
+
+    ill_w = csv.writer(ill_f, lineterminator='\n')
+    lum_w = csv.writer(lum_f, lineterminator='\n')
+    pow_w = csv.writer(pow_f, lineterminator='\n')
+    sig_w = csv.writer(sig_f, lineterminator='\n')
+    cnv_w = csv.writer(cnv_f, lineterminator='\n')
+
+    row = [str(h)]
+    for s in ils.sensors:
+        row.append(str(int(s.illuminance)))
+    ill_w.writerow(row)
+    row = [str(h)]
+    for l in ils.lights:
+        row.append(str(int.l.luminosity))
+    lum_w.writerow(row)
+    row = [str(h), str(int(ils.power_meter.power)), str(int(ils.power_meter.actual_power))]
+    pow_w.writerow(row)
+    row = [str(h)]
+    for l in ils.lights:
+        row.append(str(l))
+    sig_w.writerow(row)
+    row = [str(h)]
+    for s in ils.sensors:
+        row.append(str(s))
+    cnv_w.writerow(row)
+
+    ill_f.close()
+    lum_f.close()
+    pow_f.close()
+    sig_f.close()
+    cnv_f.close()

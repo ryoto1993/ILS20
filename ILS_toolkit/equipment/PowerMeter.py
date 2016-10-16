@@ -7,8 +7,8 @@ class PowerMeter:
     """
     def __init__(self, lights):
         self.lights = lights
-        self.power = 0
-        self.actual_power = 0
+        self.power = 0         # cd（光度値）の合計
+        self.actual_power = 0  # ワット値
 
 
 def calc_power(self):
