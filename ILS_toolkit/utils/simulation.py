@@ -1,11 +1,9 @@
 # coding: utf-8
 
-from equipment.Light import *
-from equipment.Sensor import *
-from equipment.PowerMeter import *
-from configure.config import *
 import random
 import math
+
+from configure.config import INIT
 
 
 def calc_illuminance(ils):
