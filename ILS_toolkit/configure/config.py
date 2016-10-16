@@ -18,7 +18,7 @@ class INIT:
     AUTO_ATTENDANCE_SETTING = False      # 在離席の自動設定を行うか
     SIMULATE_VOLTAGE_DISPLACEMENT = False    # Sekonicアナログ照度センサの電圧変位誤差をシミュレート
     CORRECT_SENSOR_DISPLACEMENT = True      # Sekonicアナログ照度センサの誤差を補正　
-    ADD_OUTSIDE_LIGHT = True   # 外光加算機能を使用するか
+    ADD_OUTSIDE_LIGHT = False   # 外光加算機能を使用するか
 
     #####################
     #      ロガー設定     #

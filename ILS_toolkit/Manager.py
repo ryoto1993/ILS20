@@ -1,13 +1,14 @@
 # coding: utf-8
 
-from utils import manualChanger
-from utils import dimmer
-from utils.reader import state_reader
+import time
+
+import ILS
 from algorithm.ANAdb import ANADB
 from algorithm.ANArank import ANARANK
-import time
-import ILS
-
+from experiments import DaySimulator
+from utils import dimmer
+from utils import manualChanger
+from utils.reader import state_reader
 
 if __name__ == "__main__":
     u"""ILSの動作をコントロールするメインモジュール"""
@@ -65,3 +66,6 @@ if __name__ == "__main__":
         # 数理計画法
         elif state == 10:
             pass
+        # 1日のシミュレータ
+        elif state == 50:
+            DaySimulator.simulate()
