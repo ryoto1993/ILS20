@@ -4,7 +4,8 @@ import os
 import datetime
 import codecs
 import csv
-from configure.config import *
+
+from configure.config import INIT
 
 
 class Logger:
