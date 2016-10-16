@@ -1,7 +1,8 @@
 # coding: utf-8
 
-from configure.config import *
 import time
+
+from configure.config import INIT
 
 
 def dimming(lights):
@@ -19,7 +20,7 @@ def dimming(lights):
         except PermissionError:
             print("permission error")
             pass
-    f.write(cdinfo)
-    f.close()
+        f.write(cdinfo)
+        f.close()
 
     time.sleep(INIT.LIGHT_WAIT_SECOND)
