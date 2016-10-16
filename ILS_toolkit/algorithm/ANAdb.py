@@ -90,7 +90,7 @@ class ANADB:
             dimmer.dimming(self.ils.lights)
         self.step += 1
 
-        if self.step%100 == 0:
+        if self.step % 100 == 0:
             print("Step " + str(self.step))
 
         # [4] 各照度センサと電力情報を取得
@@ -118,5 +118,5 @@ class ANADB:
             dimmer.dimming(self.ils.lights)
         self.step += 1
 
-        if self.step%100 == 0:
+        if self.step % 100 == 0:
             print("Step " + str(self.step))
