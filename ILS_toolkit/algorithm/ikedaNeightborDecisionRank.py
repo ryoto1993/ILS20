@@ -1,11 +1,10 @@
 # coding: utf-8
 
-
-from utils.manualChanger import *
-from configure.config import *
-from utils.signalConverter import *
 from enum import Enum
 import random
+
+from configure.config import INIT
+from utils import signalConverter
 
 
 def decide_next_luminosity_ikeda7_rank(ils):
@@ -17,16 +16,12 @@ def decide_next_luminosity_ikeda7_rank(ils):
 
     # 各照明ごとに次光度を決定する手順を実行
     for l_i, l in enumerate(ils.lights):
-        neighbor_design = NeighborDesign.default
         neighbor_type = NeighborType7.default
         distance_rank = []
-        use_rank = DistanceRank7.default   # ランクテーブルを参照する際に用いるランク
         for i in range(len(ils.sensors)):
             distance_rank.append(DistanceRank7.default)
 
         # 各センサに対する照度光度影響度を取得
-        influence = l.influence[:]
-
         for s_i, s in enumerate(ils.sensors):
             # センサの距離でランク付けする
             if not s.attendance:
@@ -228,7 +223,7 @@ def decide_next_luminosity_ikeda7_rank(ils):
 
     for l in ils.lights:
         l.luminosity = l.next_luminosity
-        convert_to_signal(ils.lights)
+        signalConverter.convert_to_signal(ils.lights)
 
 
 class NeighborType7(Enum):
