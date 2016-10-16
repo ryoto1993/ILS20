@@ -1,9 +1,9 @@
 # coding: utf-8
 
+from configure.config import INIT
+from utils import reader, simulation
 from algorithm.ikedaNeightborDecision import DistanceRank7
-from utils.simulation import *
-from equipment.OutsideLight import *
-import utils.reader
+from equipment import OutsideLight
 
 
 class Sensor:
@@ -36,9 +36,9 @@ class Sensor:
 
 def update_sensors(ils):
     if INIT.SIMULATION:
-        calc_illuminance(ils)
+        simulation.calc_illuminance(ils)
     else:
-        utils.reader.sensor_signal_reader(ils.sensors)
+        reader.sensor_signal_reader(ils.sensors)
 
     # 外光データの外光照度を加算
     if INIT.ADD_OUTSIDE_LIGHT and ils.algorithm:
