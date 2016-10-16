@@ -1,10 +1,10 @@
 # coding: utf-8
 
-from configure.config import INIT
-from utils import signalConverter
-
 from enum import Enum
 import random
+
+from configure.config import INIT
+from utils import signalConverter
 
 
 def calc_objective_function_influence(ils, next_flag):

@@ -3,8 +3,10 @@
 import re
 import csv
 
-from equipment.Light import *
-from equipment.Sensor import *
+from configure.config import INIT
+from equipment.Sensor import Sensor
+from equipment.Light import Light
+from equipment.OutsideLight import OutsideLight
 
 
 ##########################
@@ -80,6 +82,7 @@ def update_config(ils):
     # 在離席を取得
     if INIT.CHECK_ATTENDANCE:
         sensor_attendance_reader(ils.sensors)
+
 
 ##########################
 #         Light系         #
@@ -204,3 +207,14 @@ def sensor_rank_reader(ils):
     for i, row in enumerate(reader):
         for l in range(len(ils.lights)):
             ils.sensors[i].rank.append(row[l+1])
+
+
+##########################
+#     Outside Light系     #
+##########################
+def read_outside_light_data():
+    file = open(INIT.FILE_OUTSIDE_LIGHT, 'r')
+    c = csv.reader(file)
+    for row in c:
+        OutsideLight.data.append(row)
+    file.close()
