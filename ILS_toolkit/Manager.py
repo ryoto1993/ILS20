@@ -1,11 +1,12 @@
 # coding: utf-8
 
-from ILS import *
-from utils.manualChanger import *
-from utils.dimmer import *
-from algorithm.ANAdb import *
-from algorithm.ANArank import *
+from utils import manualChanger
+from utils import dimmer
+from utils.reader import state_reader
+from algorithm.ANAdb import ANADB
+from algorithm.ANArank import ANARANK
 import time
+import ILS
 
 
 if __name__ == "__main__":
@@ -13,7 +14,7 @@ if __name__ == "__main__":
 
     print("Intelligent Lighting System ver.20th")
 
-    ils = ILS()
+    ils = ILS.ILS()
 
     while True:
         # state.txtから状態を取ってくるよ
@@ -21,20 +22,20 @@ if __name__ == "__main__":
 
         # 消灯
         if state == 0:
-            change_to_zero(ils.lights)
-            dimming(ils.lights)
+            manualChanger.change_to_zero(ils.lights)
+            dimmer.dimming(ils.lights)
         # 点灯（fixed_pattern.csv）
         elif state == 1:
-            change_to_fixed_pattern(ils.lights)
-            dimming(ils.lights)
+            manualChanger.change_to_fixed_pattern(ils.lights)
+            dimmer.dimming(ils.lights)
         # 最小点灯
         elif state == 2:
-            change_to_min(ils.lights)
-            dimming(ils.lights)
+            manualChanger.change_to_min(ils.lights)
+            dimmer.dimming(ils.lights)
         # 最大点灯
         elif state == 3:
-            change_to_max(ils.lights)
-            dimming(ils.lights)
+            manualChanger.change_to_max(ils.lights)
+            dimmer.dimming(ils.lights)
         # 知的照明システム一時停止
         elif state == 4:
             time.sleep(0.1)

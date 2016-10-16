@@ -1,11 +1,12 @@
 import time
 import csv
-from configure.config import *
 from ILS import *
+from configure.config import *
 
 if __name__ == "__main__":
     # ILS作成
     ils = ILS()
+    SIMULATION = False
     INIT.LOGGER_ILLUMINANCE = True  # 照度履歴を出力
     INIT.LOGGER_LUMINOSITY = False  # 光度履歴を出力
     INIT.LOGGER_LUMINOSITY_SIGNAL = False  # 信号値履歴を出力
@@ -15,7 +16,7 @@ if __name__ == "__main__":
     INIT.LOGGER_TARGET = False
     INIT.LOGGER_ATTENDANCE = False
     INIT.LOGGER_CUSTOM = False  # カスタムログを出力
-    ils.logger = Logger()
+    ils.logger = Logger(ils)
 
     reader = csv.reader(open("rand.csv", "r"), delimiter=",", quotechar='"')
     data = []
@@ -25,8 +26,18 @@ if __name__ == "__main__":
         for s in range(12):
             data[index].append(i[s])
 
+    # ファイル作成
+    file_path = "actual_sensor.txt"
+    fa = open(file_path, 'w')
+    w = csv.writer(fa, lineterminator='\n')
+    fa.close()
+
+    fa = open(file_path, 'a')
+    w = csv.writer(fa, lineterminator='\n')
+
     for t in range(100):
         cdinfo = ""
+        line = []
         for s in range(12):
             cdinfo += (str(data[t][s]) + ",0,")
 
@@ -45,3 +56,11 @@ if __name__ == "__main__":
         f.close()
 
         time.sleep(10.0)
+
+        update_sensors(ils)
+
+        for s in ils.sensors:
+            line.append(int(s.illuminance))
+        w.writerow(line)
+
+    fa.close()

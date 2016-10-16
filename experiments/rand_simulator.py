@@ -3,9 +3,11 @@ import csv
 from ILS import *
 from utils.reader import *
 from equipment.Sensor import *
+from configure.config import *
 
 if __name__ == "__main__":
     # ILS作成
+    INIT.SIMULATION = True
     ils = ILS()
     influence_reader(ils.lights)
 
