@@ -9,17 +9,19 @@ from algorithm.ANArank import ANARANK
 from equipment.Sensor import Sensor
 from equipment.Light import Light
 from equipment.Sensor import update_sensors
-from equipment.PowerMeter import calc_power
+
+
+par_path = u"./experiments/1日シミュレータ（60）/"
 
 
 def simulate():
     # ################### #
     #       実験用設定      #
     # ################### #
-    days = 20       # <- 何日分のシミュレーションを行うか（その分の"ptn (xx).csv"を用意してね）
+    days = 1       # <- 何日分のシミュレーションを行うか（その分の"ptn (xx).csv"を用意してね）
     start_hr = 9    # <- 1日の開始時刻（終了時刻は在離席ファイルの行数に依存）
     loop = 400      # <- ステップ数ではなくループ数，400とすると800ステップになる
-    path = u"./experiments/d平均在席率3パターン_名前変更/平均在席率30%"
+    path = u"./experiments/d平均在席率3パターン/平均在席率60%"
     # ################### #
 
     force_config()
@@ -30,6 +32,11 @@ def simulate():
         data_path = path + "/ptn (" + str(d) + ").csv"
         print("------ Day " + str(d) + " ---------------------")
 
+        # センサ番号と照明番号のリセット（ログ用）
+        Sensor.id = 1
+        Light.id = 1
+        # ILS初期化
+        ils = ILS()
         # 1日のサマリーを作成
         make_summary(ils, d)
 
@@ -61,7 +68,7 @@ def simulate():
                 ils.algorithm.next_step()
             # 最終状態の電力情報とセンサ情報をアップデート
             update_sensors(ils)  # 現在照度値を取得
-            calc_power()         # 電力情報を計算
+            ils.power_meter.calc_power()         # 電力情報を計算
 
             # サマリーに追記
             append_summary(ils, d, h)
@@ -83,11 +90,11 @@ def force_config():
     INIT.CHECK_ATTENDANCE = False  # <- このプログラム内で切り替えるためOFFに！
     INIT.AUTO_ATTENDANCE_SETTING = False
     INIT.SIMULATE_VOLTAGE_DISPLACEMENT = False
-    INIT.DIR_LOG = "./experiments/1日シミュレータ/LOG/"
+    INIT.DIR_LOG = par_path + "LOG/"
 
 
 def make_summary(ils, d):
-    summary_path = "./experiments/1日シミュレータ/SUMMARY/day" + str(d) + "/"
+    summary_path = par_path + "SUMMARY/day" + str(d) + "/"
     os.mkdir(summary_path)
 
     ill_f = open(summary_path + "01_illuminance.csv", 'w')
@@ -129,7 +136,7 @@ def make_summary(ils, d):
 
 
 def append_summary(ils, d, h):
-    summary_path = "./experiments/1日シミュレータ/SUMMARY/day" + str(d) + "/"
+    summary_path = par_path + "SUMMARY/day" + str(d) + "/"
 
     ill_f = open(summary_path + "01_illuminance.csv", 'a')
     lum_f = open(summary_path + "02_luminosity.csv", 'a')
@@ -149,17 +156,17 @@ def append_summary(ils, d, h):
     ill_w.writerow(row)
     row = [str(h)]
     for l in ils.lights:
-        row.append(str(int.l.luminosity))
+        row.append(str(int(l.luminosity)))
     lum_w.writerow(row)
     row = [str(h), str(int(ils.power_meter.power)), str(int(ils.power_meter.actual_power))]
     pow_w.writerow(row)
     row = [str(h)]
     for l in ils.lights:
-        row.append(str(l))
+        row.append(str(l.signals[0]))
     sig_w.writerow(row)
     row = [str(h)]
     for s in ils.sensors:
-        row.append(str(s))
+        row.append(str(s.convergence))
     cnv_w.writerow(row)
 
     ill_f.close()
