@@ -10,20 +10,22 @@ from equipment.Sensor import Sensor
 from equipment.Light import Light
 from equipment.Sensor import update_sensors
 
+# ################### #
+#       実験用設定      #
+# ################### #
+days = 1       # <- 何日分のシミュレーションを行うか（その分の"ptn (xx).csv"を用意してね）
+start_hr = 9    # <- 1日の開始時刻（終了時刻は在離席ファイルの行数に依存）
+loop = 400      # <- ステップ数ではなくループ数，400とすると800ステップになる
+path = u"./experiments/d外光用パターン/グラデーション"
+add_outside_light = True
+outside_path = u"./experiments/d外光用パターン/simに入れる外光10minおき.csv"
+par_path = u"./experiments/1日シミュレータ（外光_グラデーション）/"
 
-par_path = u"./experiments/1日シミュレータ（60）/"
+
+outside_data = []
 
 
 def simulate():
-    # ################### #
-    #       実験用設定      #
-    # ################### #
-    days = 1       # <- 何日分のシミュレーションを行うか（その分の"ptn (xx).csv"を用意してね）
-    start_hr = 9    # <- 1日の開始時刻（終了時刻は在離席ファイルの行数に依存）
-    loop = 400      # <- ステップ数ではなくループ数，400とすると800ステップになる
-    path = u"./experiments/d平均在席率3パターン/平均在席率60%"
-    # ################### #
-
     force_config()
     print("Set to DaySimulator experiment mode.")
 
@@ -91,6 +93,18 @@ def force_config():
     INIT.AUTO_ATTENDANCE_SETTING = False
     INIT.SIMULATE_VOLTAGE_DISPLACEMENT = False
     INIT.DIR_LOG = par_path + "LOG/"
+    INIT.ADD_OUTSIDE_LIGHT = True if add_outside_light else False
+    if add_outside_light:
+        EXT_STEP_SECOND = 1  # 外光加算を行う際の1ステップの実時間秒数
+        EXT_START_LINE = 0  # 外光加算を何行目から読むかの設定（最初の行は0！）
+
+
+def read_outside_data():
+    reader = csv.reader(open(outside_data, "r"), delimiter=",", quotechar='"')
+    for index, i in enumerate(reader):
+        outside_data.append([])
+        for s in range(12):
+            outside_data[index].append(i[s])
 
 
 def make_summary(ils, d):
