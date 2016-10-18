@@ -16,11 +16,11 @@ from equipment.OutsideLight import OutsideLight
 # ################### #
 days = 1       # <- 何日分のシミュレーションを行うか（その分の"ptn (xx).csv"を用意してね）
 start_hr = 1    # <- 1日の開始時刻（終了時刻は在離席ファイルの行数に依存）
-loop = 400      # <- ステップ数ではなくループ数，400とすると800ステップになる
+loop = 500      # <- ステップ数ではなくループ数，400とすると800ステップになる
 path = u"./experiments/在離席/全員常に在席"
 add_outside_light = True
 outside_path = u"./experiments/外光データ10minおき900_2300.csv"
-par_path = u"./experiments/1日シミュレータ（700テスト）/"
+par_path = u"./experiments/1日シミュレータ（外光_700）"
 
 
 outside_data = []
@@ -29,6 +29,10 @@ outside_data = []
 def simulate():
     force_config()
     print("Set to DaySimulator experiment mode.")
+
+    os.mkdir(par_path)
+    os.mkdir(par_path + "/LOG/")
+    os.mkdir(par_path + "/SUMMARY/")
 
     for d in range(1, days+1):
         # 1日の処理を記述
@@ -113,7 +117,7 @@ def read_outside_data():
 
 
 def make_summary(ils, d):
-    summary_path = par_path + "SUMMARY/day" + str(d) + "/"
+    summary_path = par_path + "/SUMMARY/day" + str(d) + "/"
     os.mkdir(summary_path)
 
     ill_f = open(summary_path + "01_illuminance.csv", 'w')
