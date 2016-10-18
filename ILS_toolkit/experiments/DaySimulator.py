@@ -159,7 +159,7 @@ def make_summary(ils, d):
 
 
 def append_summary(ils, d, h):
-    summary_path = par_path + "SUMMARY/day" + str(d) + "/"
+    summary_path = par_path + "/SUMMARY/day" + str(d) + "/"
 
     ill_f = open(summary_path + "01_illuminance.csv", 'a')
     lum_f = open(summary_path + "02_luminosity.csv", 'a')
