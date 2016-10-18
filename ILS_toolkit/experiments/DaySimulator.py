@@ -9,17 +9,18 @@ from algorithm.ANArank import ANARANK
 from equipment.Sensor import Sensor
 from equipment.Light import Light
 from equipment.Sensor import update_sensors
+from equipment.OutsideLight import OutsideLight
 
 # ################### #
 #       実験用設定      #
 # ################### #
 days = 1       # <- 何日分のシミュレーションを行うか（その分の"ptn (xx).csv"を用意してね）
-start_hr = 9    # <- 1日の開始時刻（終了時刻は在離席ファイルの行数に依存）
+start_hr = 1    # <- 1日の開始時刻（終了時刻は在離席ファイルの行数に依存）
 loop = 400      # <- ステップ数ではなくループ数，400とすると800ステップになる
-path = u"./experiments/d外光用パターン/グラデーション"
+path = u"./experiments/在離席/全員常に在席"
 add_outside_light = True
-outside_path = u"./experiments/d外光用パターン/simに入れる外光10minおき.csv"
-par_path = u"./experiments/1日シミュレータ（外光_グラデーション）/"
+outside_path = u"./experiments/外光データ10minおき900_2300.csv"
+par_path = u"./experiments/1日シミュレータ（700テスト）/"
 
 
 outside_data = []
@@ -33,7 +34,6 @@ def simulate():
         # 1日の処理を記述
         data_path = path + "/ptn (" + str(d) + ").csv"
         print("------ Day " + str(d) + " ---------------------")
-
         # センサ番号と照明番号のリセット（ログ用）
         Sensor.id = 1
         Light.id = 1
@@ -41,7 +41,6 @@ def simulate():
         ils = ILS()
         # 1日のサマリーを作成
         make_summary(ils, d)
-
         # 在離席パターン読み込み
         reader = csv.reader(open(data_path, "r"), delimiter=",", quotechar='"')
         att_data = []
@@ -50,7 +49,9 @@ def simulate():
             att_data.append([])
             for s in range(12):
                 att_data[index].append(i[s+1])
-
+        # 外光データ読み込み
+        if add_outside_light:
+            read_outside_data()
         # 毎時の処理を行う
         for h in range(start_hr, start_hr+len(att_data)):
             print("... Hour " + str(h) + " ...")
@@ -61,6 +62,10 @@ def simulate():
             Light.id = 1
             # ILS初期化
             ils = ILS()
+            # 外光データをILSに反映
+            OutsideLight.data = []
+            for i in range(int(loop * 2 + 10)):
+                OutsideLight.data.append(outside_data[h-1])
             # 在離席の設定
             set_attendance(att_data[h-start_hr], ils)
             # アルゴリズムの設定
@@ -71,7 +76,6 @@ def simulate():
             # 最終状態の電力情報とセンサ情報をアップデート
             update_sensors(ils)  # 現在照度値を取得
             ils.power_meter.calc_power()         # 電力情報を計算
-
             # サマリーに追記
             append_summary(ils, d, h)
     exit(0)
@@ -95,14 +99,15 @@ def force_config():
     INIT.DIR_LOG = par_path + "LOG/"
     INIT.ADD_OUTSIDE_LIGHT = True if add_outside_light else False
     if add_outside_light:
-        EXT_STEP_SECOND = 1  # 外光加算を行う際の1ステップの実時間秒数
-        EXT_START_LINE = 0  # 外光加算を何行目から読むかの設定（最初の行は0！）
+        INIT.EXT_STEP_SECOND = 1  # 外光加算を行う際の1ステップの実時間秒数
+        INIT.EXT_START_LINE = 0  # 外光加算を何行目から読むかの設定（最初の行は0！）
 
 
 def read_outside_data():
-    reader = csv.reader(open(outside_data, "r"), delimiter=",", quotechar='"')
+    reader = csv.reader(open(outside_path, "r"), delimiter=",", quotechar='"')
     for index, i in enumerate(reader):
         outside_data.append([])
+        outside_data[index].append("")
         for s in range(12):
             outside_data[index].append(i[s])
 
@@ -188,3 +193,4 @@ def append_summary(ils, d, h):
     pow_f.close()
     sig_f.close()
     cnv_f.close()
+

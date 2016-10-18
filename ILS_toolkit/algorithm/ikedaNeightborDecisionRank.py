@@ -26,11 +26,11 @@ def decide_next_luminosity_ikeda7_rank(ils):
             # センサの距離でランク付けする
             if not s.attendance:
                 ils.sensors[s_i].tmp_rank = DistanceRank7.noRank
-            elif s.rank[l_i] == "1":
+            elif s.rank[l_i] == "3":
                 ils.sensors[s_i].tmp_rank = DistanceRank7.rank1
             elif s.rank[l_i] == "2":
                 ils.sensors[s_i].tmp_rank = DistanceRank7.rank2
-            elif s.rank[l_i] == "3":
+            elif s.rank[l_i] == "1":
                 ils.sensors[s_i].tmp_rank = DistanceRank7.rank3
             else:
                 ils.sensors[s_i].tmp_rank = DistanceRank7.noRank
