@@ -100,7 +100,7 @@ def force_config():
     INIT.CHECK_ATTENDANCE = False  # <- このプログラム内で切り替えるためOFFに！
     INIT.AUTO_ATTENDANCE_SETTING = False
     INIT.SIMULATE_VOLTAGE_DISPLACEMENT = False
-    INIT.DIR_LOG = par_path + "LOG/"
+    INIT.DIR_LOG = par_path + "/LOG/"
     INIT.ADD_OUTSIDE_LIGHT = True if add_outside_light else False
     if add_outside_light:
         INIT.EXT_STEP_SECOND = 1  # 外光加算を行う際の1ステップの実時間秒数
