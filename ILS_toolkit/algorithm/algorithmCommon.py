@@ -64,10 +64,14 @@ def calc_objective_function_rank(ils, next_flag):
             # ランクを取得
             if s.rank[l_i] == "":
                 r = 0
-            else:
-                r = float(s.rank[l_i])
-            r = r if s.attendance else 0.0  # 離席してる場合はペナルティ無し
-            r = r if not (s.target*(1+INIT.ALG_ALLOWANCE_LOWER/100) <= s.illuminance <= s.target+INIT.ALG_ALLOWANCE_UPPER) else 0.0
+            elif s.rank[l_i] == "3":
+                r = 1.0
+            elif s.rank[l_i] == "2":
+                r = 1.5
+            elif s.rank[l_i] == "1":
+                r = 2.0
+            r = r if s.attendance else 0  # 離席してる場合はペナルティ無し
+            r = r if not (s.target*(1+INIT.ALG_ALLOWANCE_LOWER/100) <= s.illuminance <= s.target+INIT.ALG_ALLOWANCE_UPPER) else 0
             # ペナルティ関数を計算
             penalty += w * r * (s.illuminance - s.target)**2
 

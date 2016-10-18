@@ -29,6 +29,7 @@ class Logger:
     attendance_name = "07_attendance.csv"
     objective_function_name = "08_objective_function.csv"
     convergence_name = "09_convergence.csv"
+    neighbor_name = "10_neighbor.csv"
 
     def __init__(self, ils):
         self.ils = ils
@@ -65,7 +66,7 @@ class Logger:
             self.make_objective_function_log()
         # 近傍選択を作成
         if INIT.LOGGER_NEIGHBOR:
-            pass
+            self.make_neighbor_log()
         # 目標照度履歴を作成
         if INIT.LOGGER_TARGET:
             self.make_target_illuminance_log()
@@ -232,6 +233,21 @@ class Logger:
         w.writerow(row)
         f.close()
 
+    def make_neighbor_log(self):
+        u"""
+        近傍選択ログを作成する
+        :return: None
+        """
+
+        file_path = self.path + "/" + self.neighbor_name
+        f = open(file_path, 'w')
+        w = csv.writer(f, lineterminator='\n')
+        row = ["Step"]
+        for l in self.ils.lights:
+            row.append(str(l))
+        w.writerow(row)
+        f.close()
+
     def append_all_log(self, step, next_flag):
         self.append_illuminance_log(step)
         self.append_luminosity_log(step)
@@ -241,6 +257,7 @@ class Logger:
         self.append_power_log(step)
         self.append_objective_function_log(step, next_flag)
         self.append_convergence_log(step)
+        self.append_neighbor_log(step)
 
     def append_illuminance_log(self, step):
         u"""
@@ -369,5 +386,20 @@ class Logger:
                 row.append("True")
             else:
                 row.append("False")
+        w.writerow(row)
+        f.close()
+
+    def append_neighbor_log(self, step):
+        u"""
+        近傍選択ログに書き込み
+        :return: None
+        """
+
+        file_path = self.path + "/" + self.neighbor_name
+        f = open(file_path, 'a')
+        w = csv.writer(f, lineterminator='\n')
+        row = [str(step)]
+        for l in self.ils.lights:
+            row.append(str(l.neighbor))
         w.writerow(row)
         f.close()
