@@ -14,13 +14,13 @@ from equipment.OutsideLight import OutsideLight
 # ################### #
 #       実験用設定      #
 # ################### #
-days = 30       # <- 何日分のシミュレーションを行うか（その分の"ptn (xx).csv"を用意してね）
+days = 1       # <- 何日分のシミュレーションを行うか（その分の"ptn (xx).csv"を用意してね）
 start_hr = 1    # <- 1日の開始時刻（終了時刻は在離席ファイルの行数に依存）
-loop = 500      # <- ステップ数ではなくループ数，400とすると800ステップになる
-path = u"./experiments/在離席/平均在席60"
-add_outside_light = True
+loop = 800      # <- ステップ数ではなくループ数，400とすると800ステップになる
+path = u"./experiments/在離席/全員常に在席"
+add_outside_light = False
 outside_path = u"./experiments/外光データ10minおき900_2300.csv"
-par_path = u"./experiments/1日シミュレータ（外光_12R60）"
+par_path = u"./experiments/1日シミュレータ（外光無し_全員700_loop=800）"
 
 
 outside_data = []
@@ -67,9 +67,10 @@ def simulate():
             # ILS初期化
             ils = ILS()
             # 外光データをILSに反映
-            OutsideLight.data = []
-            for i in range(int(loop * 2 + 10)):
-                OutsideLight.data.append(outside_data[h-1])
+            if add_outside_light:
+                OutsideLight.data = []
+                for i in range(int(loop * 2 + 10)):
+                    OutsideLight.data.append(outside_data[h-1])
             # 在離席の設定
             set_attendance(att_data[h-start_hr], ils)
             # アルゴリズムの設定
