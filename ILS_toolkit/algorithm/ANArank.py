@@ -21,6 +21,8 @@ class ANARANK:
         self.step = 1
         self.ils = ils
 
+        ils.algorithm = ANARANK
+
         print("Set to ANA/RANK")
         ANARANK.start(self)
 

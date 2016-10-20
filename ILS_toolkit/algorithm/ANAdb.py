@@ -21,6 +21,8 @@ class ANADB:
         self.step = 1
         self.ils = ils
 
+        ils.algorithm = ANADB
+
         print("Set to ANA/DB")
         ANADB.start(self)
 
