@@ -6,7 +6,6 @@ from configure.config import INIT
 def convert_to_luminosity(lights):
     u"""信号値を光度値に変換する"""
 
-    # TODO: 現在は1つめの信号値のみだが，色温度制御の時にはここを書き換える必要がある．
     for l in lights:
         l.luminosity = int(-0.0130119460805247 * float(l.signals[0]) * float(l.signals[0]) + 13.9104144531693 *
                            float(l.signals[0]) - 40.0024478040349)

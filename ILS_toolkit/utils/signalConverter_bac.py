@@ -11,7 +11,6 @@ def convert_to_luminosity(lights):
     # 1次関数の切片
     intercept = INIT.LIGHT_LUMINOSITY_MAX[0] - factor * float(INIT.LIGHT_SIGNAL_MAX[0])
 
-    # TODO: 現在は1つめの信号値のみだが，色温度制御の時にはここを書き換える必要がある．
     for l in lights:
         l.luminosity = l.signals[0] * factor + intercept
 
