@@ -3,9 +3,26 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/ILS_toolkit" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/ILS_toolkit/experiments/1日シミュレータ（外光_12A）" />
+      <excludeFolder url="file://$MODULE_DIR$/ILS_toolkit/experiments/1日シミュレータ（外光_12R60）" />
+      <excludeFolder url="file://$MODULE_DIR$/ILS_toolkit/experiments/1日シミュレータ（外光_700）" />
+      <excludeFolder url="file://$MODULE_DIR$/ILS_toolkit/experiments/1日シミュレータ（外光_GRD）" />
+      <excludeFolder url="file://$MODULE_DIR$/ILS_toolkit/experiments/1日シミュレータ（外光有り，平滑，ランダム60%）" />
+      <excludeFolder url="file://$MODULE_DIR$/ILS_toolkit/experiments/1日シミュレータ（外光無し_グラデーション100%）" />
+      <excludeFolder url="file://$MODULE_DIR$/ILS_toolkit/experiments/1日シミュレータ（外光無し_全員700_loop=800）" />
+      <excludeFolder url="file://$MODULE_DIR$/ILS_toolkit/experiments/1日シミュレータ（外光無し_全員700lx）" />
+      <excludeFolder url="file://$MODULE_DIR$/LOG" />
+      <excludeFolder url="file://$MODULE_DIR$/OLDLOG" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+  <component name="TemplatesService">
+    <option name="TEMPLATE_FOLDERS">
+      <list>
+        <option value="$MODULE_DIR$/ILS_toolkit/experiments/1日シミュレータ（外光無し_グラデーション100%）" />
+      </list>
+    </option>
   </component>
   <component name="TestRunnerService">
     <option name="PROJECT_TEST_RUNNER" value="Unittests" />
