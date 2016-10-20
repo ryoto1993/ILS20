@@ -7,7 +7,7 @@ class INIT:
     #####################
     # シーケンシャル名は，ログファイルの格納ディレクトリの名前に含まれます．
     # 行うデモ/実験/シミュレーションの概要を簡潔に入力してください．
-    SEQUENCE_NAME = u"IEEJスマートファシリティ_全員700lx_dataD"
+    SEQUENCE_NAME = u"IEEJスマートファシリティ_ランダム_離席有り"
 
     #####################
     #      動作モード     #
@@ -15,24 +15,10 @@ class INIT:
     SIMULATION = True         # 実機の時はFalse
     TEMPERATURE = False       # 色温度も制御するか
     CHECK_ATTENDANCE = True   # 在離席管理を行うか
-    AUTO_ATTENDANCE_SETTING = False      # 在離席の自動設定を行うか
+    AUTO_ATTENDANCE_SETTING = True      # 在離席の自動設定を行うか
     SIMULATE_VOLTAGE_DISPLACEMENT = False    # Sekonicアナログ照度センサの電圧変位誤差をシミュレート
     CORRECT_SENSOR_DISPLACEMENT = True      # Sekonicアナログ照度センサの誤差を補正　
     ADD_OUTSIDE_LIGHT = False   # 外光加算機能を使用するか
-
-    #####################
-    #      ロガー設定     #
-    #####################
-    LOGGER_ILLUMINANCE = True  # 照度履歴を出力
-    LOGGER_LUMINOSITY = True   # 光度履歴を出力
-    LOGGER_LUMINOSITY_SIGNAL = True   # 信号値履歴を出力
-    LOGGER_POWER = True        # 消費電力履歴を出力
-    LOGGER_OBJECTIVE_FUNCTION = True  # 目的関数を出力
-    LOGGER_NEIGHBOR = True     # 近傍選択を出力
-    LOGGER_TARGET = True
-    LOGGER_ATTENDANCE = True
-    LOGGER_CUSTOM = True       # カスタムログを出力
-    LOGGER_CUSTOM_FILE = "./configure/customLog.txt"  # カスタムログの設定ファイル
 
     #####################
     #  機器情報ファイルパス #
@@ -91,3 +77,17 @@ class INIT:
     #####################
     EXT_STEP_SECOND = 4.5  # 外光加算を行う際の1ステップの実時間秒数
     EXT_START_LINE = 0  # 外光加算を何行目から読むかの設定
+
+    #####################
+    #      ロガー設定     #
+    #####################
+    LOGGER_ILLUMINANCE = True  # 照度履歴を出力
+    LOGGER_LUMINOSITY = True  # 光度履歴を出力
+    LOGGER_LUMINOSITY_SIGNAL = True  # 信号値履歴を出力
+    LOGGER_POWER = True  # 消費電力履歴を出力
+    LOGGER_OBJECTIVE_FUNCTION = True  # 目的関数を出力
+    LOGGER_NEIGHBOR = True  # 近傍選択を出力
+    LOGGER_TARGET = True
+    LOGGER_ATTENDANCE = True
+    LOGGER_CUSTOM = True  # カスタムログを出力
+    LOGGER_CUSTOM_FILE = "./configure/customLog.txt"  # カスタムログの設定ファイル
