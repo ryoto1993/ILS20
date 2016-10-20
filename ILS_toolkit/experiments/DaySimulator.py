@@ -198,4 +198,3 @@ def append_summary(ils, d, h):
     pow_f.close()
     sig_f.close()
     cnv_f.close()
-
