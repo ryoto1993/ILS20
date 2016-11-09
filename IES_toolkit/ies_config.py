@@ -5,8 +5,8 @@ class INIT:
     #####################
     #   ファイルパス設定   #
     #####################
-    IES_FILE = u"./IES_file/配光角調節可能ダウンライト/el-d0700l2f1w__led710lm_l_el-x0082w.ies"
-    IES_INFLUENCE_FILE = "./influence/r_31.csv"
+    IES_FILE = u"./IES_file/導入可能ダウンライト/三菱_EL-D3000M3W/el-d3000m2f3w_ahz_led2910lm_m_.ies"
+    IES_INFLUENCE_FILE = "./influence/三菱_EL-D3000M3W.csv"
     IES_LIGHT_FILE = "./light.csv"
     IES_SENSOR_FILE = "./sensor.csv"
 
