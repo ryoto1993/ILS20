@@ -7,7 +7,8 @@ class INIT:
     #####################
     # シーケンシャル名は，ログファイルの格納ディレクトリの名前に含まれます．
     # 行うデモ/実験/シミュレーションの概要を簡潔に入力してください．
-    SEQUENCE_NAME = u"island12_グラデーション_rank_3つ"
+    SEQUENCE_NAME = u"知的照明ランダム3近傍_t-layout_DAIKO"
+    # SEQUENCE_NAME = u"知的照明_EL-D3000M3W"
 
     #####################
     #      動作モード     #
@@ -34,8 +35,8 @@ class INIT:
     #   ファイルパス設定   #
     #####################
     FILE_SENSOR = "./configure/dataSet/Sensor/island12/sensor.csv"
-    FILE_LIGHT = "./configure/dataSet/Light/BACnet/light.csv"
-    FILE_INFLUENCE = u"./configure/dataSet/Influence/ahoえいきょうど_Oct06_スマファシ_行列正しい.csv"
+    FILE_LIGHT = "./configure/dataSet/Light/downlight/light.csv"
+    FILE_INFLUENCE = u"./configure/dataSet/Influence/t-layout/INF1850_t-layout_大光電機_91820fb_5700k.csv"
     FILE_STATE = "./configure/state.txt"
     FILE_LIGHT_PATTERN = "./configure/fixedLightPattern.csv"
     FILE_SENSOR_TARGET = "./configure/target.txt"
@@ -51,26 +52,26 @@ class INIT:
     #####################
     # BACnet型 三菱LEDのデータ
     LIGHT_SIGNAL_MAX = [100, 100]            # 最大点灯信号値
-    LIGHT_LUMINOSITY_MAX = [1280.0, 1280.0]  # 最大点灯光度 [cd] [1280]
-    LIGHT_SIGNAL_MIN = [10, 10]              # 最小点灯信号値[20]
-    LIGHT_LUMINOSITY_MIN = [128.0, 128.0]   # 最小点灯光度 [cd][248.0]
+    LIGHT_LUMINOSITY_MAX = [2470.0, 1485.0]  # 最大点灯光度 [cd] [1280]
+    LIGHT_SIGNAL_MIN = [0, 5]              # 最小点灯信号値[20]
+    LIGHT_LUMINOSITY_MIN = [0.0, 74.0]   # 最小点灯光度 [cd][248.0]
     LIGHT_WAIT_SECOND = 6.5                  # 光度を変更してからの待機時間[6.5]
 
     #####################
     # 最適化アルゴリズム設定 #
     #####################
     ALG_WEIGHT = 30
-    ALG_INITIAL_SIGNAL = 20     # 初期信号値
+    ALG_INITIAL_SIGNAL = 10     # 初期信号値
     ALG_ALLOWANCE_UPPER = 50  # 目標照度収束許容範囲上限（lx指定）[50lx]
     ALG_ALLOWANCE_LOWER = -0.0  # 目標照度収束許容範囲下限（％指定）[0.0]
 
     # ANA/RC, ANA,DBの設定
-    ALG_DB_BRIGHTENING_UPPER = 10.0   # 増光変動幅上限（％指定）[10.0]
+    ALG_DB_BRIGHTENING_UPPER = 8.0   # 増光変動幅上限（％指定）[10.0]
     ALG_DB_BRIGHTENING_LOWER = -3.0   # 増光変動幅下限（％指定）[-3.0]
-    ALG_DB_NEUTRAL_UPPER = 5.0       # 中立変動幅上限（％指定）[5.0]
-    ALG_DB_NEUTRAL_LOWER = -5.0      # 中立変動幅下限（％指定）[5.0]
+    ALG_DB_NEUTRAL_UPPER = 3.0       # 中立変動幅上限（％指定）[5.0]
+    ALG_DB_NEUTRAL_LOWER = -3.0      # 中立変動幅下限（％指定）[5.0]
     ALG_DB_DIMMING_UPPER = 3.0      # 減光変動幅上限（％指定）
-    ALG_DB_DIMMING_LOWER = -10.0      # 減光変動幅下限（％指定）[-10.0]
+    ALG_DB_DIMMING_LOWER = -8.0      # 減光変動幅下限（％指定）[-10.0]
 
     #####################
     #    外光加算設定     #

@@ -30,14 +30,21 @@ def decide_next_luminosity_ikeda7(ils):
                 influence[s_i] = 0.0
 
             # センサの距離でランク付けする
-            if influence[s_i] > 0.21:
+            if influence[s_i] > 0.20:
                 ils.sensors[s_i].tmp_rank = DistanceRank7.rank1
-            elif influence[s_i] > 0.11:
+            elif influence[s_i] > 0.15:
                 ils.sensors[s_i].tmp_rank = DistanceRank7.rank2
-            elif influence[s_i] > 0.05:
+            elif influence[s_i] > 0.10:
                 ils.sensors[s_i].tmp_rank = DistanceRank7.rank3
             else:
                 ils.sensors[s_i].tmp_rank = DistanceRank7.noRank
+            ############################
+            # メモ
+            #   BACnet...
+            #   rank1 -> 0.21
+            #   rank2 -> 0.11
+            #   rank3 -> 0.05
+
 
         # 影響するセンサの数（NoRankじゃないもの）を数える
         influential_sensors = []

@@ -5,7 +5,7 @@ import time
 import ILS
 from algorithm.ANAdb import ANADB
 from algorithm.ANArank import ANARANK
-from experiments import DaySimulator
+from experiments import DaySimulator, TargetGrowthRate, PlayGround
 from utils import dimmer
 from utils import manualChanger
 from utils.reader import state_reader
@@ -66,6 +66,13 @@ if __name__ == "__main__":
         # 数理計画法
         elif state == 10:
             pass
+
         # 1日のシミュレータ
         elif state == 50:
             DaySimulator.simulate()
+        # 目標照度実現率計算のやつ
+        elif state == 51:
+            TargetGrowthRate.start()
+        # なんか色々やって見る用のやつ
+        elif state == 52:
+            PlayGround.start()

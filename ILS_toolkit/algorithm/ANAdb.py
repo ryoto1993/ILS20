@@ -7,6 +7,7 @@ from utils.printer import Printer
 from equipment.Sensor import update_sensors
 from algorithm.algorithmCommon import calc_objective_function_influence
 from algorithm.ikedaNeightborDecision import decide_next_luminosity_ikeda7
+from algorithm.algorithmCommon import decide_next_luminosity_3type
 
 
 class ANADB:
@@ -83,8 +84,8 @@ class ANADB:
 
         # [3] 次の光度値を決定し，点灯
         # 次光度決定
-        # decide_next_luminosity(self.ils)
-        decide_next_luminosity_ikeda7(self.ils)
+        decide_next_luminosity_3type(self.ils)
+        # decide_next_luminosity_ikeda7(self.ils)
         # 次光度で点灯
         if INIT.SIMULATION:
             pass
