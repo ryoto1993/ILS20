@@ -7,7 +7,7 @@ class INIT:
     #####################
     # シーケンシャル名は，ログファイルの格納ディレクトリの名前に含まれます．
     # 行うデモ/実験/シミュレーションの概要を簡潔に入力してください．
-    SEQUENCE_NAME = u"知的照明ランダム3近傍_t-layout_DAIKO"
+    SEQUENCE_NAME = u"知的照明ランダム3近傍_I12_DAIKO26度_ランダムA"
     # SEQUENCE_NAME = u"知的照明_EL-D3000M3W"
 
     #####################
@@ -36,7 +36,7 @@ class INIT:
     #####################
     FILE_SENSOR = "./configure/dataSet/Sensor/island12/sensor.csv"
     FILE_LIGHT = "./configure/dataSet/Light/downlight/light.csv"
-    FILE_INFLUENCE = u"./configure/dataSet/Influence/t-layout/INF1850_t-layout_大光電機_91820fb_5700k.csv"
+    FILE_INFLUENCE = u"./configure/dataSet/Influence/island12/INF1850_大光電機_91820fb_5700k.csv"
     FILE_STATE = "./configure/state.txt"
     FILE_LIGHT_PATTERN = "./configure/fixedLightPattern.csv"
     FILE_SENSOR_TARGET = "./configure/target.txt"
@@ -52,7 +52,7 @@ class INIT:
     #####################
     # BACnet型 三菱LEDのデータ
     LIGHT_SIGNAL_MAX = [100, 100]            # 最大点灯信号値
-    LIGHT_LUMINOSITY_MAX = [2470.0, 1485.0]  # 最大点灯光度 [cd] [1280]
+    LIGHT_LUMINOSITY_MAX = [2480.0, 1485.0]  # 最大点灯光度 [cd] [1280]
     LIGHT_SIGNAL_MIN = [0, 5]              # 最小点灯信号値[20]
     LIGHT_LUMINOSITY_MIN = [0.0, 74.0]   # 最小点灯光度 [cd][248.0]
     LIGHT_WAIT_SECOND = 6.5                  # 光度を変更してからの待機時間[6.5]

@@ -5,7 +5,7 @@ import time
 import ILS
 from algorithm.ANAdb import ANADB
 from algorithm.ANArank import ANARANK
-from experiments import DaySimulator, TargetGrowthRate, PlayGround
+from experiments import DaySimulator, TargetGrowthRate, PlayGround, ManyTimes
 from utils import dimmer
 from utils import manualChanger
 from utils.reader import state_reader
@@ -76,3 +76,7 @@ if __name__ == "__main__":
         # なんか色々やって見る用のやつ
         elif state == 52:
             PlayGround.start()
+        # 指定回数ILSを回しまくるやつ
+        elif state == 53:
+            ManyTimes.start()
+            exit("ManyTimes completed.")

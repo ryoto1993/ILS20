@@ -5,10 +5,10 @@ class INIT:
     #####################
     #   ファイルパス設定   #
     #####################
-    IES_FILE = u"./IES_file/導入可能ダウンライト/大光電機/91820fb_5700k.ies"
-    IES_INFLUENCE_FILE = "./influence/INF1850_t-layout_大光電機_91820fb_5700k.csv"
+    IES_FILE = u"./IES_file/導入可能ダウンライト/大光電機/91821fb_5700k.ies"
+    IES_INFLUENCE_FILE = "./influence/INF1850_大光電機_91821fb_5700k.csv"
     IES_LIGHT_FILE = "./light.csv"
-    IES_SENSOR_FILE = "./Sensor/t-layout/sensor.csv"
+    IES_SENSOR_FILE = "./Sensor/island12/sensor.csv"
 
     #####################
     #   配光曲線読込設定   #
