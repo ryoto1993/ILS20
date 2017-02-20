@@ -1,7 +1,7 @@
 # coding: utf-8
 
 from configure.config import INIT
-from utils import reader, manualChanger, dimmer, logger, printer, simulation
+from utils import reader, manualChanger, dimmer, logger, printer, simulation, signalConverter
 from equipment.Sensor import update_sensors
 
 import math
@@ -75,40 +75,68 @@ class JonanColorSD:
         update_sensors(self.ils)
         # 目標照度と色温度を取得
         reader.sensor_target_reader(self.ils.sensors)
+        # 在離席を取得
+        if INIT.MODE_CHECK_ATTENDANCE:
+            reader.sensor_attendance_reader(self.ils.sensors)
         # 目標照度と色温度を基に，各色温度ごとの目標照度を求める
         self.split_illuminance_by_temperature()
         # 電力情報を計算
         self.ils.power_meter.calc_power()
 
+        # ログ追記
+        self.ils.logger.append_all_log(self.step, False)
+        if not INIT.MODE_SIMULATION:
+            self.ils.printer.info()
+
         # [2] 最急降下法で最適な点灯列を探索
         # 反復数分，勾配ベクトルによる点灯列の更新を行う
         for sd_step in range(INIT.ALG_SD_STEP):
-            print("DEBUG : SD step " + str(sd_step))
+            # print("DEBUG : SD step " + str(sd_step))
             # <1> 各色温度ごとの目的関数を点灯列より算出する
             obj = [0.0, 0.0]  # 目的関数値
             pwr = [0.0, 0.0]  # 消費電力項
             err = [0.0, 0.0]  # 照度誤差項
+            stop_flag = [False, False]
             for i in range(2):
-                pwr[i] = sum(l.divided_luminosity[i] for l in self.ils.lights)
+                pwr[i] = sum(l.luminosities[i] for l in self.ils.lights)
                 for s_i, s in enumerate(self.ils.sensors):
-                    err[i] += sum((l.divided_luminosity[i]*l.influence[s_i] - s.divided_target[i])**2
-                                  for l in self.ils.lights)
+                    if s.attendance:
+                        err[i] += sum((l.luminosities[i]*l.influence[s_i] - s.divided_target[i])**2
+                                      for l in self.ils.lights)
                 obj[i] = pwr[i] * INIT.ALG_SD_POWER_WEIGHT + err[i] * INIT.ALG_SD_ERROR_WEIGHT
+            print(obj)
 
             # <2> 各色温度ごとの勾配ベクトルを算出する
             grd_v = [[], []]
             for i in range(2):
                 for l in self.ils.lights:
-                    grd_v[i].append(
-                        1 + INIT.ALG_SD_ERROR_WEIGHT * sum(2 * l.influence[s_i]**2 * l.divided_luminosity[i] -
-                                                           2 * l.influence[s_i] * s.divided_target[i]
-                                                           for s_i, s in enumerate(self.ils.sensors)))
-            print(grd_v)
+                    tmp = 0
+                    for s_i, s in enumerate(self.ils.sensors):
+                        if s.attendance:
+                            tmp += INIT.ALG_SD_POWER_WEIGHT + INIT.ALG_SD_ERROR_WEIGHT * 2 * l.influence[s_i] * (l.influence[s_i]*l.luminosities[i] - s.divided_target[i])
+                            # tmp += INIT.ALG_SD_POWER_WEIGHT + INIT.ALG_SD_ERROR_WEIGHT * 2 * l.influence[s_i]**2 * l.luminosities[i] - 2 * l.influence[s_i] * s.divided_target[i]
+                    grd_v[i].append(tmp)
+
+            #print(grd_v)
             # <3> 各色温度ごとの降下ベクトル（勾配ベクトルの逆ベクトル）のステップ幅（ノルム）を求める
 
             # <4> 点灯列を更新し，照度を更新する
+            # 点灯列更新
+            for l_s, l in enumerate(self.ils.lights):
+                l.luminosities[0] -= grd_v[0][l_s] * 0.05
+                l.luminosities[1] -= grd_v[1][l_s] * 0.05
+            simulation.calc_illuminance_color_divided(self.ils)
 
         # [3] 探索した点灯列で照明を点灯
+        signalConverter.convert_to_signal(self.ils.lights)
+
+        for l in self.ils.lights:
+            print(l.luminosities)
+
+        if INIT.MODE_SIMULATION:
+            pass
+        else:
+            dimmer.dimming(self.ils.lights)
 
     # 照度を各色の信号値の比から分離する
     def split_illuminance_by_temperature(self):

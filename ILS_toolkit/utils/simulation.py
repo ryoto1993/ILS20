@@ -11,7 +11,11 @@ def calc_illuminance(ils):
     for s_i, s in enumerate(ils.sensors):
         s.illuminance = 0.0
         for l in ils.lights:
-            s.illuminance += l.luminosity * l.influence[s_i]
+            if INIT.MODE_TEMPERATURE:
+                for lum in l.luminosities:
+                    s.illuminance += lum * l.influence[s_i]
+            else:
+                s.illuminance += l.luminosities[0] * l.influence[s_i]
 
         # セコニック製照度センサの誤差外乱模擬
         if INIT.MODE_SIMULATE_VOLTAGE_DISPLACEMENT:
@@ -29,14 +33,8 @@ def calc_illuminance_color_divided(ils):
     for s_i, s in enumerate(ils.sensors):
         s.divided_illuminance = [0.0, 0.0]
         for l in ils.lights:
-            for index, lum in enumerate(l.divided_luminosity):
+            for index, lum in enumerate(l.luminosities):
                 s.divided_illuminance[index] += lum * l.influence[s_i]
 
         # 収束しているかチェック
-        convergence_flag = True
-        for i in range(s.divided_illuminance):
-            if not s.divided_target[i] * (100 + INIT.ALG_ALLOWANCE_LOWER) / 100 <= s.divided_illuminance[i]\
-                    <= s.divided_target[i] + INIT.ALG_ALLOWANCE_UPPER:
-                convergence_flag = False
 
-        s.convergence = convergence_flag

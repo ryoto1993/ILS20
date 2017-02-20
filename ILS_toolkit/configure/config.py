@@ -52,16 +52,16 @@ class INIT:
     #####################
     # BACnet型 三菱LEDのデータ
     LIGHT_SIGNAL_MAX = [100, 100]            # 最大点灯信号値
-    LIGHT_LUMINOSITY_MAX = [1280.0, 1485.0]  # 最大点灯光度 [cd] [1280]
-    LIGHT_SIGNAL_MIN = [0, 5]              # 最小点灯信号値[20]
-    LIGHT_LUMINOSITY_MIN = [0.0, 74.0]   # 最小点灯光度 [cd][248.0]
+    LIGHT_LUMINOSITY_MAX = [1280.0, 1280.0]  # 最大点灯光度 [cd] [1280]
+    LIGHT_SIGNAL_MIN = [0, 0]              # 最小点灯信号値[20]
+    LIGHT_LUMINOSITY_MIN = [0.0, 0.0]   # 最小点灯光度 [cd][248.0]
     LIGHT_WAIT_SECOND = 6.5                  # 光度を変更してからの待機時間[6.5]
 
     #####################
     # 最適化アルゴリズム設定 #
     #####################
     ALG_WEIGHT = 30
-    ALG_INITIAL_SIGNALS = [10, 15]     # 初期信号値
+    ALG_INITIAL_SIGNALS = [10, 10]     # 初期信号値
     ALG_ALLOWANCE_UPPER = 50  # 目標照度収束許容範囲上限（lx指定）[50lx]
     ALG_ALLOWANCE_LOWER = -0.0  # 目標照度収束許容範囲下限（％指定）[0.0]
 
@@ -74,9 +74,9 @@ class INIT:
     ALG_DB_DIMMING_LOWER = -8.0      # 減光変動幅下限（％指定）[-10.0]
 
     # 最急降下法の設定
-    ALG_SD_STEP = 10            # 最急降下法の反復数
-    ALG_SD_ERROR_WEIGHT = 1.0   # 最急降下法の目的関数で，照度誤差に乗じる係数
-    ALG_SD_POWER_WEIGHT = 10.0  # 最急降下法の目的関数で，光度の総和に乗じる係数
+    ALG_SD_STEP = 300            # 最急降下法の反復数
+    ALG_SD_ERROR_WEIGHT = 0.5   # 最急降下法の目的関数で，照度誤差に乗じる係数
+    ALG_SD_POWER_WEIGHT = 1.0  # 最急降下法の目的関数で，光度の総和に乗じる係数
 
     #####################
     #    外光加算設定     #

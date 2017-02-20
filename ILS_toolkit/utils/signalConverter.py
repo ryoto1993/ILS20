@@ -36,8 +36,8 @@ def convert_to_signal(lights):
             # l.signals[0] = int(0.00000664944924261323 * float(l.luminosity) * float(l.luminosity) +
             #                    0.0711852025585447 * float(l.luminosity) + 3.06397372065703)
             # l.signals[0] = int(100.0 / 1379.0 * float(l.luminosity))
-
-            l.signals[0] = int(l.luminosity * factor + intercept)
+            for lum_s, lum in enumerate(l.luminosities):
+                l.signals[lum_s] = int(lum * factor + intercept)
     else:
         # 1次関数の傾き
         factor = (INIT.LIGHT_SIGNAL_MAX[0] - INIT.LIGHT_SIGNAL_MIN[0]) / \
@@ -50,4 +50,4 @@ def convert_to_signal(lights):
             #                    0.0711852025585447 * float(l.luminosity) + 3.06397372065703)
             # l.signals[0] = int(100.0 / 1379.0 * float(l.luminosity))
 
-            l.signals[0] = int(l.luminosity * factor + intercept)
+            l.signals[0] = int(l.luminosities[0] * factor + intercept)
