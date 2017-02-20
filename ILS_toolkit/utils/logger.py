@@ -30,6 +30,7 @@ class Logger:
     objective_function_name = "08_objective_function.csv"
     convergence_name = "09_convergence.csv"
     neighbor_name = "10_neighbor.csv"
+    target_temperature_name = "11_target_temperature.csv"
 
     def __init__(self, ils):
         self.ils = ils
@@ -73,6 +74,12 @@ class Logger:
         # 在離席履歴を作成
         if INIT.LOGGER_ATTENDANCE:
             self.make_attendance_log()
+        # 収束状況履歴を作成
+        if INIT.LOGGER_CONVERGENCE:
+            self.make_convergence_log()
+        # 目標色温度履歴を作成
+        if INIT.LOGGER_TARGET_TEMPERATURE:
+            self.make_target_temperature_log()
         # カスタムログを作成
 
     def make_information(self):
@@ -251,16 +258,42 @@ class Logger:
         w.writerow(row)
         f.close()
 
+    def make_target_temperature_log(self):
+        u"""
+        目標色温度ログを作成するメソッド
+        :return: None
+        """
+
+        file_path = self.path + "/" + self.target_temperature_name
+        f = open(file_path, 'w')
+        w = csv.writer(f, lineterminator='\n')
+        row = ["Step"]
+        for s in self.ils.sensors:
+            row.append(str(s))
+        w.writerow(row)
+        f.close()
+
     def append_all_log(self, step, next_flag):
-        self.append_illuminance_log(step)
-        self.append_luminosity_log(step)
-        self.append_luminosity_signal_log(step)
-        self.append_target_illuminance_log(step)
-        self.append_attendance_log(step)
-        self.append_power_log(step)
-        self.append_objective_function_log(step, next_flag)
-        self.append_convergence_log(step)
-        self.append_neighbor_log(step)
+        if INIT.LOGGER_ILLUMINANCE:
+            self.append_illuminance_log(step)
+        if INIT.LOGGER_ILLUMINANCE:
+            self.append_luminosity_log(step)
+        if INIT.LOGGER_LUMINOSITY_SIGNAL:
+            self.append_luminosity_signal_log(step)
+        if INIT.LOGGER_TARGET:
+            self.append_target_illuminance_log(step)
+        if INIT.LOGGER_ATTENDANCE:
+            self.append_attendance_log(step)
+        if INIT.LOGGER_POWER:
+            self.append_power_log(step)
+        if INIT.LOGGER_OBJECTIVE_FUNCTION:
+            self.append_objective_function_log(step, next_flag)
+        if INIT.LOGGER_CONVERGENCE:
+            self.append_convergence_log(step)
+        if INIT.LOGGER_NEIGHBOR:
+            self.append_neighbor_log(step)
+        if INIT.LOGGER_TARGET_TEMPERATURE:
+            self.append_target_temperature_log(step)
 
     def append_illuminance_log(self, step):
         u"""
@@ -408,5 +441,20 @@ class Logger:
         row = [str(step)]
         for l in self.ils.lights:
             row.append(str(l.neighbor))
+        w.writerow(row)
+        f.close()
+
+    def append_target_temperature_log(self, step):
+        u"""
+        目標色温度履歴ログに書き込み
+        :return: None
+        """
+
+        file_path = self.path + "/" + self.target_temperature_name
+        f = open(file_path, 'a')
+        w = csv.writer(f, lineterminator='\n')
+        row = [str(step)]
+        for s in self.ils.sensors:
+            row.append(str(int(s.target_temperature)))
         w.writerow(row)
         f.close()

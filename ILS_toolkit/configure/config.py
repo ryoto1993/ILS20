@@ -14,7 +14,7 @@ class INIT:
     #      動作モード     #
     #####################
     MODE_SIMULATION = True         # 実機の時はFalse
-    MODE_TEMPERATURE = False        # 色温度も制御するか
+    MODE_TEMPERATURE = True        # 色温度も制御するか
     MODE_CHECK_ATTENDANCE = True   # 在離席管理を行うか
     MODE_AUTO_ATTENDANCE_SETTING = False      # シミュレーション時に在離席の自動設定を行うか
     MODE_SIMULATE_VOLTAGE_DISPLACEMENT = False    # Sekonicアナログ照度センサの電圧変位誤差をシミュレート
@@ -93,5 +93,7 @@ class INIT:
     LOGGER_NEIGHBOR = True  # 近傍選択を出力
     LOGGER_TARGET = True
     LOGGER_ATTENDANCE = True
+    LOGGER_CONVERGENCE = True
+    LOGGER_TARGET_TEMPERATURE = True
     LOGGER_CUSTOM = True  # カスタムログを出力
     LOGGER_CUSTOM_FILE = "./configure/customLog.txt"  # カスタムログの設定ファイル

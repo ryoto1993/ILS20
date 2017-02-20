@@ -1,5 +1,7 @@
 # coding: utf-8
 
+from configure.config import INIT
+
 
 class PowerMeter:
     u"""
@@ -20,7 +22,11 @@ class PowerMeter:
         for l in self.lights:
             power += l.luminosity
             # y=0.4257x + 0.3716に基づいて計算
-            actual += l.signals[0] * 0.4257 + 0.3716
+            if INIT.MODE_TEMPERATURE:
+                for sig in l.signals:
+                    actual += sig * 0.4257 + 0.3716
+            else:
+                actual += l.signals[0] * 0.4257 + 0.3716
         self.power = power
         self.actual_power = actual
 

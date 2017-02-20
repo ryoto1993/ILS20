@@ -129,10 +129,10 @@ def sensor_signal_reader(sensors):
 
 
 def sensor_target_reader(sensors):
-    u"""センサの目標照度値を読込"""
+    u"""センサの目標照度および色温度を読込"""
     while True:
         try:
-            f = open(INIT.FILE_SENSOR_TARGET, "r")
+            f = open(INIT.FILE_SENSOR_TARGET, "r", encoding='utf-8')
             break
         except FileNotFoundError:
             print("can't find \"target.txt\" file.")
@@ -142,8 +142,15 @@ def sensor_target_reader(sensors):
     line = f.readline()
     tgt = line.split(",")
 
+    # 色温度制御（MODE_TEMPERATURE）がTrueのとき
+    if INIT.MODE_TEMPERATURE:
+        line = f.readline()
+        color_tgt = line.split(",")
+
     for i, s in enumerate(sensors):
         s.target = float(tgt[i])
+        if INIT.MODE_TEMPERATURE:
+            s.target_temperature = int(color_tgt[i])
 
 
 def sensor_attendance_reader(sensors):

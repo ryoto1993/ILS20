@@ -28,7 +28,7 @@ class Light:
         self.previous_luminosity = 0.0  # 前の光度
         self.divided_luminosity = [0.0, 0.0]
         self.divided_next_luminosity = [0.0, 0.0]
-        self.divided_previus_luminosity = [0.0, 0.0]
+        self.divided_previous_luminosity = [0.0, 0.0]
         # 分散制御アルゴリズム用目的関数
         self.objective_function = 0.0  # 目的関数
         self.next_objective_function = 0.0  # 光度変化後の目的関数

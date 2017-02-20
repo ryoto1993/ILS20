@@ -2,6 +2,7 @@
 
 from configure.config import INIT
 from utils import reader, manualChanger, dimmer, logger, printer, simulation
+from equipment.Sensor import update_sensors
 
 
 class JonanColorSD:
@@ -37,7 +38,7 @@ class JonanColorSD:
         # 各照明に照度/光度影響度を読み込む
         reader.influence_reader(self.ils.lights)
         # 照明に初期光度の信号値を設定
-        manualChanger.change_manually(self.ils.lights, INIT.ALG_INITIAL_SIGNAL_COLOR)
+        manualChanger.change_manually(self.ils.lights, INIT.ALG_INITIAL_SIGNALS)
         # 設定した信号値で点灯
         if INIT.MODE_SIMULATION:
             pass
@@ -48,7 +49,7 @@ class JonanColorSD:
             simulation.calc_illuminance(self.ils)
         else:
             reader.sensor_signal_reader(self.ils.sensors)
-        # 目標照度を取得
+        # 目標照度と色温度を取得
         reader.sensor_target_reader(self.ils.sensors)
         # 在離席を取得
         if INIT.MODE_CHECK_ATTENDANCE:
@@ -66,7 +67,23 @@ class JonanColorSD:
         if INIT.MODE_ADD_OUTSIDE_LIGHT:
             reader.read_outside_light_data()
 
-
     def next_step(self):
+        # [1] 各照度センサと電力情報を取得
+        # 目標照度と色温度を取得
+        reader.sensor_target_reader(self.ils.sensors)
+        # 現在照度値を取得（実センサから）
+        update_sensors(self.ils)
+        # 照度値を色温度別に分離する
+        self.split_illuminance_by_temperature()
+        # 目標照度と目標色温度から，各色温度別の目標照度を計算する
+
+        # 電力情報を計算
+        self.ils.power_meter.calc_power()
+
+        # [2] 最急降下法で最適な点灯列を探索
         for sd_step in range(INIT.ALG_SD_STEP):
             print("DEBUG : SD step " + str(sd_step))
+
+    # 照度を各色の信号値の比から分離する
+    def split_illuminance_by_temperature(self):
+        pass
