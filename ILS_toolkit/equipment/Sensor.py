@@ -24,7 +24,6 @@ class Sensor:
         self.target = 0.0       # 目標照度値
         self.target_temperature = 5000  # 目標色温度
         self.convergence = False
-        self.divided_illuminance = [0.0, 0.0]
         self.divided_target = [0.0, 0.0]
         # Sekonic補正率
         self.correction_factor = 0.0

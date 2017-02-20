@@ -74,7 +74,9 @@ class INIT:
     ALG_DB_DIMMING_LOWER = -8.0      # 減光変動幅下限（％指定）[-10.0]
 
     # 最急降下法の設定
-    ALG_SD_STEP = 10
+    ALG_SD_STEP = 10            # 最急降下法の反復数
+    ALG_SD_ERROR_WEIGHT = 1.0   # 最急降下法の目的関数で，照度誤差に乗じる係数
+    ALG_SD_POWER_WEIGHT = 10.0  # 最急降下法の目的関数で，光度の総和に乗じる係数
 
     #####################
     #    外光加算設定     #
