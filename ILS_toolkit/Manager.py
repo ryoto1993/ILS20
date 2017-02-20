@@ -5,6 +5,7 @@ import time
 import ILS
 from algorithm.ANAdb import ANADB
 from algorithm.ANArank import ANARANK
+from algorithm.JonanColorSD import JonanColorSD
 from experiments import DaySimulator, TargetGrowthRate, PlayGround, ManyTimes
 from utils import dimmer
 from utils import manualChanger
@@ -37,7 +38,7 @@ if __name__ == "__main__":
         elif state == 3:
             manualChanger.change_to_max(ils.lights)
             dimmer.dimming(ils.lights)
-        # 知的照明システム一時停止
+        # システム一時停止
         elif state == 4:
             time.sleep(0.1)
             pass
@@ -47,7 +48,6 @@ if __name__ == "__main__":
         # ANA/RC
         elif state == 6:
             pass
-
         # ANA/DB
         elif state == 7:
             if type(ils.algorithm) != ANADB:
@@ -66,6 +66,12 @@ if __name__ == "__main__":
         # 数理計画法
         elif state == 10:
             pass
+        # 上南さんの色温度独立数理計画法
+        elif state == 11:
+            if type(ils.algorithm) != JonanColorSD:
+                ils.algorithm = JonanColorSD(ils)
+            else:
+                ils.algorithm.next_step()
 
         # 1日のシミュレータ
         elif state == 50:

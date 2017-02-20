@@ -18,8 +18,8 @@ import random
 #       実験用設定      #
 # ################### #
 time = 100        # <- 何回ILSを回すか
-loop = 500      # <- ステップ数ではなくループ数，400とすると800ステップになる
-name = u"D26"
+loop = 400        # <- ステップ数ではなくループ数，400とすると800ステップになる
+name = u"M110_180F"
 
 
 def start():
@@ -46,9 +46,9 @@ def start():
 
 
 def force_setting():
-    INIT.SIMULATION = True
-    INIT.CHECK_ATTENDANCE = False  # <- このプログラム内で切り替えるためOFFに！
-    INIT.AUTO_ATTENDANCE_SETTING = False
+    INIT.MODE_SIMULATION = True
+    INIT.MODE_CHECK_ATTENDANCE = False  # <- このプログラム内で切り替えるためOFFに！
+    INIT.MODE_AUTO_ATTENDANCE_SETTING = False
 
 
 def set_random_target():

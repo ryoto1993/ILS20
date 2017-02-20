@@ -14,7 +14,7 @@ def calc_illuminance(ils):
             s.illuminance += l.luminosity * l.influence[s_i]
 
         # セコニック製照度センサの誤差外乱模擬
-        if INIT.SIMULATE_VOLTAGE_DISPLACEMENT:
+        if INIT.MODE_SIMULATE_VOLTAGE_DISPLACEMENT:
             s.illuminance = s.illuminance + random.normalvariate(0, math.sqrt(5))
 
         # 収束しているかチェック
@@ -22,3 +22,8 @@ def calc_illuminance(ils):
             s.convergence = True
         else:
             s.convergence = False
+
+
+def calc_illuminance_color_divided(ils):
+    u"""色温度別に照明光度を管理する手法で，各センサの各色温度ごとの現在照度を計算"""
+    pass

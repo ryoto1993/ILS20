@@ -10,7 +10,7 @@ def change_to_max(lights):
     u"""すべての照明の信号値をLIGHT_SIGNAL_MAXに切り替えるメソッド"""
     for l in lights:
         # 色温度制御までするとき
-        if INIT.TEMPERATURE:
+        if INIT.MODE_TEMPERATURE:
             for i in range(len(l.signals)):
                 l.signals[i] = INIT.LIGHT_SIGNAL_MAX[i]
         # 色温度制御を行わない時
@@ -23,7 +23,7 @@ def change_to_min(lights):
     u"""すべての照明の信号値をLIGHT_SIGNAL_MINに切り替えるメソッド"""
     for l in lights:
         # 色温度制御までするとき
-        if INIT.TEMPERATURE:
+        if INIT.MODE_TEMPERATURE:
             for i in range(len(l.signals)):
                 l.signals[i] = INIT.LIGHT_SIGNAL_MIN[i]
         # 色温度制御を行わない時
@@ -53,15 +53,15 @@ def change_to_fixed_pattern(lights):
     time.sleep(0.1)
 
 
-def change_manually(lights, sig):
+def change_manually(lights, sigs):
     u"""すべての照明を信号値sigに変更するメソッド"""
     for l in lights:
         # 色温度制御までするとき
-        if INIT.TEMPERATURE:
+        if INIT.MODE_TEMPERATURE:
             for i in range(len(l.signals)):
-                l.signals[i] = sig
+                l.signals[i] = sigs[i]
         # 色温度制御を行わない時
         else:
-            l.signals[0] = sig
+            l.signals[0] = sigs[0]
 
     signalConverter.convert_to_luminosity(lights)

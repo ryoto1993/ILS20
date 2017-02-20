@@ -7,19 +7,19 @@ class INIT:
     #####################
     # シーケンシャル名は，ログファイルの格納ディレクトリの名前に含まれます．
     # 行うデモ/実験/シミュレーションの概要を簡潔に入力してください．
-    SEQUENCE_NAME = u"知的照明ランダム3近傍_I12_DAIKO26度_ランダムA"
-    # SEQUENCE_NAME = u"知的照明_EL-D3000M3W"
+    SEQUENCE_NAME = u"PROJECT_F_動作検証"
+    # SEQUENCE_NAME = u"卒論_49度1.2B"
 
     #####################
     #      動作モード     #
     #####################
-    SIMULATION = True         # 実機の時はFalse
-    TEMPERATURE = False       # 色温度も制御するか
-    CHECK_ATTENDANCE = True   # 在離席管理を行うか
-    AUTO_ATTENDANCE_SETTING = False      # 在離席の自動設定を行うか
-    SIMULATE_VOLTAGE_DISPLACEMENT = False    # Sekonicアナログ照度センサの電圧変位誤差をシミュレート
-    CORRECT_SENSOR_DISPLACEMENT = True      # Sekonicアナログ照度センサの誤差を補正　
-    ADD_OUTSIDE_LIGHT = False   # 外光加算機能を使用するか
+    MODE_SIMULATION = True         # 実機の時はFalse
+    MODE_TEMPERATURE = False        # 色温度も制御するか
+    MODE_CHECK_ATTENDANCE = True   # 在離席管理を行うか
+    MODE_AUTO_ATTENDANCE_SETTING = False      # シミュレーション時に在離席の自動設定を行うか
+    MODE_SIMULATE_VOLTAGE_DISPLACEMENT = False    # Sekonicアナログ照度センサの電圧変位誤差をシミュレート
+    MODE_CORRECT_SENSOR_DISPLACEMENT = True      # Sekonicアナログ照度センサの誤差を補正　
+    MODE_ADD_OUTSIDE_LIGHT = False   # 外光加算機能を使用するか
 
     #####################
     #  機器情報ファイルパス #
@@ -35,8 +35,8 @@ class INIT:
     #   ファイルパス設定   #
     #####################
     FILE_SENSOR = "./configure/dataSet/Sensor/island12/sensor.csv"
-    FILE_LIGHT = "./configure/dataSet/Light/downlight/light.csv"
-    FILE_INFLUENCE = u"./configure/dataSet/Influence/island12/INF1850_大光電機_91820fb_5700k.csv"
+    FILE_LIGHT = "./configure/dataSet/Light/BACnet/light.csv"
+    FILE_INFLUENCE = u"./configure/dataSet/Influence/island12/完璧な電気照度光度影響度_mirror.csv"
     FILE_STATE = "./configure/state.txt"
     FILE_LIGHT_PATTERN = "./configure/fixedLightPattern.csv"
     FILE_SENSOR_TARGET = "./configure/target.txt"
@@ -45,14 +45,14 @@ class INIT:
     FILE_AUTO_ATTENDANCE = "./configure/auto_attendance.csv"
     FILE_OUTSIDE_LIGHT = "./configure/dataSet/OutsideLight/03_外光データ_Oct.10, 1019-1740_晴時々曇.csv"
     FILE_RANK = "./configure/dataSet/Rank/island12_rank_manual.csv"
-    DIR_LOG = "../LOG/"
+    DIR_LOG = "../LOG_F/"
 
     #####################
     #      照明設定       #
     #####################
     # BACnet型 三菱LEDのデータ
     LIGHT_SIGNAL_MAX = [100, 100]            # 最大点灯信号値
-    LIGHT_LUMINOSITY_MAX = [2480.0, 1485.0]  # 最大点灯光度 [cd] [1280]
+    LIGHT_LUMINOSITY_MAX = [1280.0, 1485.0]  # 最大点灯光度 [cd] [1280]
     LIGHT_SIGNAL_MIN = [0, 5]              # 最小点灯信号値[20]
     LIGHT_LUMINOSITY_MIN = [0.0, 74.0]   # 最小点灯光度 [cd][248.0]
     LIGHT_WAIT_SECOND = 6.5                  # 光度を変更してからの待機時間[6.5]
@@ -61,17 +61,20 @@ class INIT:
     # 最適化アルゴリズム設定 #
     #####################
     ALG_WEIGHT = 30
-    ALG_INITIAL_SIGNAL = 10     # 初期信号値
+    ALG_INITIAL_SIGNALS = [10, 15]     # 初期信号値
     ALG_ALLOWANCE_UPPER = 50  # 目標照度収束許容範囲上限（lx指定）[50lx]
     ALG_ALLOWANCE_LOWER = -0.0  # 目標照度収束許容範囲下限（％指定）[0.0]
 
-    # ANA/RC, ANA,DBの設定
+    # ANA(3近傍)の設定
     ALG_DB_BRIGHTENING_UPPER = 8.0   # 増光変動幅上限（％指定）[10.0]
     ALG_DB_BRIGHTENING_LOWER = -3.0   # 増光変動幅下限（％指定）[-3.0]
     ALG_DB_NEUTRAL_UPPER = 3.0       # 中立変動幅上限（％指定）[5.0]
     ALG_DB_NEUTRAL_LOWER = -3.0      # 中立変動幅下限（％指定）[5.0]
     ALG_DB_DIMMING_UPPER = 3.0      # 減光変動幅上限（％指定）
     ALG_DB_DIMMING_LOWER = -8.0      # 減光変動幅下限（％指定）[-10.0]
+
+    # 最急降下法の設定
+    ALG_SD_STEP = 10
 
     #####################
     #    外光加算設定     #

@@ -26,7 +26,7 @@ def convert_to_signal(lights):
     print(factor)
     print(intercept)
 
-    if INIT.TEMPERATURE:
+    if INIT.MODE_TEMPERATURE:
         pass
     else:
         for l in lights:

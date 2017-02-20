@@ -18,8 +18,6 @@ def convert_to_luminosity(lights):
         #                    float(l.signals[0]) - 40.0024478040349)
         # l.luminosity = int(13.79 * float(l.signals[0]))
 
-
-
         l.luminosity = l.signals[0] * factor + intercept
 
 
@@ -27,9 +25,7 @@ def convert_to_signal(lights):
     u"""光度値を信号値に変換する"""
 
     # for BACnet Mitsubishi LED
-    if INIT.TEMPERATURE:
-        pass
-    else:
+    if INIT.MODE_TEMPERATURE:
         # 1次関数の傾き
         factor = (INIT.LIGHT_SIGNAL_MAX[0] - INIT.LIGHT_SIGNAL_MIN[0]) / \
                  (INIT.LIGHT_LUMINOSITY_MAX[0] - INIT.LIGHT_LUMINOSITY_MIN[0])
@@ -41,5 +37,17 @@ def convert_to_signal(lights):
             #                    0.0711852025585447 * float(l.luminosity) + 3.06397372065703)
             # l.signals[0] = int(100.0 / 1379.0 * float(l.luminosity))
 
+            l.signals[0] = int(l.luminosity * factor + intercept)
+    else:
+        # 1次関数の傾き
+        factor = (INIT.LIGHT_SIGNAL_MAX[0] - INIT.LIGHT_SIGNAL_MIN[0]) / \
+                 (INIT.LIGHT_LUMINOSITY_MAX[0] - INIT.LIGHT_LUMINOSITY_MIN[0])
+        # 1次関数の切片
+        intercept = INIT.LIGHT_SIGNAL_MAX[0] - factor * float(INIT.LIGHT_LUMINOSITY_MAX[0])
+
+        for l in lights:
+            # l.signals[0] = int(0.00000664944924261323 * float(l.luminosity) * float(l.luminosity) +
+            #                    0.0711852025585447 * float(l.luminosity) + 3.06397372065703)
+            # l.signals[0] = int(100.0 / 1379.0 * float(l.luminosity))
 
             l.signals[0] = int(l.luminosity * factor + intercept)

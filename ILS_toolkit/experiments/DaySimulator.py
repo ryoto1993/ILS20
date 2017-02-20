@@ -98,12 +98,12 @@ def set_attendance(data, ils):
 
 
 def force_config():
-    INIT.SIMULATION = True
-    INIT.CHECK_ATTENDANCE = False  # <- このプログラム内で切り替えるためOFFに！
-    INIT.AUTO_ATTENDANCE_SETTING = False
-    INIT.SIMULATE_VOLTAGE_DISPLACEMENT = False
+    INIT.MODE_SIMULATION = True
+    INIT.MODE_CHECK_ATTENDANCE = False  # <- このプログラム内で切り替えるためOFFに！
+    INIT.MODE_AUTO_ATTENDANCE_SETTING = False
+    INIT.MODE_SIMULATE_VOLTAGE_DISPLACEMENT = False
     INIT.DIR_LOG = par_path + "/LOG/"
-    INIT.ADD_OUTSIDE_LIGHT = True if add_outside_light else False
+    INIT.MODE_ADD_OUTSIDE_LIGHT = True if add_outside_light else False
     if add_outside_light:
         INIT.EXT_STEP_SECOND = 1  # 外光加算を行う際の1ステップの実時間秒数
         INIT.EXT_START_LINE = 0  # 外光加算を何行目から読むかの設定（最初の行は0！）

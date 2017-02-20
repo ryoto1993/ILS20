@@ -5,6 +5,7 @@ import time
 from configure.config import INIT
 
 
+# cdinfo.txtに直書きする方式
 def dimming(lights):
     cdinfo = ""
     for l in lights:

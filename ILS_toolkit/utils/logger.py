@@ -153,7 +153,11 @@ class Logger:
         w = csv.writer(f, lineterminator='\n')
         row = ["Step"]
         for l in self.ils.lights:
-            row.append(str(l))
+            if INIT.MODE_TEMPERATURE:
+                for i in range(len(l.signals)):
+                    row.append(str(l) + ", Sig" + str(i+1))
+            else:
+                row.append(str(l))
         w.writerow(row)
         f.close()
 
@@ -299,7 +303,11 @@ class Logger:
         w = csv.writer(f, lineterminator='\n')
         row = [str(step)]
         for l in self.ils.lights:
-            row.append(str(int(l.signals[0])))
+            if INIT.MODE_TEMPERATURE:
+                for sig in l.signals:
+                    row.append(str(int(sig)))
+            else:
+                row.append(str(int(l.signals[0])))
         w.writerow(row)
         f.close()
 

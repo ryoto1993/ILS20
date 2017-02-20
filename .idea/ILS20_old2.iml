@@ -14,6 +14,8 @@
       <excludeFolder url="file://$MODULE_DIR$/ILS_toolkit/experiments/1日シミュレータ（外光無し_全員700_loop=800）" />
       <excludeFolder url="file://$MODULE_DIR$/ILS_toolkit/experiments/1日シミュレータ（外光無し_全員700lx）" />
       <excludeFolder url="file://$MODULE_DIR$/LOG" />
+      <excludeFolder url="file://$MODULE_DIR$/LOG_F" />
+      <excludeFolder url="file://$MODULE_DIR$/LOG_卒論" />
       <excludeFolder url="file://$MODULE_DIR$/OLDLOG" />
     </content>
     <orderEntry type="inheritedJdk" />

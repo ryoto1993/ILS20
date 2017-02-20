@@ -36,33 +36,33 @@ class ANARANK:
         # 各照明に照度/光度影響度（DB）を読み込む
         reader.influence_reader(self.ils.lights)
         # 照明に初期光度の信号値を設定
-        manualChanger.change_manually(self.ils.lights, INIT.ALG_INITIAL_SIGNAL)
+        manualChanger.change_manually(self.ils.lights, INIT.ALG_INITIAL_SIGNALS)
         # 設定した信号値で点灯
-        if INIT.SIMULATION:
+        if INIT.MODE_SIMULATION:
             pass
         else:
             dimmer.dimming(self.ils.lights)
         # 現在照度値を取得
-        if INIT.SIMULATION:
+        if INIT.MODE_SIMULATION:
             simulation.calc_illuminance(self.ils)
         else:
             reader.sensor_signal_reader(self.ils.sensors)
         # 目標照度を取得
         reader.sensor_target_reader(self.ils.sensors)
         # 在離席を取得
-        if INIT.CHECK_ATTENDANCE:
+        if INIT.MODE_CHECK_ATTENDANCE:
             reader.sensor_attendance_reader(self.ils.sensors)
         # ロガー生成
         self.ils.logger = Logger(self.ils)
         # プリンター生成（実環境時のみ）
-        if not INIT.SIMULATION:
+        if not INIT.MODE_SIMULATION:
             self.ils.printer = Printer(self.ils)
         # ログ追記
         self.ils.logger.append_all_log(0, False)
-        if not INIT.SIMULATION:
+        if not INIT.MODE_SIMULATION:
             self.ils.printer.info()
         # 外光取得
-        if INIT.ADD_OUTSIDE_LIGHT:
+        if INIT.MODE_ADD_OUTSIDE_LIGHT:
             reader.read_outside_light_data()
 
     def next_step(self):
@@ -80,7 +80,7 @@ class ANARANK:
 
         # ログ追記
         self.ils.logger.append_all_log(self.step, False)
-        if not INIT.SIMULATION:
+        if not INIT.MODE_SIMULATION:
             self.ils.printer.info()
 
         # [3] 次の光度値を決定し，点灯
@@ -89,7 +89,7 @@ class ANARANK:
         # decide_next_luminosity_ikeda7(self.ils)
         decide_next_luminosity_ikeda7_rank(self.ils)
         # 次光度で点灯
-        if INIT.SIMULATION:
+        if INIT.MODE_SIMULATION:
             pass
         else:
             dimmer.dimming(self.ils.lights)
@@ -109,7 +109,7 @@ class ANARANK:
 
         # ログ追記
         self.ils.logger.append_all_log(self.step, True)
-        if not INIT.SIMULATION:
+        if not INIT.MODE_SIMULATION:
             self.ils.printer.info()
 
         # [6] 目的関数が悪化していたら光度変化をキャンセル
@@ -117,7 +117,7 @@ class ANARANK:
             if l.next_objective_function >= l.objective_function:
                 l.luminosity = l.previous_luminosity
         # 判断後の光度値で点灯
-        if INIT.SIMULATION:
+        if INIT.MODE_SIMULATION:
             pass
         else:
             dimmer.dimming(self.ils.lights)

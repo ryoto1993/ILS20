@@ -6,8 +6,8 @@ class INIT:
     #   ファイルパス設定   #
     #####################
     IES_FILE = u"./IES_file/導入可能ダウンライト/大光電機/91821fb_5700k.ies"
-    IES_INFLUENCE_FILE = "./influence/INF1850_大光電機_91821fb_5700k.csv"
-    IES_LIGHT_FILE = "./light.csv"
+    IES_INFLUENCE_FILE = "./influence/INF1850_大光_91821fb_grid120D.csv"
+    IES_LIGHT_FILE = "./light/grid_120D.csv"
     IES_SENSOR_FILE = "./Sensor/island12/sensor.csv"
 
     #####################

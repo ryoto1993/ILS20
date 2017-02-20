@@ -46,13 +46,13 @@ def lights_config_reader(lights):
 def sensors_config_reader(sensors):
     u"""センサ設定を読み込む"""
     reader = [[int(elm) for elm in v] for v in csv.reader(open(INIT.FILE_SENSOR, "r"))]
-    if INIT.CORRECT_SENSOR_DISPLACEMENT:
+    if INIT.MODE_CORRECT_SENSOR_DISPLACEMENT:
         correction = [[float(elm) for elm in v] for v in csv.reader(open(INIT.FILE_SENSOR_CORRECTION, "r"))]
     for i, s in enumerate(reader):
         sensors.append(Sensor())
         sensors[i].pos_x = s[0]
         sensors[i].pos_y = s[1]
-        if not INIT.SIMULATION and INIT.CORRECT_SENSOR_DISPLACEMENT:
+        if not INIT.MODE_SIMULATION and INIT.MODE_CORRECT_SENSOR_DISPLACEMENT:
             sensors[i].correction_factor = correction[i][0]
 
 
@@ -77,10 +77,10 @@ def update_config(ils):
     # 目標照度を取得
     sensor_target_reader(ils.sensors)
     # 在離席を自動設定
-    if INIT.AUTO_ATTENDANCE_SETTING:
+    if INIT.MODE_AUTO_ATTENDANCE_SETTING:
         sensor_attendance_auto_setting(ils)
     # 在離席を取得
-    if INIT.CHECK_ATTENDANCE:
+    if INIT.MODE_CHECK_ATTENDANCE:
         sensor_attendance_reader(ils.sensors)
 
 
@@ -118,7 +118,7 @@ def sensor_signal_reader(sensors):
 
     for i, s in enumerate(sensors):
         s.illuminance = int(sigs[i])
-        if INIT.CORRECT_SENSOR_DISPLACEMENT:
+        if INIT.MODE_CORRECT_SENSOR_DISPLACEMENT:
             s.illuminance = s.illuminance / s.correction_factor
 
         # 収束しているか否か
