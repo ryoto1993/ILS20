@@ -20,7 +20,7 @@ class PowerMeter:
         power = 0.0
         actual = 0.0
         for l in self.lights:
-            power += l.luminosity
+            power += l.luminosities[0]
             # y=0.4257x + 0.3716に基づいて計算
             if INIT.MODE_TEMPERATURE:
                 for sig in l.signals:

@@ -321,7 +321,7 @@ class Logger:
         w = csv.writer(f, lineterminator='\n')
         row = [str(step)]
         for l in self.ils.lights:
-            row.append(str(int(l.luminosity)))
+            row.append(str(int(l.luminosities[0])))
         w.writerow(row)
         f.close()
 

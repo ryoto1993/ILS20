@@ -100,9 +100,11 @@ def decide_next_luminosity_3type(ils):
 
         # センサの距離をチェックする
         for s_i, s in enumerate(ils.sensors):
-            if influence[s_i] > 0.17:
+            # if influence[s_i] > 0.17:
+            if influence[s_i] > 0.2695:
                 distance = Distance.near
-            elif influence[s_i] > 0.07:
+            # elif influence[s_i] > 0.07:
+            elif influence[s_i] > 0.253:
                 distance = Distance.middle
             else:
                 distance = Distance.distant
@@ -162,15 +164,15 @@ def decide_next_luminosity_3type(ils):
         elif neighbor == NeighborType.dimming:
             change_rate = random.randint(INIT.ALG_DB_DIMMING_LOWER, INIT.ALG_DB_DIMMING_UPPER)
 
-        l.previous_luminosity = l.luminosity
-        l.next_luminosity = l.luminosity * (100.0 + change_rate) / 100.
+        l.previous_luminosity = l.luminosities[0]
+        l.next_luminosity = l.luminosities[0] * (100.0 + change_rate) / 100.
         if l.next_luminosity > INIT.LIGHT_LUMINOSITY_MAX[0]:
             l.next_luminosity = INIT.LIGHT_LUMINOSITY_MAX[0]
         elif l.next_luminosity < INIT.LIGHT_LUMINOSITY_MIN[0]:
             l.next_luminosity = INIT.LIGHT_LUMINOSITY_MIN[0]
 
     for l in ils.lights:
-        l.luminosity = l.next_luminosity
+        l.luminosities[0] = l.next_luminosity
         signalConverter.convert_to_signal(ils.lights)
 
 
