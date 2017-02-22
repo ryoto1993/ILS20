@@ -115,6 +115,7 @@ class JonanColorSD:
                     grd_tmp = INIT.ALG_SD_POWER_WEIGHT
                     for s_i, s in enumerate(self.ils.sensors):
                         if s.attendance:
+                            # ToDo: ここがなんでこうなるか，調べないと…
                             # grd_tmp += 2 * INIT.ALG_SD_ERROR_WEIGHT * l.influence[s_i] * (l.influence[s_i]*l.luminosities[i] - s.divided_target[i])
                             tmp = sum(al.influence[s_i]*al.luminosities[i] for al in self.ils.lights)
                             grd_tmp += 2 * INIT.ALG_SD_ERROR_WEIGHT * l.influence[s_i] * (tmp - s.divided_target[i])
