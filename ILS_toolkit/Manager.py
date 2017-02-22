@@ -5,6 +5,7 @@ import time
 import ILS
 from algorithm.ANAdb import ANADB
 from algorithm.ANArank import ANARANK
+from algorithm.SHC import SHC
 from algorithm.JonanColorSD import JonanColorSD
 from experiments import DaySimulator, TargetGrowthRate, PlayGround, ManyTimes
 from utils import dimmer
@@ -44,7 +45,10 @@ if __name__ == "__main__":
             pass
         # SHC
         elif state == 5:
-            pass
+            if type(ils.algorithm) != SHC:
+                ils.algorithm = SHC(ils)
+            else:
+                ils.algorithm.next_step()
         # ANA/RC
         elif state == 6:
             pass

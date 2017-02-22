@@ -100,11 +100,12 @@ def decide_next_luminosity_3type(ils):
 
         # センサの距離をチェックする
         for s_i, s in enumerate(ils.sensors):
-            # if influence[s_i] > 0.17:
-            if influence[s_i] > 0.2695:
+            if influence[s_i] > 0.07:
+            # if influence[s_i] > 0.2695:
                 distance = Distance.near
             # elif influence[s_i] > 0.07:
-            elif influence[s_i] > 0.253:
+            # elif influence[s_i] > 0.253:
+            elif influence[s_i] > 0.07:
                 distance = Distance.middle
             else:
                 distance = Distance.distant

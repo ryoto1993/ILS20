@@ -101,8 +101,9 @@ class JonanColorSD:
                 pwr[i] = sum(l.luminosities[i] for l in self.ils.lights)
                 for s_i, s in enumerate(self.ils.sensors):
                     if s.attendance:
-                        err[i] += sum((l.luminosities[i]*l.influence[s_i] - s.divided_target[i])**2
-                                      for l in self.ils.lights)
+                        # センサの現在照度を計算する
+                        ill = sum(l.luminosities[i]*l.influence[s_i] for l in self.ils.lights)
+                        err[i] += (ill - s.divided_target[i])**2
                 obj[i] = pwr[i] * INIT.ALG_SD_POWER_WEIGHT + err[i] * INIT.ALG_SD_ERROR_WEIGHT
             print(obj)
 
@@ -110,14 +111,16 @@ class JonanColorSD:
             grd_v = [[], []]
             for i in range(2):
                 for l in self.ils.lights:
-                    tmp = 0
+                    # 各照明ごとの勾配
+                    grd_tmp = INIT.ALG_SD_POWER_WEIGHT
                     for s_i, s in enumerate(self.ils.sensors):
                         if s.attendance:
-                            tmp += INIT.ALG_SD_POWER_WEIGHT + INIT.ALG_SD_ERROR_WEIGHT * 2 * l.influence[s_i] * (l.influence[s_i]*l.luminosities[i] - s.divided_target[i])
-                            # tmp += INIT.ALG_SD_POWER_WEIGHT + INIT.ALG_SD_ERROR_WEIGHT * 2 * l.influence[s_i]**2 * l.luminosities[i] - 2 * l.influence[s_i] * s.divided_target[i]
-                    grd_v[i].append(tmp)
+                            # grd_tmp += 2 * INIT.ALG_SD_ERROR_WEIGHT * l.influence[s_i] * (l.influence[s_i]*l.luminosities[i] - s.divided_target[i])
+                            tmp = sum(al.influence[s_i]*al.luminosities[i] for al in self.ils.lights)
+                            grd_tmp += 2 * INIT.ALG_SD_ERROR_WEIGHT * l.influence[s_i] * (tmp - s.divided_target[i])
+                    grd_v[i].append(grd_tmp)
 
-            #print(grd_v)
+            print("......................." + str(grd_v))
             # <3> 各色温度ごとの降下ベクトル（勾配ベクトルの逆ベクトル）のステップ幅（ノルム）を求める
 
             # <4> 点灯列を更新し，照度を更新する
@@ -131,7 +134,8 @@ class JonanColorSD:
         signalConverter.convert_to_signal(self.ils.lights)
 
         for l in self.ils.lights:
-            print(l.luminosities)
+            # print(l.luminosities)
+            pass
 
         if INIT.MODE_SIMULATION:
             pass
