@@ -17,8 +17,11 @@ def convert_to_luminosity(lights):
         # l.luminosity = int(-0.0130119460805247 * float(l.signals[0]) * float(l.signals[0]) + 13.9104144531693 *
         #                    float(l.signals[0]) - 40.0024478040349)
         # l.luminosity = int(13.79 * float(l.signals[0]))
-
-        l.luminosities[0] = l.signals[0] * factor + intercept
+        if INIT.MODE_TEMPERATURE:
+            for lum_s, lum in enumerate(l.luminosities):
+                l.luminosities[lum_s] = l.signals[lum_s] * factor + intercept
+        else:
+            l.luminosities[0] = l.signals[0] * factor + intercept
 
 
 def convert_to_signal(lights):

@@ -2,7 +2,7 @@
 
 from configure.config import INIT
 from utils import reader, manualChanger, dimmer, logger, printer, simulation, signalConverter
-from equipment.Sensor import update_sensors
+from equipment.Sensor import update_sensors, update_temperature
 
 import math
 
@@ -18,7 +18,7 @@ class JonanColorSD:
     """
 
     def __init__(self, ils):
-        self.step = 1
+        self.step = 0
         self.ils = ils
 
         ils.algorithm = JonanColorSD
@@ -70,6 +70,8 @@ class JonanColorSD:
             reader.read_outside_light_data()
 
     def next_step(self):
+        self.step += 1
+        print("Step : " + str(self.step) + "　　スタート")
         # [1] 各照度センサと電力情報を取得
         # 現在照度値を取得（デバッグ用に，実センサから）
         update_sensors(self.ils)
@@ -82,11 +84,6 @@ class JonanColorSD:
         self.split_illuminance_by_temperature()
         # 電力情報を計算
         self.ils.power_meter.calc_power()
-
-        # ログ追記
-        self.ils.logger.append_all_log(self.step, False)
-        if not INIT.MODE_SIMULATION:
-            self.ils.printer.info()
 
         # [2] 最急降下法で最適な点灯列を探索
         # 反復数分，勾配ベクトルによる点灯列の更新を行う
@@ -105,7 +102,6 @@ class JonanColorSD:
                         ill = sum(l.luminosities[i]*l.influence[s_i] for l in self.ils.lights)
                         err[i] += (ill - s.divided_target[i])**2
                 obj[i] = pwr[i] * INIT.ALG_SD_POWER_WEIGHT + err[i] * INIT.ALG_SD_ERROR_WEIGHT
-            print(obj)
 
             # <2> 各色温度ごとの勾配ベクトルを算出する
             grd_v = [[], []]
@@ -121,7 +117,6 @@ class JonanColorSD:
                             grd_tmp += 2 * INIT.ALG_SD_ERROR_WEIGHT * l.influence[s_i] * (tmp - s.divided_target[i])
                     grd_v[i].append(grd_tmp)
 
-            print("......................." + str(grd_v))
             # <3> 各色温度ごとの降下ベクトル（勾配ベクトルの逆ベクトル）のステップ幅（ノルム）を求める
 
             # <4> 点灯列を更新し，照度を更新する
@@ -129,10 +124,13 @@ class JonanColorSD:
             for l_s, l in enumerate(self.ils.lights):
                 l.luminosities[0] -= grd_v[0][l_s] * 0.05
                 l.luminosities[1] -= grd_v[1][l_s] * 0.05
+
             simulation.calc_illuminance_color_divided(self.ils)
 
         # [3] 探索した点灯列で照明を点灯
         signalConverter.convert_to_signal(self.ils.lights)
+        # ToDo: これによって少し誤差が生じてしまう
+        signalConverter.convert_to_luminosity(self.ils.lights)
 
         for l in self.ils.lights:
             # print(l.luminosities)
@@ -142,6 +140,17 @@ class JonanColorSD:
             pass
         else:
             dimmer.dimming(self.ils.lights)
+
+        # 現在照度値を取得（デバッグ用に，実センサから）
+        update_sensors(self.ils)
+        # 電力情報を計算
+        self.ils.power_meter.calc_power()
+        # 色温度を計算
+        update_temperature(self.ils)
+        # ログ追記
+        self.ils.logger.append_all_log(self.step, False)
+        if not INIT.MODE_SIMULATION:
+            self.ils.printer.info()
 
     # 照度を各色の信号値の比から分離する
     def split_illuminance_by_temperature(self):

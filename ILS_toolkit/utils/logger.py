@@ -31,6 +31,7 @@ class Logger:
     convergence_name = "09_convergence.csv"
     neighbor_name = "10_neighbor.csv"
     target_temperature_name = "11_target_temperature.csv"
+    temperature_name = "12_temperature.csv"
 
     def __init__(self, ils):
         self.ils = ils
@@ -80,6 +81,8 @@ class Logger:
         # 目標色温度履歴を作成
         if INIT.LOGGER_TARGET_TEMPERATURE:
             self.make_target_temperature_log()
+        if INIT.LOGGER_TEMPERATURE:
+            self.make_temperature_log()
         # カスタムログを作成
 
     def make_information(self):
@@ -273,6 +276,21 @@ class Logger:
         w.writerow(row)
         f.close()
 
+    def make_temperature_log(self):
+        u"""
+        色温度ログを作成するメソッド
+        :return: None
+        """
+
+        file_path = self.path + "/" + self.temperature_name
+        f = open(file_path, 'w')
+        w = csv.writer(f, lineterminator='\n')
+        row = ["Step"]
+        for s in self.ils.sensors:
+            row.append(str(s))
+        w.writerow(row)
+        f.close()
+
     def append_all_log(self, step, next_flag):
         if INIT.LOGGER_ILLUMINANCE:
             self.append_illuminance_log(step)
@@ -294,6 +312,8 @@ class Logger:
             self.append_neighbor_log(step)
         if INIT.LOGGER_TARGET_TEMPERATURE:
             self.append_target_temperature_log(step)
+        if INIT.LOGGER_TEMPERATURE:
+            self.append_temperature_log(step)
 
     def append_illuminance_log(self, step):
         u"""
@@ -456,5 +476,20 @@ class Logger:
         row = [str(step)]
         for s in self.ils.sensors:
             row.append(str(int(s.target_temperature)))
+        w.writerow(row)
+        f.close()
+
+    def append_temperature_log(self, step):
+        u"""
+        色温度履歴ログに書き込み
+        :return: None
+        """
+
+        file_path = self.path + "/" + self. temperature_name
+        f = open(file_path, 'a')
+        w = csv.writer(f, lineterminator='\n')
+        row = [str(step)]
+        for s in self.ils.sensors:
+            row.append(str(int(s.temperature)))
         w.writerow(row)
         f.close()

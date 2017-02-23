@@ -21,6 +21,7 @@ class Sensor:
         # ステータス
         self.attendance = True  # 在離席状態
         self.illuminance = 0.0  # 現在照度値
+        self.temperature = 0    # 現在色温度
         self.target = 0.0       # 目標照度値
         self.target_temperature = 5000  # 目標色温度
         self.convergence = False
@@ -47,3 +48,19 @@ def update_sensors(ils):
         data_line = int(1 + INIT.EXT_START_LINE + ils.algorithm.step * INIT.EXT_STEP_SECOND)
         for s in ils.sensors:
             s.illuminance += int(OutsideLight.data[data_line][s.id])
+
+
+# 信号値の比率から色温度を推定
+def update_temperature(ils):
+    a = 0.183
+    b = 9.125
+    c = 2689.3
+
+    for s_i, s in enumerate(ils.sensors):
+        sum_ill = [0, 0]
+        for l in ils.lights:
+            sum_ill[0] += l.luminosities[0] * l.influence[s_i]
+            sum_ill[1] += l.luminosities[1] * l.influence[s_i]
+
+        ratio = sum_ill[0] / (sum_ill[0] + sum_ill[1]) * 100
+        s.temperature = a * ratio**2 + b * ratio + c

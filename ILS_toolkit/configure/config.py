@@ -7,7 +7,7 @@ class INIT:
     #####################
     # シーケンシャル名は，ログファイルの格納ディレクトリの名前に含まれます．
     # 行うデモ/実験/シミュレーションの概要を簡潔に入力してください．
-    SEQUENCE_NAME = u"PROJECT_F_動作検証"
+    SEQUENCE_NAME = u"PROJECT_F_動作検証_収束の確認"
     # SEQUENCE_NAME = u"卒論_110度0.6"
 
     #####################
@@ -74,7 +74,7 @@ class INIT:
     ALG_DB_DIMMING_LOWER = -8.0      # 減光変動幅下限（％指定）[-10.0]
 
     # 最急降下法の設定
-    ALG_SD_STEP = 20            # 最急降下法の反復数
+    ALG_SD_STEP = 150            # 最急降下法の反復数
     ALG_SD_ERROR_WEIGHT = 1.0   # 最急降下法の目的関数で，照度誤差に乗じる係数
     ALG_SD_POWER_WEIGHT = 0     # 最急降下法の目的関数で，光度の総和に乗じる係数
 
@@ -97,5 +97,6 @@ class INIT:
     LOGGER_ATTENDANCE = True
     LOGGER_CONVERGENCE = True
     LOGGER_TARGET_TEMPERATURE = True
+    LOGGER_TEMPERATURE = True
     LOGGER_CUSTOM = True  # カスタムログを出力
     LOGGER_CUSTOM_FILE = "./configure/customLog.txt"  # カスタムログの設定ファイル
