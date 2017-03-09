@@ -7,7 +7,7 @@ class INIT:
     #####################
     # シーケンシャル名は，ログファイルの格納ディレクトリの名前に含まれます．
     # 行うデモ/実験/シミュレーションの概要を簡潔に入力してください．
-    SEQUENCE_NAME = u"SMC_中規模実験環境_動作検証"
+    SEQUENCE_NAME = u"SMC_中規模実験環境_動作検証_26_60_DB_w30-3000"
 
     #####################
     #      動作モード     #
@@ -34,24 +34,24 @@ class INIT:
     #   ファイルパス設定   #
     #####################
     FILE_SENSOR = u"./configure/dataSet/Sensor/SMC中規模環境/sensor.csv"
-    FILE_LIGHT = u"./configure/dataSet/Light/SMC中規模環境/light_180.csv"
-    FILE_INFLUENCE = u"./configure/dataSet/Influence/island12/完璧な電気照度光度影響度_mirror.csv"
+    FILE_LIGHT = u"./configure/dataSet/Light/SMC中規模環境/light_60.csv"
+    FILE_INFLUENCE = u"./configure/dataSet/Influence/SMC中規模環境/SMC中規模環境_D26_60.csv"
     FILE_STATE = "./configure/state.txt"
     FILE_LIGHT_PATTERN = "./configure/fixedLightPattern.csv"
-    FILE_SENSOR_TARGET = "./configure/target.txt"
+    FILE_SENSOR_TARGET = "./configure/target40.txt"
     FILE_SENSOR_CORRECTION = "../sekonicAnalog/correction_factor.txt"
-    FILE_ATTENDANCE = "./configure/attendance.csv"
+    FILE_ATTENDANCE = "./configure/attendance40.csv"
     FILE_AUTO_ATTENDANCE = "./configure/auto_attendance.csv"
     FILE_OUTSIDE_LIGHT = "./configure/dataSet/OutsideLight/03_外光データ_Oct.10, 1019-1740_晴時々曇.csv"
     FILE_RANK = "./configure/dataSet/Rank/island12_rank_manual.csv"
-    DIR_LOG = "../LOG_F/"
+    DIR_LOG = "../LOG_SMC/"
 
     #####################
     #      照明設定       #
     #####################
     # BACnet型 三菱LEDのデータ
     LIGHT_SIGNAL_MAX = [100, 100]            # 最大点灯信号値
-    LIGHT_LUMINOSITY_MAX = [1246.0, 1280.0]  # 最大点灯光度 [cd] [1280]
+    LIGHT_LUMINOSITY_MAX = [2741.0, 1280.0]  # 最大点灯光度 [cd] [1280]
     LIGHT_SIGNAL_MIN = [0, 0]              # 最小点灯信号値[20]
     LIGHT_LUMINOSITY_MIN = [0.0, 0.0]   # 最小点灯光度 [cd][248.0]
     LIGHT_WAIT_SECOND = 6.5                  # 光度を変更してからの待機時間[6.5]
@@ -59,9 +59,9 @@ class INIT:
     #####################
     # 最適化アルゴリズム設定 #
     #####################
-    ALG_WEIGHT = 30
+    ALG_WEIGHT = 3000  # 30
     ALG_INITIAL_SIGNALS = [1, 1]     # 初期信号値
-    ALG_ALLOWANCE_UPPER = 50  # 目標照度収束許容範囲上限（lx指定）[50lx]
+    ALG_ALLOWANCE_UPPER = 0  # 目標照度収束許容範囲上限（lx指定）[50lx]
     ALG_ALLOWANCE_LOWER = -0.0  # 目標照度収束許容範囲下限（％指定）[0.0]
 
     # ANA(3近傍)の設定
