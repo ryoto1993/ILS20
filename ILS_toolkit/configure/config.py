@@ -7,14 +7,13 @@ class INIT:
     #####################
     # シーケンシャル名は，ログファイルの格納ディレクトリの名前に含まれます．
     # 行うデモ/実験/シミュレーションの概要を簡潔に入力してください．
-    SEQUENCE_NAME = u"PROJECT_F_動作検証_収束の確認"
-    # SEQUENCE_NAME = u"卒論_110度0.6"
+    SEQUENCE_NAME = u"SMC_中規模実験環境_動作検証"
 
     #####################
     #      動作モード     #
     #####################
     MODE_SIMULATION = True         # 実機の時はFalse
-    MODE_TEMPERATURE = True        # 色温度も制御するか
+    MODE_TEMPERATURE = False        # 色温度も制御するか
     MODE_CHECK_ATTENDANCE = True   # 在離席管理を行うか
     MODE_AUTO_ATTENDANCE_SETTING = False      # シミュレーション時に在離席の自動設定を行うか
     MODE_SIMULATE_VOLTAGE_DISPLACEMENT = False    # Sekonicアナログ照度センサの電圧変位誤差をシミュレート
@@ -34,8 +33,8 @@ class INIT:
     #####################
     #   ファイルパス設定   #
     #####################
-    FILE_SENSOR = "./configure/dataSet/Sensor/island12/sensor.csv"
-    FILE_LIGHT = "./configure/dataSet/Light/BACnet/light.csv"
+    FILE_SENSOR = u"./configure/dataSet/Sensor/SMC中規模環境/sensor.csv"
+    FILE_LIGHT = u"./configure/dataSet/Light/SMC中規模環境/light_180.csv"
     FILE_INFLUENCE = u"./configure/dataSet/Influence/island12/完璧な電気照度光度影響度_mirror.csv"
     FILE_STATE = "./configure/state.txt"
     FILE_LIGHT_PATTERN = "./configure/fixedLightPattern.csv"

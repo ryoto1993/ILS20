@@ -24,6 +24,7 @@ class Light:
         self.isOn = True   # 照明のスイッチ
         self.signals = [0, 0]  # 通常，暖色と寒色の2系統
         self.luminosities = [0.0, 0.0]  # 現在光度
+        self.temperature = 0    # 照明の現在色温度
         self.next_luminosity = 0.0
         self.previous_luminosity = 0.0  # 前の光度
         # 分散制御アルゴリズム用目的関数

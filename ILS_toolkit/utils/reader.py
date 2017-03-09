@@ -153,6 +153,11 @@ def sensor_target_reader(sensors):
             s.target_temperature = int(color_tgt[i])
 
 
+def sensor_position_reader(sensors):
+    u"""センサの座標を読み込み"""
+    pass
+
+
 def sensor_attendance_reader(sensors):
     u"""センサの在離席状態を読込"""
     while True:

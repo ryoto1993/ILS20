@@ -71,7 +71,7 @@ class JonanColorSD:
 
     def next_step(self):
         self.step += 1
-        print("Step : " + str(self.step) + "　　スタート")
+        print("Step : " + str(self.step) + "  Start")
         # [1] 各照度センサと電力情報を取得
         # 現在照度値を取得（デバッグ用に，実センサから）
         update_sensors(self.ils)
@@ -131,10 +131,6 @@ class JonanColorSD:
         signalConverter.convert_to_signal(self.ils.lights)
         # ToDo: これによって少し誤差が生じてしまう
         signalConverter.convert_to_luminosity(self.ils.lights)
-
-        for l in self.ils.lights:
-            # print(l.luminosities)
-            pass
 
         if INIT.MODE_SIMULATION:
             pass
