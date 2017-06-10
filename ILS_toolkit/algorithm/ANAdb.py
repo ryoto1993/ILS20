@@ -113,7 +113,7 @@ class ANADB:
         # [6] 目的関数が悪化していたら光度変化をキャンセル
         for l in self.ils.lights:
             if l.next_objective_function >= l.objective_function:
-                l.luminosity = l.previous_luminosity
+                l.luminosities[0] = l.previous_luminosity
         # 判断後の光度値で点灯
         if INIT.MODE_SIMULATION:
             pass
