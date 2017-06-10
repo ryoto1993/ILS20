@@ -7,7 +7,7 @@ class INIT:
     #####################
     # シーケンシャル名は，ログファイルの格納ディレクトリの名前に含まれます．
     # 行うデモ/実験/シミュレーションの概要を簡潔に入力してください．
-    SEQUENCE_NAME = u"許容照度差の実験（110_180）_600_0"
+    SEQUENCE_NAME = u"SMCLB_DBテスト"
 
     #####################
     #      動作モード     #
@@ -33,8 +33,8 @@ class INIT:
     #####################
     #   ファイルパス設定   #
     #####################
-    FILE_SENSOR = u"./configure/dataSet/Sensor/island12/sensor.csv"
-    FILE_LIGHT = u"./configure/dataSet/Light/downlight/grid_180B.csv"
+    FILE_SENSOR = u"./configure/dataSet/Sensor/SMCLB/smclb.csv"
+    FILE_LIGHT = u"./configure/dataSet/Light/SMCLB/smclb.csv"
     FILE_INFLUENCE = u"./configure/dataSet/Influence/island12/完璧な電気照度光度影響度_mirror.csv"
     FILE_STATE = "./configure/state.txt"
     FILE_LIGHT_PATTERN = "./configure/fixedLightPattern.csv"

@@ -7,6 +7,7 @@ from algorithm.ANAdb import ANADB
 from algorithm.ANArank import ANARANK
 from algorithm.SHC import SHC
 from algorithm.JonanColorSD import JonanColorSD
+from algorithm.SMC_LateBreaking import SMCLB
 from experiments import DaySimulator, TargetGrowthRate, PlayGround, ManyTimes
 from utils import dimmer
 from utils import manualChanger
@@ -90,3 +91,7 @@ if __name__ == "__main__":
         elif state == 53:
             ManyTimes.start()
             exit("ManyTimes completed.")
+        elif state == 54:
+            ils.algorithm = SMCLB(ils)
+            exit("SMCLC sequence completed.")
+

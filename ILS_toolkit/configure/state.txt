@@ -1,4 +1,4 @@
-﻿state = 7
+﻿state = 54
 
 *-*-*-*-*-*-*-*-*-*-*-*-*-*
 動作状態設定ファイル
@@ -22,4 +22,5 @@
 51: TargetGrowthRate
 52: PlayGround
 53: ManyTimes
+54: ANA/DB -> 配光角制御 を繰り返す制御方式（SMC LateBreaking）
 *-*-*-*-*-*-*-*-*-*-*-*-*-*

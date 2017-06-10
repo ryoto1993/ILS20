@@ -16,6 +16,7 @@
       <excludeFolder url="file://$MODULE_DIR$/LOG" />
       <excludeFolder url="file://$MODULE_DIR$/LOG_F" />
       <excludeFolder url="file://$MODULE_DIR$/LOG_SMC" />
+      <excludeFolder url="file://$MODULE_DIR$/LOG_SMCLB" />
       <excludeFolder url="file://$MODULE_DIR$/LOG_卒論" />
       <excludeFolder url="file://$MODULE_DIR$/OLDLOG" />
     </content>

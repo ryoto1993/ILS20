@@ -16,8 +16,9 @@ class Light:
         self.pos_y = 0.0
         self.pos_z = 0.0
         # 照明属性
-        self.minLum = 0.0  # 最小点灯光度
-        self.maxLum = 0.0  # 最大点灯光度
+        self.minLum = 0.0     # 最小点灯光度
+        self.maxLum = 0.0     # 最大点灯光度
+        self.beamSpread = 25  # 1/2ビーム角
         # 照度/光度影響度（ファイルから読み込んだもの）
         self.influence = []
         # ステータス
