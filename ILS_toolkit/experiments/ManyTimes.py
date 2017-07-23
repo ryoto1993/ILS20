@@ -20,7 +20,7 @@ import random
 # ################### #
 time = 100        # <- 何回ILSを回すか
 loop = 400        # <- ステップ数ではなくループ数，400とすると800ステップになる
-name = u"M110_60"
+name = u"DL_CLR_RND_26_60"
 mode = "COLOR"    # "COLOR": 二系統分離数理計画 "DB": ANA/DB
 
 
@@ -52,6 +52,7 @@ def start():
             ils.algorithm.next_step()
 
 
+# ManyTimes用にconfigの設定をoverwrite
 def force_setting():
     INIT.MODE_SIMULATION = True
     INIT.MODE_CHECK_ATTENDANCE = False  # <- このプログラム内で切り替えるためOFFに！
@@ -66,6 +67,7 @@ def set_random_target():
     line = u""
     c_line = u""
 
+    # 300, 500, 700lx を以下の割合で設定
     for i in range(12):
         if officer[i] == 0 or officer[i] == 1:
             line += u"300,"
@@ -74,25 +76,29 @@ def set_random_target():
         else:
             line += u"500,"
 
-    # 色温度が有効の場合は3500K~6000Kの範囲でランダムに割り当てる
+    # 色温度が有効の場合は3000K~5500Kの範囲でランダムに割り当てる
     if mode == "COLOR":
         random.shuffle(officer)
         for i in range(12):
             if officer[i] % 6 == 0:
-                c_line += u"3500,"
+                c_line += u"3000,"
             elif officer[i] % 6 == 1:
-                c_line += u"4000,"
+                c_line += u"3500,"
             elif officer[i] % 6 == 2:
-                c_line += u"4500,"
+                c_line += u"4000,"
             elif officer[i] % 6 == 3:
-                c_line += u"5000,"
+                c_line += u"4500,"
             elif officer[i] % 6 == 4:
-                c_line += u"5500,"
+                c_line += u"5000,"
             elif officer[i] % 6 == 5:
-                c_line += u"6000,"
+                c_line += u"4000,"
 
+    # target.txtに書き込み
     f = codecs.open(INIT.FILE_SENSOR_TARGET, "w", "utf-8")
     f.write(line)
+    if mode == "COLOR":
+        f.write("\n")
+        f.write(c_line)
     f.close()
 
     print(line)

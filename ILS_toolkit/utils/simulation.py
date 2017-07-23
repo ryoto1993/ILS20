@@ -14,6 +14,7 @@ def calc_illuminance(ils):
             if INIT.MODE_TEMPERATURE:
                 for lum in l.luminosities:
                     s.illuminance += lum * l.influence[s_i]
+                    # print(str(s) + " " + str(l) + " lum:" + str(lum) + ", inf: " + str(l.influence[s_i]))
             else:
                 s.illuminance += l.luminosities[0] * l.influence[s_i]
 
