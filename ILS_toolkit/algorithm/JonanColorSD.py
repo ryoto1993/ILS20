@@ -71,7 +71,7 @@ class JonanColorSD:
 
     def next_step(self):
         self.step += 1
-        print("Step : " + str(self.step) + "  Start")
+        # print("Step : " + str(self.step) + "  Start")
         # [1] 各照度センサと電力情報を取得
         # 現在照度値を取得（デバッグ用に，実センサから）
         update_sensors(self.ils)
@@ -124,6 +124,14 @@ class JonanColorSD:
             for l_s, l in enumerate(self.ils.lights):
                 l.luminosities[0] -= grd_v[0][l_s] * 0.05
                 l.luminosities[1] -= grd_v[1][l_s] * 0.05
+                if l.luminosities[0] < 0:
+                    l.luminosities[0] = 0
+                if l.luminosities[1] < 0:
+                    l.luminosities[1] = 0
+                if l.luminosities[0] > INIT.LIGHT_LUMINOSITY_MAX[0]:
+                    l.luminosities[0] = INIT.LIGHT_LUMINOSITY_MAX[0]
+                if l.luminosities[1] > INIT.LIGHT_LUMINOSITY_MAX[1]:
+                    l.luminosities[1] = INIT.LIGHT_LUMINOSITY_MAX[1]
 
             simulation.calc_illuminance_color_divided(self.ils)
 
