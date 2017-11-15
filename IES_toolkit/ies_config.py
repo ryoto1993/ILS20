@@ -20,5 +20,5 @@ class INIT:
     #########################
     #   Enironment config.  #
     #########################
-    # IES_HEIGHT = 1985
-    IES_HEIGHT = 1850
+    IES_HEIGHT = 1985
+    # IES_HEIGHT = 1850
