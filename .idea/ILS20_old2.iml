@@ -21,7 +21,7 @@
       <excludeFolder url="file://$MODULE_DIR$/LOG_卒論" />
       <excludeFolder url="file://$MODULE_DIR$/OLDLOG" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.6.1 (C:\Program Files\Python36\python.exe)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.6.3 (U:\Users\Ryoto\AppData\Local\Programs\Python\Python36-32\python.exe)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TemplatesService">

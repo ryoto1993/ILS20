@@ -6,6 +6,7 @@ from equipment.Light import Light
 from configure.config import INIT
 from algorithm.ANAdb import ANADB
 from algorithm.JonanColorSD import JonanColorSD
+from utils.logger import Logger
 
 import os
 import codecs
@@ -18,10 +19,11 @@ import random
 # ################### #
 #       実験用設定      #
 # ################### #
-time = 100        # <- 何回ILSを回すか
-loop = 400        # <- ステップ数ではなくループ数，400とすると800ステップになる
-name = u"DL_CLR_RND_26_60"
+time = 30        # <- 何回ILSを回すか
+loop = 4        # <- ステップ数ではなくループ数，400とすると800ステップになる
+name = u"DL_CLR_FIX_26_60"
 mode = "COLOR"    # "COLOR": 二系統分離数理計画 "DB": ANA/DB
+ifix = True       # 照度を500lxに固定する
 
 
 def start():
@@ -41,6 +43,8 @@ def start():
         Light.id = 1
         # ILS初期化
         ils = ILS()
+        # ロガーのパスを強制変更
+        Logger.PATH = str(t+1)
 
         # アルゴリズム指定
         if mode == "DB":
@@ -75,6 +79,9 @@ def set_random_target():
             line += u"700,"
         else:
             line += u"500,"
+
+    if ifix:
+        line = u"500,500,500,500,500,500,500,500,500,500,500,500,"
 
     # 色温度が有効の場合は3000K~5500Kの範囲でランダムに割り当てる
     if mode == "COLOR":

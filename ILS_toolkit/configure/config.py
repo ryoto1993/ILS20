@@ -34,8 +34,8 @@ class INIT:
     #   ファイルパス設定   #
     #####################
     FILE_SENSOR = u"./configure/dataSet/Sensor/island12/sensor.csv"
-    FILE_LIGHT = u"./configure/dataSet/Light/BACnet/light.csv"
-    FILE_INFLUENCE = u"./configure/dataSet/Influence/island12/完璧な電気照度光度影響度_mirror.csv"
+    FILE_LIGHT = u"./configure/dataSet/Light/downlight/grid_60.csv"
+    FILE_INFLUENCE = u"./configure/dataSet/Influence/island12/INF1850_大光_91820fb_grid60.csv"
     FILE_STATE = "./configure/state.txt"
     FILE_LIGHT_PATTERN = "./configure/fixedLightPattern.csv"
     FILE_SENSOR_TARGET = "./configure/target.txt"
@@ -51,7 +51,7 @@ class INIT:
     #####################
     # BACnet型 三菱LEDのデータ
     LIGHT_SIGNAL_MAX = [100, 100]            # 最大点灯信号値
-    LIGHT_LUMINOSITY_MAX = [1246.0, 1246.0]  # 最大点灯光度 [cd] [1280]
+    LIGHT_LUMINOSITY_MAX = [1000.0, 1000.0]  # 最大点灯光度 [cd] [1280]
     LIGHT_SIGNAL_MIN = [0, 0]              # 最小点灯信号値[20]
     LIGHT_LUMINOSITY_MIN = [0.0, 0.0]   # 最小点灯光度 [cd][248.0]
     LIGHT_WAIT_SECOND = 6.5                  # 光度を変更してからの待機時間[6.5]
@@ -73,7 +73,7 @@ class INIT:
     ALG_DB_DIMMING_LOWER = -8.0      # 減光変動幅下限（％指定）[-10.0]
 
     # 最急降下法の設定
-    ALG_SD_STEP = 150            # 最急降下法の反復数
+    ALG_SD_STEP = 300           # 最急降下法の反復数
     ALG_SD_ERROR_WEIGHT = 1.0   # 最急降下法の目的関数で，照度誤差に乗じる係数
     ALG_SD_POWER_WEIGHT = 0     # 最急降下法の目的関数で，光度の総和に乗じる係数
 

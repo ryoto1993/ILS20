@@ -37,6 +37,12 @@ class Sensor:
         return "Sensor" + str(self.id)
 
 
+def update_position(ils):
+    reader.sensor_position_reader(ils)
+    # for s in ils.sensors:
+        # print("X: " + s.posX + "Y: " + s.posY)
+
+
 def update_sensors(ils):
     if INIT.MODE_SIMULATION:
         simulation.calc_illuminance(ils)
@@ -62,5 +68,8 @@ def update_temperature(ils):
             sum_ill[0] += l.luminosities[0] * l.influence[s_i]
             sum_ill[1] += l.luminosities[1] * l.influence[s_i]
 
-        ratio = sum_ill[0] / (sum_ill[0] + sum_ill[1]) * 100
+        if sum_ill[0] + sum_ill[1] == 0:
+            ratio = 100
+        else:
+            ratio = sum_ill[0] / (sum_ill[0] + sum_ill[1]) * 100
         s.temperature = a * ratio**2 + b * ratio + c

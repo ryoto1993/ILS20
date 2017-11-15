@@ -33,6 +33,8 @@ class Logger:
     target_temperature_name = "11_target_temperature.csv"
     temperature_name = "12_temperature.csv"
 
+    PATH = u""
+
     def __init__(self, ils):
         self.ils = ils
 
@@ -47,6 +49,8 @@ class Logger:
 
         # ログファイルのディレクトリをINIT.DIR_LOG以下に生成
         self.path = INIT.DIR_LOG + self.y + self.m + self.d + "_" + self.hr + self.mi + self.sc + "_" + INIT.SEQUENCE_NAME
+        if self.PATH != "":
+            self.path = INIT.DIR_LOG + self.PATH
         os.mkdir(self.path)
 
         # 実験情報メモを作成
